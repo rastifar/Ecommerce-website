@@ -23,7 +23,7 @@ import {
   Orders,
 } from "../pages";
 
-const Routs = () => {
+const MyRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -117,30 +117,4 @@ const Routs = () => {
   );
 };
 
-export default Routs;
-
-<Route
-  path="/dashboard"
-  element={
-    <AdminLayout>
-      <AdminDashboard />
-    </AdminLayout>
-  }
->
-  <Route
-    path="/goods"
-    element={
-      <AdminLayout>
-        <Goods />
-      </AdminLayout>
-    }
-  />
-  <Route
-    path="/storequantity"
-    element={
-      <AdminLayout>
-        <StoreQuantity />
-      </AdminLayout>
-    }
-  />
-</Route>;
+export default MyRoutes;
