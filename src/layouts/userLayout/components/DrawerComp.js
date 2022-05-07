@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 //Consts
-import { LINKARRAYRESPONSIVE } from "../../../constants/layoutConsts"
+import { LINKARRAYRESPONSIVE } from "../../../constants/layoutConst"
 
 const DrawerComp = () => {
   const [open, setOpen] = useState(false);

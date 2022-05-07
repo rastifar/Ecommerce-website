@@ -21,12 +21,14 @@ import {
   PurchaseFinalizing,
   PurchaseResult,
   Orders,
+  NotFound,
 } from "../pages";
 
 const MyRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route
           path="/"
           element={

@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import Navbar from './components/Navbar';
-import RightSide from './components/RightSide';
+import Sidebar from './components/Sidebar';
 
 
 const AdminLayout = ({children}) => {
@@ -11,7 +11,7 @@ const AdminLayout = ({children}) => {
       <Grid container>
      
         <Grid item xs={3}>
-          <RightSide/>
+          <Sidebar/>
         </Grid>
         <Grid item xs={8} sx={{mt:"2rem"}}>
           {children}

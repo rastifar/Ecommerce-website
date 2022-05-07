@@ -11,12 +11,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
-import { LINKARRAYS } from "../../../constants/layoutConsts"
+import { LINKARRAYS } from "../../../constants/layoutConst"
 
 import DrawerComp from "./DrawerComp";
 
-import image1 from "../../../assets/images/logo22.png";
-import image2 from "../../../assets/images/logo1.png";
+import image1 from "../../../assets/images/logo22.png"
+import image2 from "../../../assets/images/logo1.png"
 
 const pages = ["فروشگاه", "تماس با ما", "درباره ما", "مدیریت"];
 
