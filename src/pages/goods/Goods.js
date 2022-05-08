@@ -31,8 +31,8 @@ const Goods = () => {
     <div>
       <h1>Goods</h1>
       <button onClick={handleNewAdd}>add</button>
-      <button onClick={()=>setOpen(true)}>add</button>
-      <Modal open={open}/>
+      {/* <button onClick={()=>setOpen(true)}>modal</button> */}
+      <Modal title="افزودن کالا"/>
     </div>
   );
 };
