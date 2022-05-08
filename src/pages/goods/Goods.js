@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import axios from "../../api/httpRequestApi";
+import Modal from "../../components/Modal";
 
 const Goods = () => {
+  const [open,setOpen] = useState(false)
   const [goods, error, loading, axiosFetch] = useAxios();
   const janatan={
     axiosInstance: axios,
@@ -29,6 +31,8 @@ const Goods = () => {
     <div>
       <h1>Goods</h1>
       <button onClick={handleNewAdd}>add</button>
+      <button onClick={()=>setOpen(true)}>add</button>
+      <Modal open={open}/>
     </div>
   );
 };
