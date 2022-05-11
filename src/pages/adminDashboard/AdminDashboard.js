@@ -8,6 +8,7 @@ const AdminDashboard = () => {
       
       <Grid
         container
+        fullwidth
         spacing={0}
         direction="column"
         alignItems="center"
