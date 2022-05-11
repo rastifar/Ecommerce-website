@@ -37,7 +37,7 @@ const Orders = () => {
   const getData = () => {
     axiosFetch({
       axiosInstance: axios,
-      headers: { Authorization: `bearer ${accessToken}` },
+    //   headers: { Authorization: `bearer ${accessToken}` },
       method: "GET",
       url: "/orders",
     });
