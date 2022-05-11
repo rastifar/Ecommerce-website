@@ -15,12 +15,11 @@ import ArrowBackIosTwoToneIcon from "@mui/icons-material/ArrowBackIosTwoTone";
 
 import usePagination from "../../hooks/usePagination";
 
-const category = { 1: "میوه و سبزی تازه", 2: "میوه و سبزی منجمد", 3: "اسموتی" };
 
 const headCells = [
   { id: "productName", label: "نام کالا" },
-  { id: "image", label: "قیمت" },
-  { id: "category", label: "موجودی " },
+  { id: "price", label: "قیمت" },
+  { id: "count", label: "موجودی " },
 ];
 
 const StoreQuantity = () => {
