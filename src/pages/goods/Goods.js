@@ -15,7 +15,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowForwardIosTwoToneIcon from '@mui/icons-material/ArrowForwardIosTwoTone';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
-//import usePagination from "@mui/material/usePagination/usePagination";
+
 import usePagination from "../../hooks/usePagination";
 import { paginationClasses } from "@mui/material";
 
@@ -48,12 +48,11 @@ const Goods = () => {
     });
   };
   
- 
- 
+
 
   return (
-    <Paper>
-      <TableContainer component={Paper}>
+   
+      <TableContainer component={Paper} >
         <Table stickyHeader >        
           <TableHead>
             <TableRow>
@@ -88,11 +87,12 @@ const Goods = () => {
           ))}
           </TableBody>
         </Table>
-        <button onClick={() => paginate(-1)}><ArrowForwardIosTwoToneIcon /></button>
-        <button onClick={()=>paginate(1)}><ArrowBackIosTwoToneIcon/></button>
+        <button onClick={() => paginate(-1)}> ➡️ قبلی</button>        
+        <button onClick={() => paginate(1)}>بعدی ⬅️ </button>
+     
       </TableContainer>
    
-    </Paper>
+  
   );
 };
 

@@ -36,10 +36,12 @@ const Orders = () => {
 
   const getData = () => {
     axiosFetch({
-      axiosInstance: axios,
-    //   headers: { Authorization: `bearer ${accessToken}` },
+      axiosInstance: axios,    
       method: "GET",
       url: "/orders",
+      requestConfig: {headers:{
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFtaXIgaG9zc2VpbiBNYWhkaW91biIsImlhdCI6MTY1MjM0MTg3MiwiZXhwIjoxNjUyMzUyNjcyfQ.vQHdWx6-hRfqOQbFxpPa9fzTP-USYv75fqWTmCJFjhA"
+    }},
     });
   };
 
@@ -62,9 +64,9 @@ const Orders = () => {
               >
                 <>
                   <TableCell component="th" scope="row">
-                    {row.firstName + row.lastName}
+                    {row.customerDetail.firstName +" " +row.customerDetail.lastName  } 
                   </TableCell>
-                  <TableCell align="center">{row.price}</TableCell>
+                  <TableCell align="center">{row.purchaseTotal}</TableCell>
                   <TableCell align="center">
                     {convertTimeStamToDate(row.orderDate)}
                   </TableCell>
