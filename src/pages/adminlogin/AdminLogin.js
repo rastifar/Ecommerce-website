@@ -1,4 +1,9 @@
-import * as React from "react";
+import React, { useState } from "react";
+import useAxios from "../../hooks/useAxios";
+import axios from "../../api/httpRequestApi";
+
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 import {
   Container,
@@ -10,25 +15,48 @@ import {
   FormControlLabel,
   TextField,
   CssBaseline,
-  Button,
-  Avatar,
+  Button  
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import image from "../../assets/images/pomegranate1.png";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
-export default function AdminLogin() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+const validationSchema = yup.object().shape({
+  username: yup.string().required(" فیلد ضروری است"),
+  password: yup.string().required(" فیلد ضروری است"),
+  // password: yup.string().min(3," طول رمز کوتاه است"),
+});
 
+export default function AdminLogin() {
+  const [products, error, loading, axiosFetch] = useAxios();
+
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      setTimeout(() => { 
+        axios
+          .post("http://localhost:3002/auth/login", values)
+          .then((res) => {
+            localStorage.setItem("token", res.data.token);
+            if (res.status == 200) {             
+              navigate("/dashboard",{ replace: false } );
+            }
+          })
+          .catch((err) => console.log(err));
+      }, 1000);
+    },
+    validationSchema,
+  });
+
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -48,7 +76,7 @@ export default function AdminLogin() {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={formik.handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
@@ -63,6 +91,13 @@ export default function AdminLogin() {
               autoComplete="username"
               autoFocus
               color="success"
+              onChange={formik.handleChange}
+              value={formik.values.username}
+              helperText={
+                formik.errors.username &&
+                formik.touched.username &&
+                formik.errors.username
+              }
             />
             <TextField
               margin="normal"
@@ -75,6 +110,13 @@ export default function AdminLogin() {
               id="password"
               autoComplete="current-password"
               color="success"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              helperText={
+                formik.errors.password &&
+                formik.touched.password &&
+                formik.errors.password
+              }
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="success" />}
