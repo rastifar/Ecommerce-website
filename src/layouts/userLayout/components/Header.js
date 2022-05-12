@@ -17,6 +17,7 @@ import DrawerComp from "./DrawerComp";
 
 import image1 from "../../../assets/images/logo22.png"
 import image2 from "../../../assets/images/logo1.png"
+import { Link } from "react-router-dom";
 
 const pages = ["فروشگاه", "تماس با ما", "درباره ما", "مدیریت"];
 
@@ -25,6 +26,8 @@ const Header = () => {
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   const [value, setValue] = useState(0);
+  
+
 
   return (
     <AppBar position="static" color="inherit">
@@ -62,10 +65,12 @@ const Header = () => {
                 ))}
               </Tabs>
             </Box>
-            <Box sx={{ margin: "1rem" }}>
-              <Button color="warning" size="medium" variant="contained">
+              <Box sx={{ margin: "1rem" }}>
+                <Link to='/login'>
+              <Button color="warning" size="medium" variant="contained" >
                 مدیریت
-              </Button>
+                  </Button>
+                  </Link>
             </Box>
             <Box>
               <Badge badgeContent={0} color="error">

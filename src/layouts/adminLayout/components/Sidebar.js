@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import StoreIcon from "@mui/icons-material/Store";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import EuroIcon from "@mui/icons-material/Euro";
+import { Link } from "react-router-dom";
 
 const StyledIconButton = styled(IconButton)`
   margin-right: ${({ theme }) => theme.spacing(1)}px;
@@ -47,26 +48,30 @@ const StyledDiv = styled("div")`
 const Sidebar = () => {
   return (
     <StyledContainer>
+      <Link to='/dashboard/goods'>
       <StyledDiv>
         <StyledIconButton>
           <StoreIcon />
         </StyledIconButton>
         <StyledTypography>کالاها</StyledTypography>
       </StyledDiv>
-
+      </Link>
+      <Link to='/dashboard/orders'>
       <StyledDiv>
         <StyledIconButton>
           <BookmarkBorderIcon />
         </StyledIconButton>
         <Typography>سفارشات</Typography>
       </StyledDiv>
-
+      </Link>
+     <Link to='/dashboard/storequantity'> 
       <StyledDiv>
         <StyledIconButton>
           <EuroIcon />
         </StyledIconButton>
         <Typography>موجودی و قیمت ها</Typography>
       </StyledDiv>
+      </Link>
     </StyledContainer>
   );
 };

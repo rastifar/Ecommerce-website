@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+//ReactRouter
+import { Link } from "react-router-dom";
 //Material
 import {
   Drawer,
@@ -11,7 +13,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 //Consts
-import { LINKARRAYRESPONSIVE } from "../../../constants/layoutConst"
+import { LINKARRAYRESPONSIVE } from "../../../constants/layoutConst";
 
 const DrawerComp = () => {
   const [open, setOpen] = useState(false);
@@ -28,9 +30,11 @@ const DrawerComp = () => {
             <ListItemButton key={index} divider onClick={() => setOpen(false)}>
               <ListItemIcon>
                 {link == "مدیریت" ? (
-                  <Button color="warning" size="medium" variant="contained">
-                    مدیریت
-                  </Button>
+                  <Link to="/login">
+                    <Button color="warning" size="medium" variant="contained">
+                      مدیریت
+                    </Button>
+                  </Link>
                 ) : (
                   <ListItemText sx={{ color: "white" }}>{link}</ListItemText>
                 )}
