@@ -1,7 +1,7 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import useAxios from "../../hooks/useAxios";
 import axios from "../../api/httpRequestApi";
-import Modal from "../../components/Modal";
+
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,18 +11,34 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowForwardIosTwoToneIcon from '@mui/icons-material/ArrowForwardIosTwoTone';
+import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+import usePagination from "../../hooks/usePagination";
+import { paginationClasses } from "@mui/material";
 
-const SERVICE_URL ="http://localhost:3002";
+const category = { 1: "میوه و سبزی تازه", 2: "میوه و سبزی منجمد", 3: "اسموتی" };
+
+const headCells = [
+  { id: "image", label: "تصویر", disableSorting: true },
+  { id: "productName", label: "نام کالا", disableSorting: true },
+  { id: "category", label: "دسته بندی" },
+  { id: "crudBtn", label: "", disableSorting: true },
+];
+const SERVICE_URL = "http://localhost:3002";
 
 const Goods = () => {
-  const [products, error, loading, axiosFetch] = useAxios();
- const [categories, errorcategory, loadingcategory, axiosFetchcategory] = useAxios();
+  const {products, error, loading, axiosFetch} = useAxios();
+  const { indexOfFirstPost, indexOfLastPost, paginate } = usePagination()
+  
+  const currentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
+  
+  useEffect(() => {
+    getData();
+ 
+  }, []);
 
   const getData = () => {
     axiosFetch({
@@ -31,47 +47,52 @@ const Goods = () => {
       url: "/products",
     });
   };
-  useEffect(() => {
-    getData();
-  }, []);
+  
 
-  const handleclick = () => {
-  //  console.log(orders);
- }
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-          
-            <TableCell align="center">تصویر</TableCell>
-            <TableCell align="center">نام کالا</TableCell>
-            <TableCell align="center">دسته بندی</TableCell>
-            <TableCell align="center"></TableCell>
-           
-          </TableRow>
+   
+      <TableContainer component={Paper} >
+        <Table stickyHeader >        
+          <TableHead>
+            <TableRow>
+              {headCells.map((head)=>(<TableCell align="center">{head.label}</TableCell>))}            
+          </TableRow>  
         </TableHead>
         <TableBody>
-          {products.map((row) => (
+          {currentPosts?.map((row) => (
             <TableRow
               key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            ><>
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <>
                 <TableCell component="th" scope="row">
-                  <img style={{maxWidth:"2rem"}} src={SERVICE_URL+row.image }/>
-             
-              </TableCell>
-              <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.category}</TableCell>
-              <TableCell align="center"><button><DeleteIcon sx={{color:'red'}}/></button><button><EditIcon sx={{color:'green'}}/></button></TableCell>
-               
-                </>
+                  <img
+                    style={{ maxWidth: "2rem" }}
+                    src={SERVICE_URL + row.image}
+                  />
+                </TableCell>
+                <TableCell align="center">{row.name}</TableCell>
+                <TableCell align="center">{category[row.category]}</TableCell>
+                <TableCell align="center">
+                  <button>
+                    <DeleteIcon sx={{ color: "red" }} />
+                  </button>
+                  <button>
+                    <EditIcon sx={{ color: "green" }} />
+                  </button>
+                </TableCell>
+              </>
             </TableRow>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+        <button onClick={() => paginate(-1)}> ➡️ قبلی</button>        
+        <button onClick={() => paginate(1)}>بعدی ⬅️ </button>
+     
+      </TableContainer>
+   
+  
   );
 };
 

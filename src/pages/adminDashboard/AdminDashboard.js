@@ -8,11 +8,12 @@ const AdminDashboard = () => {
       
       <Grid
         container
+        fullwidth
         spacing={0}
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ minHeight: "100vh" }}
+        style={{ minHeight: "100vh",background:"pink" }}
       >
         <Grid item>          
           <Outlet />
