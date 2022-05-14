@@ -10,23 +10,33 @@ import {
   Badge,
   useMediaQuery,
 } from "@mui/material";
-import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
-import { LINKARRAYS } from "../../../constants/layoutConst"
+import LogoutIcon from "@mui/icons-material/Logout";
+import { styled } from "@mui/material/styles";
+import { LINKAdmin } from "../../../constants/layoutConst";
 
 import DrawerCmp from "./DrawerCmp";
 
-import image1 from "../../../assets/images/logo22.png"
-import image2 from "../../../assets/images/logo1.png"
+import image1 from "../../../assets/images/logo22.png";
+import image2 from "../../../assets/images/logo1.png";
 import { Link } from "react-router-dom";
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
 
 const Header = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   const [value, setValue] = useState(0);
-  
-
 
   return (
     <AppBar position="static" color="inherit">
@@ -38,7 +48,7 @@ const Header = () => {
             </Box>
             <Box>
               <Badge badgeContent={0} color="error">
-                <AddShoppingCart />
+                <LogoutIcon />
               </Badge>
             </Box>
             <DrawerCmp />
@@ -55,25 +65,27 @@ const Header = () => {
                 textColor="primary"
                 onChange={(e, val) => setValue(val)}
               >
-                {LINKARRAYS.map((link, index) => (
-                  <Tab
-                    label={link}
-                    key={index}
-                    sx={{ fontSize: "1rem", fontWeight: "bold" }}
-                  />
+                {LINKAdmin.map((link, index) => (
+                  <StyledLink to={link.link}>
+                    <Tab
+                      label={link.title}
+                      key={index}
+                      sx={{ fontSize: "1rem", fontWeight: "bold" }}
+                    />
+                  </StyledLink>
                 ))}
               </Tabs>
             </Box>
-              <Box sx={{ margin: "1rem" }}>
-                <Link to='/login'>
-              <Button color="warning" size="medium" variant="contained" >
-                مدیریت
-                  </Button>
-                  </Link>
+            <Box sx={{ margin: "1rem" }}>
+              <StyledLink to="/login" decoration="none">
+                <Button color="warning" size="medium" variant="contained">
+                  جستجو
+                </Button>
+              </StyledLink>
             </Box>
             <Box>
               <Badge badgeContent={0} color="error">
-                <AddShoppingCart />
+                <LogoutIcon />
               </Badge>
             </Box>
           </>

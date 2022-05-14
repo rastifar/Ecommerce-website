@@ -26,6 +26,7 @@ const Colors = {
 
 export const theme = createTheme({
     direction: 'rtl',
+  
       palette: {
           primary: {
               main: Colors.primary

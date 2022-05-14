@@ -13,7 +13,7 @@ const AdminDashboard = () => {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ minHeight: "100vh",background:"pink" }}
+        sx={{ minHeight: "100vh",background:"lightGray" }}
       >
         <Grid item>          
           <Outlet />
