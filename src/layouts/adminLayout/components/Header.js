@@ -77,7 +77,7 @@ const Header = () => {
               </Tabs>
             </Box>
             <Box sx={{ margin: "1rem" }}>
-              <StyledLink to="/login" decoration="none">
+              <StyledLink to="/" decoration="none">
                 <Button color="warning" size="medium" variant="contained">
                   بازکشت به سایت
                 </Button>

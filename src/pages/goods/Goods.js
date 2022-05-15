@@ -143,6 +143,7 @@
 import React, { useEffect } from "react";
 import useAxios from "../../hooks/useAxios";
 import axios from "../../api/httpRequestApi";
+import { styled } from "@mui/material/styles";
 
 import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography } from "@mui/material";
@@ -150,36 +151,43 @@ import { Grid, Button, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
+const IMG = styled('img')`
+width:2rem;
+height:2rem;
+border-radius:50%;
+object-fit: cover;
+`
+
 const columns = [
   {
     field: "image",
     headerName: "تصویر",
-    width: 100,
+    width: 200,
     sortable: false,
-    renderCell: (params) => <img src={SERVICE_URL + params.value} />,
+    renderCell: (params) => <IMG src={SERVICE_URL + params.value} />,
   },
-  { field: "name", headerName: "نام کالا", sortable: false,  },
-  { field: "category", headerName: "دسته بندی",  },
+  { field: "name", headerName: "نام کالا", sortable: false,editable:true,width: 400  },
+  { field: "category", headerName: "دسته بندی",width: 400  },
   {
     field: "deleteOperation",
     headerName: "  ",
     sortable: false,
-    
-    renderCell: () => <DeleteOutlineOutlinedIcon />,
+    width: 50,
+    renderCell: () => <DeleteOutlineOutlinedIcon sx={{color:"red"}} />,
    
-  //   valueGetter: (params) =>
-  //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-    // 
+    valueGetter: (params) =>
+      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    
   },
   {
     field: "editOperation",
     headerName: "  ",
     sortable: false,
-    
+    width: 50,
    
-    renderCell: () => <EditOutlinedIcon />,
-    // valueGetter: (params) =>
-    //   `${params.row.firstName || " "} ${params.row.lastName || ""}`,
+    renderCell: () => <EditOutlinedIcon sx={{color:"green"}}/>,
+    valueGetter: (params) =>
+      `${params.row.firstName || " "} ${params.row.lastName || ""}`,
   },
 ];
 
@@ -216,7 +224,7 @@ export default function DataTable() {
       justifyContent="center"
       sx={{ p: 5 }}
     >
-      <Grid container item sx={{ p: 2, background: "white", width: "80%" }}>
+      <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
         <Grid item xs={2} align="right" >
           <Typography>مدیریت کالاها</Typography>
         </Grid>
@@ -227,7 +235,7 @@ export default function DataTable() {
           <Button variant="outlined" color="primary">افزودن کالا</Button>{" "}
         </Grid>
       </Grid>
-      <Grid item sx={{ height: 400, width: "80%" }}>
+      <Grid item sx={{ height: 400, width: "100%" }}>
         {/* <div > */}
         <DataGrid
           item

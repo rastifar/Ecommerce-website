@@ -4,15 +4,15 @@ export const LINKARRAYRESPONSIVE = ["فروشگاه", "درباره ما", "تم
 export const LINKAdmin = [
     {
         title: "کالاها",
-        link:"/goods"
+        link:"goods"
     },
     {
         title:"موجودی و انبار",
-        link:"/goods"
+        link:"storequantity"
     },
     {
         title:"سفارش ها",
-        link:"/goods"
+        link:"orders"
     }
 
 ]
