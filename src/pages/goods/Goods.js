@@ -198,7 +198,12 @@ export default function DataTable() {
   }));
   console.log(products);
   return (
-    <Grid container direction="column">
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+    >
       <Grid container sx={{ p: 5 }}>
         <Grid item>مدیریت کالاها</Grid>
         <Grid item>جستجو</Grid>
