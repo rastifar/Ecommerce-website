@@ -31,9 +31,7 @@ const validationSchema = yup.object().shape({
 });
 
 export default function AdminLogin() {
-  const [products, error, loading, axiosFetch] = useAxios();
-
-  const navigate = useNavigate();
+   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {

@@ -145,31 +145,41 @@ import useAxios from "../../hooks/useAxios";
 import axios from "../../api/httpRequestApi";
 
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid ,Button,Typography} from "@mui/material";
+import { Grid, Button, Typography } from "@mui/material";
+
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 const columns = [
   {
     field: "image",
     headerName: "تصویر",
-    width: 70,
+    width: 100,
     sortable: false,
     renderCell: (params) => <img src={SERVICE_URL + params.value} />,
   },
-  { field: "name", headerName: "نام کالا", sortable: false, width: 130 },
-  { field: "category", headerName: "دسته بندی", width: 130 },
+  { field: "name", headerName: "نام کالا", sortable: false,  },
+  { field: "category", headerName: "دسته بندی",  },
   {
-    field: "age",
-    headerName: "",
-    type: "number",
-    width: 90,
+    field: "deleteOperation",
+    headerName: "  ",
+    sortable: false,
+    
+    renderCell: () => <DeleteOutlineOutlinedIcon />,
+   
+  //   valueGetter: (params) =>
+  //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    // 
   },
   {
-    field: "crudOperation",
-    headerName: "",
+    field: "editOperation",
+    headerName: "  ",
     sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    
+   
+    renderCell: () => <EditOutlinedIcon />,
+    // valueGetter: (params) =>
+    //   `${params.row.firstName || " "} ${params.row.lastName || ""}`,
   },
 ];
 
@@ -195,6 +205,7 @@ export default function DataTable() {
     image: product.image,
     name: product.name,
     category: product.category,
+    // crudOperation:< EditOutlinedIcon/>
   }));
   console.log(products);
   return (
@@ -205,10 +216,16 @@ export default function DataTable() {
       justifyContent="center"
       sx={{ p: 5 }}
     >
-      <Grid container item   sx={{ p: 2, background: "yellow",width: "80%"  }}>
-        <Grid item xs={2} align="right" sx={{ background: "green"  }}><Typography>مدیریت کالاها</Typography></Grid>
-        <Grid item xs={8} align="center" sx={{ background: "red"  }}>جستجو</Grid>
-        <Grid item xs={2} align="left" sx={{ background: "green"  }}><Button>افزودن کالا</Button> </Grid>
+      <Grid container item sx={{ p: 2, background: "white", width: "80%" }}>
+        <Grid item xs={2} align="right" >
+          <Typography>مدیریت کالاها</Typography>
+        </Grid>
+        <Grid item xs={8} align="center" >
+          جستجو
+        </Grid>
+        <Grid item xs={2} align="left" >
+          <Button variant="outlined" color="primary">افزودن کالا</Button>{" "}
+        </Grid>
       </Grid>
       <Grid item sx={{ height: 400, width: "80%" }}>
         {/* <div > */}
@@ -232,6 +249,7 @@ export default function DataTable() {
         />
         {/* </div> */}
       </Grid>
+      
     </Grid>
   );
 }
