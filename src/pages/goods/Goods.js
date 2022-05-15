@@ -11,7 +11,22 @@ import {
   TableRow,
   Paper,
   Grid,
+  Box,
+  TablePagination,
+  TableSortLabel,
+  Toolbar,
+  Typography,
+  IconButton,
+  Tooltip,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
+
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { visuallyHidden } from "@mui/utils";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -27,6 +42,11 @@ const headCells = [
 const SERVICE_URL = "http://localhost:3002";
 
 const Goods = () => {
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('calories');
+  const [selected, setSelected] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const { products, error, loading, axiosFetch } = useAxios();
 
   useEffect(() => {
@@ -40,10 +60,30 @@ const Goods = () => {
       url: "/products",
     });
   };
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+ 
+  const isSelected = (name) => selected.indexOf(name) !== -1;
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+  page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Grid container direction="column" >
-      <Grid container sx={{p:5}}>
+    <Grid container direction="column">
+      <Grid container sx={{ p: 5 }}>
         <Grid item>مدیریت کالاها</Grid>
         <Grid item>جستجو</Grid>
         <Grid item>افزودن کالا</Grid>
@@ -51,21 +91,22 @@ const Goods = () => {
       <Grid item>
         <TableContainer component={Paper}>
           <Table stickyHeader>
-            <TableHead>
-              <TableRow>
-                {headCells.map((head) => (
-                  <TableCell align="center">{head.label}</TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody></TableBody>
-          </Table>
-          <button> ➡️ قبلی</button>
-          <button>بعدی ⬅️ </button>
+          <EnhancedTableHead
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />           
+            <TableBody>
+              
+            </TableBody>
+          </Table>          
         </TableContainer>
       </Grid>
     </Grid>
- );
+  );
 };
 
 export default Goods;
