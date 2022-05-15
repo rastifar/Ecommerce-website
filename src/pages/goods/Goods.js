@@ -204,7 +204,7 @@ export default function DataTable() {
         <Grid item>جستجو</Grid>
         <Grid item>افزودن کالا</Grid>
       </Grid>
-      <Grid item sx={{ height: 400, width: "100%" }}>
+      <Grid item sx={{ height: 400, width: "80%" }}>
         {/* <div > */}
         <DataGrid
           item
