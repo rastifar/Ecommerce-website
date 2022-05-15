@@ -11,7 +11,7 @@ const columns = [
   {
     field: "productName",
     headerName: "کالا",
-    width: 200,
+    width: 400,
     sortable: false,
   },
   {
@@ -49,7 +49,7 @@ export default function StoreQuantity() {
 
   const rows = products.map((product) => ({
     id: product.id,
-    productName: product.productName,
+    productName: product.name,
     price: product.price,
     count: product.count,
   }));
