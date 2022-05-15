@@ -145,7 +145,7 @@ import useAxios from "../../hooks/useAxios";
 import axios from "../../api/httpRequestApi";
 
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid } from "@mui/material";
+import { Grid ,Button,Typography} from "@mui/material";
 
 const columns = [
   {
@@ -203,11 +203,12 @@ export default function DataTable() {
       direction="column"
       alignItems="center"
       justifyContent="center"
+      sx={{ p: 5 }}
     >
-      <Grid container sx={{ p: 5 }}>
-        <Grid item>مدیریت کالاها</Grid>
-        <Grid item>جستجو</Grid>
-        <Grid item>افزودن کالا</Grid>
+      <Grid container item   sx={{ p: 2, background: "yellow",width: "80%"  }}>
+        <Grid item xs={2} align="right" sx={{ background: "green"  }}><Typography>مدیریت کالاها</Typography></Grid>
+        <Grid item xs={8} align="center" sx={{ background: "red"  }}>جستجو</Grid>
+        <Grid item xs={2} align="left" sx={{ background: "green"  }}><Button>افزودن کالا</Button> </Grid>
       </Grid>
       <Grid item sx={{ height: 400, width: "80%" }}>
         {/* <div > */}
