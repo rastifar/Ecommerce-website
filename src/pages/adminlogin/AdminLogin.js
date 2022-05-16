@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import useAxios from "../../hooks/useAxios";
-import axios from "../../api/httpRequestApi";
+import usePost from "../../hooks/usePost";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -15,7 +14,7 @@ import {
   FormControlLabel,
   TextField,
   CssBaseline,
-  Button  
+  Button,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -31,7 +30,8 @@ const validationSchema = yup.object().shape({
 });
 
 export default function AdminLogin() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { response, error, loading, axiosPost } = usePost();
 
   const formik = useFormik({
     initialValues: {
@@ -39,22 +39,24 @@ export default function AdminLogin() {
       password: "",
     },
     onSubmit: (values) => {
-      setTimeout(() => { 
-        axios
-          .post("http://localhost:3002/auth/login", values)
-          .then((res) => {
-            localStorage.setItem("token", res.data.token);
-            if (res.status == 200) {             
-              navigate("/dashboard",{ replace: false } );
-            }
-          })
-          .catch((err) => console.log(err));
+      setTimeout(() => {
+        axiosPost({ method: "POST", url: "/auth/login", data: values });
+        
+        // axios
+        //   .post("http://localhost:3002/auth/login", values)
+        //   .then((res) => {
+        //     localStorage.setItem("token", res.data.token);
+        //     if (res.status == 200) {
+        //       navigate("/dashboard", { replace: false });
+        //     }
+        //   })
+        //   .catch((err) => console.log(err));
       }, 1000);
     },
     validationSchema,
   });
 
-  
+  console.log(response);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

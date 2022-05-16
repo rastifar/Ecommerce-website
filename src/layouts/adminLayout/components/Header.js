@@ -66,10 +66,10 @@ const Header = () => {
                 onChange={(e, val) => setValue(val)}
               >
                 {LINKAdmin.map((link, index) => (
-                  <StyledLink to={link.link}>
+                  <StyledLink to={link.link}  key={index}>
                     <Tab
                       label={link.title}
-                      key={index}
+                     
                       sx={{ fontSize: "1rem", fontWeight: "bold" }}
                     />
                   </StyledLink>

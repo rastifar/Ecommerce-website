@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import useAxios from "../../hooks/useFetch";
-import axios from "../../api/httpRequestApi";
+import useFetch from "../../hooks/useFetch";
+
 //material
 import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Radio, Typography,RadioGroup,FormLabel,FormControlLabel,FormControl } from "@mui/material";
@@ -38,9 +38,9 @@ const columns = [
     width: 300,
     sortable: false,
     editable: false,
-    renderCell: (cellValues) => {
-      return <Link href={`#${cellValues.row.url}`}>بررسی سفارش</Link>
-    }
+    // renderCell: (cellValues) => {
+    //   return <Link href={`#${cellValues.row.url}`}>بررسی سفارش</Link>
+    // }
   },
 ];
 
@@ -49,16 +49,14 @@ const SERVICE_URL = "http://localhost:3002";
 //-------------------------------------------------------
 
 export default function Orders() {
-  const { products, error, loading, axiosFetch } = useAxios();
+  const { products, error, loading, axiosFetch } = useFetch();
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = () => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "GET",
+    axiosFetch({      
       url: "/orders",
       requestConfig: {
         headers: {
@@ -75,7 +73,7 @@ export default function Orders() {
       product.customerDetail.firstName + " " + product.customerDetail.lastName,
     purchaseTotal: product.purchaseTotal,
     delivery: convertTimeStamToDate(product.delivery),
-    url: product.id,
+    // url: product.id,
   }));
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import useAxios from "../../hooks/useFetch";
-import axios from "../../api/httpRequestApi";
+import useFetch from "../../hooks/useFetch";
+
 //material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
@@ -52,16 +52,14 @@ const columns = [
 const SERVICE_URL = "http://localhost:3002";
 
 export default function Goods() {
-  const { products, error, loading, axiosFetch } = useAxios();
+  const { products, error, loading, axiosFetch } = useFetch();
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = () => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "GET",
+    axiosFetch({     
       url: "/products",
     });
   };
