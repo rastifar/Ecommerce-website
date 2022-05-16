@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-initialState = {token:""};
+const initialState = {token:""};
 
 export const tokenSlice = createSlice({
     name: 'tokenSlice',
