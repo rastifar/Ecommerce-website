@@ -3,6 +3,7 @@ import usePost from "../../hooks/usePost";
 import axios from '../../api/httpRequestApi'
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 
 import {
   Container,
@@ -53,6 +54,7 @@ export default function AdminLogin() {
         axios
           .post("http://localhost:3002/auth/login", values)
           .then((res) => {
+            toast.success('خوش آمدید')
             localStorage.setItem("token", res.data.token);
             if (res.status == 200) {
               navigate("/dashboard", { replace: false });
