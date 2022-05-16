@@ -53,7 +53,7 @@ const SERVICE_URL = "http://localhost:3002";
 export default function Orders() {
   const { products, error, loading, axiosFetch } = useFetch();
   const token = useSelector((state) => state.token)
-console.log(token);
+
   useEffect(() => {
     getData();
   }, []);
