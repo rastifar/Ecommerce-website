@@ -16,3 +16,21 @@ export const LINKAdmin = [
     }
 
 ]
+export const LINKADMINRESPONSIVE = [
+    {
+        title: "کالاها",
+        link:"goods"
+    },
+    {
+        title:"موجودی و انبار",
+        link:"storequantity"
+    },
+    {
+        title:"سفارش ها",
+        link:"orders"
+    }, {
+        title: "بازگشت",
+        link:"/"
+    }
+
+]

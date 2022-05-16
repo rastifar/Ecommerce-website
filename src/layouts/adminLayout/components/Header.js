@@ -38,6 +38,10 @@ const Header = () => {
 
   const [value, setValue] = useState(0);
 
+  const handleLogout = () => {
+    window.localStorage.removeItem('token');
+  }
+
   return (
     <AppBar position="static" color="inherit">
       <Toolbar>
@@ -78,7 +82,7 @@ const Header = () => {
             </Box>
             <Box sx={{ margin: "1rem" }}>
               <StyledLink to="/" decoration="none">
-                <Button color="warning" size="medium" variant="contained">
+                <Button color="warning" size="medium" variant="contained" onClick={handleLogout}>
                   بازکشت به سایت
                 </Button>
               </StyledLink>
