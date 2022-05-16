@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import adminReducer from './adminSlice';
 
 export const store = configureStore({
     devTools: true,
     preloadedState:loadPreloadState(),
     reducer: {
-        user: userReducer,
-        invoice 
+        admin: adminReducer,
+       
     }
 })
 
@@ -31,4 +31,4 @@ const saveState = state => {
     }
 }
 
-store.subscribe(() =>{ saveState({user: store.getState().user})})
+store.subscribe(() =>{ saveState({admin: store.getState().admin})})
