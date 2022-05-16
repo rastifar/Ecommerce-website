@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import useAxios from "../../hooks/useAxios";
 import axios from "../../api/httpRequestApi";
-//material 
+//material
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography } from "@mui/material";
+import { Grid, Radio, Typography,RadioGroup,FormLabel,FormControlLabel,FormControl } from "@mui/material";
+
 //utils
-import {convertTimeStamToDate} from "../../utils/utils"
+import { convertTimeStamToDate } from "../../utils/utils";
 import { Link } from "react-router-dom";
 //---------------------------------------------------------
 //columns
@@ -36,9 +37,11 @@ const columns = [
     headerName: "  ",
     width: 300,
     sortable: false,
-    editable: false,  
-  }
-
+    editable: false,
+    renderCell: (cellValues) => {
+      return <Link href={`#${cellValues.row.url}`}>بررسی سفارش</Link>
+    }
+  },
 ];
 
 const SERVICE_URL = "http://localhost:3002";
@@ -60,7 +63,7 @@ export default function Orders() {
       requestConfig: {
         headers: {
           token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFtaXIgaG9zc2VpbiBNYWhkaW91biIsImlhdCI6MTY1MjYzNTAwNywiZXhwIjoxNjUyNjQ1ODA3fQ.kBIYs4FQHDDlsLFNpRpkq8-dvlT0RF1z4ymfh72hXlM",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFtaXIgaG9zc2VpbiBNYWhkaW91biIsImlhdCI6MTY1MjY2MjkxMywiZXhwIjoxNjUyNjczNzEzfQ.95SgX2404wUAquTv1bgobTAzFzqskUBkELMRBVKb89E",
         },
       },
     });
@@ -68,12 +71,13 @@ export default function Orders() {
 
   const rows = products.map((product) => ({
     id: product.id,
-    username: product.customerDetail.firstName +" "+product.customerDetail.lastName,
+    username:
+      product.customerDetail.firstName + " " + product.customerDetail.lastName,
     purchaseTotal: product.purchaseTotal,
     delivery: convertTimeStamToDate(product.delivery),
-    orderStatus: <Link>بررسی سفارش</Link>   
+    url: product.id,
   }));
- 
+
   return (
     <Grid
       container
@@ -83,20 +87,31 @@ export default function Orders() {
       sx={{ p: 5 }}
     >
       <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-        <Grid item xs={2} align="right">
+        <Grid item xs={2} align="right" sx={{flexGrow:1}}>
           <Typography>مدیریت سفارش ها</Typography>
         </Grid>
-        <Grid item xs={8} align="center">
-          سفارش های تحویل شده  
-        </Grid>
-        <Grid item xs={2} align="left">
-          <Button variant="outlined" color="primary">
-          سفارش های در انتظار ارسال
-          </Button>{" "}
+        <Grid item xs={10} align="center">
+          <RadioGroup
+            row
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="female"
+            name="radio-buttons-group"
+          >
+            <FormControlLabel
+              value="1"
+              control={<Radio />}
+              label="سفارش های تحویل شده  
+"
+            />
+            <FormControlLabel
+              value="2"
+              control={<Radio />}
+              label="سفارش های در انتظار ارسال"
+            />
+          </RadioGroup>
         </Grid>
       </Grid>
       <Grid item sx={{ height: 400, width: "100%" }}>
-       
         <DataGrid
           item
           sx={{ background: "white" }}
@@ -104,9 +119,8 @@ export default function Orders() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5, 10, 15]}
-          localeText={faIR.components.MuiDataGrid.defaultProps.localeText}     
+          localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />
-       
       </Grid>
     </Grid>
   );
