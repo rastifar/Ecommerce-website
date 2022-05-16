@@ -13,10 +13,10 @@ const loadPreloadState = () => {
     return undefined;
   }
 };
-const saveState = (token) => {
+const saveState = (state) => {
   try {
-    const serializedState = JSON.stringify(token);
-    localStorage.setItem("token", serializedState);
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem("state", serializedState);
   } catch {}
 };
 export const store = configureStore({
