@@ -3,7 +3,7 @@ import usePost from "../../hooks/usePost";
 import axios from '../../api/httpRequestApi'
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { toast } from "react-toastify";
+import { ToastContainer,toast } from "react-toastify";
 
 import {
   Container,
@@ -71,6 +71,7 @@ export default function AdminLogin() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <ToastContainer />
         <Box
           sx={{
             marginTop: 8,
