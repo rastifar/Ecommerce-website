@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 
 
 export const adminSlice = createSlice({
-    name: 'user',
+    name: 'admin',
     initialState: {
-        email: "",
+        username: "",
         password:""
     },
     reducers: {
