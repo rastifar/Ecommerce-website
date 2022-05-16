@@ -24,8 +24,10 @@ const useAxios = () => {
       console.log(error);
       setError(error.message)
     } finally {
-      setLoading(false)
-    }
+        setLoading(false)
+        return response;
+      }
+     
   };
   //     useEffect(() => {
   //         console.log(controller);
