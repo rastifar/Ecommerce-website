@@ -9,12 +9,10 @@ export const tokenSlice = createSlice({
     addToken: (state, action) => {
       return action.payload;
     },
-      removeToken: (state) => {
-          state.token = "";
-    }
+    removeToken: () =>initialState,
   },
 });
 
-export const { addToken } = tokenSlice.actions;
+export const { addToken, removeToken } = tokenSlice.actions;
 
 export default tokenSlice.reducer;
