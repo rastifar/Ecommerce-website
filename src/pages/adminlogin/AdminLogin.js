@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import usePost from "../../hooks/usePost";
-
+import axios from '../../api/httpRequestApi'
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -40,17 +40,25 @@ export default function AdminLogin() {
     },
     onSubmit: (values) => {
       setTimeout(() => {
-        axiosPost({ method: "POST", url: "/auth/login", data: values });
-        
-        // axios
-        //   .post("http://localhost:3002/auth/login", values)
-        //   .then((res) => {
+        // axiosPost({ method: "POST", url: "/auth/login", data: values }).then(
+        //   (res) => {
+        //     console.log(res.token)
         //     localStorage.setItem("token", res.data.token);
         //     if (res.status == 200) {
         //       navigate("/dashboard", { replace: false });
         //     }
-        //   })
-        //   .catch((err) => console.log(err));
+        //   }
+        // ).catch((err) => console.log(err));
+
+        axios
+          .post("http://localhost:3002/auth/login", values)
+          .then((res) => {
+            localStorage.setItem("token", res.data.token);
+            if (res.status == 200) {
+              navigate("/dashboard", { replace: false });
+            }
+          })
+          .catch((err) => console.log(err));
       }, 1000);
     },
     validationSchema,
@@ -83,7 +91,7 @@ export default function AdminLogin() {
             <TextField
               margin="normal"
               required
-              fullWidth
+              fullWidth={true}
               id="username"
               //   label="نام کاربری"
               name="username"
@@ -102,7 +110,7 @@ export default function AdminLogin() {
             <TextField
               margin="normal"
               required
-              fullWidth
+              fullWidth={true}
               name="password"
               //   label="رمز عبور"
               placeholder="کلمه عبور"
@@ -124,7 +132,7 @@ export default function AdminLogin() {
             />
             <Button
               type="submit"
-              fullWidth
+              fullWidth={true}
               variant="contained"
               color="success"
               sx={{ mt: 3, mb: 2 }}
