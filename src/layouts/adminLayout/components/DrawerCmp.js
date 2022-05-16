@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 //Consts
-import { LINKAdmin } from "../../../constants/layoutConst";
+import { LINKADMINRESPONSIVE } from "../../../constants/layoutConst";
 
 const DrawerCmp = () => {
   const [open, setOpen] = useState(false);
@@ -26,17 +26,21 @@ const DrawerCmp = () => {
         onClose={() => setOpen(false)}
       >
         <List>
-          {LINKAdmin.map((link, index) => (
+          {LINKADMINRESPONSIVE.map((link, index) => (
             <ListItemButton key={index} divider onClick={() => setOpen(false)}>
               <ListItemIcon>
-                {link == "مدیریت" ? (
-                  <Link to="/login">
+                {link.title === "بازگشت" ? (
+                  <Link to={link.link}>
                     <Button color="warning" size="medium" variant="contained">
-                      مدیریت
+                      بازگشت به سایت
                     </Button>
                   </Link>
                 ) : (
-                  <ListItemText sx={{ color: "white" }}>{link}</ListItemText>
+                  <Link to={link.link}>
+                    <ListItemText sx={{ color: "white" }}>
+                      {link.title}
+                    </ListItemText>
+                  </Link>
                 )}
               </ListItemIcon>
             </ListItemButton>
