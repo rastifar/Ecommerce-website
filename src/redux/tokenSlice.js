@@ -10,8 +10,8 @@ export const tokenSlice = createSlice({
       return action.payload;
     },
       removeToken: (state) => {
-        state.token="",
-    },
+          state.token = "";
+    }
   },
 });
 
