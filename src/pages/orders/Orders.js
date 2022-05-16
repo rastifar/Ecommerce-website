@@ -8,6 +8,8 @@ import { Grid, Radio, Typography,RadioGroup,FormLabel,FormControlLabel,FormContr
 //utils
 import { convertTimeStamToDate } from "../../utils/utils";
 import { Link } from "react-router-dom";
+//reduxStore
+import { useSelector } from "react-redux";
 //---------------------------------------------------------
 //columns
 const columns = [
@@ -50,7 +52,7 @@ const SERVICE_URL = "http://localhost:3002";
 
 export default function Orders() {
   const { products, error, loading, axiosFetch } = useFetch();
-  const token = localStorage.getItem('token')
+  const token = useSelector((state) => state.token)
 console.log(token);
   useEffect(() => {
     getData();
