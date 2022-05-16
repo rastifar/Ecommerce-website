@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import { adminloggedIn } from "../../redux/adminSlice";
+import { addToken } from "../../redux/tokenSlice";
 import { useDispatch } from "react-redux";
 
 import {
@@ -59,9 +60,11 @@ export default function AdminLogin() {
           .post("http://localhost:3002/auth/login", values)
           .then((res) => {
             toast.success('خوش آمدید')
-             dispatch(adminloggedIn(values));
+             
             // localStorage.setItem("token", res.data.token);
             if (res.status == 200) {
+              // dispatch(adminloggedIn(values));
+              dispatch(addToken(res.data.token))
               navigate("/dashboard", { replace: false });
             }
           })
