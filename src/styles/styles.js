@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import koodak from "../assets/fonts/IRANSansWeb_Medium.woff";
+import yekan from "../assets/fonts/IRANSans_Medium.ttf";
 
 const Colors = {
   primary: "#00adb5",
@@ -25,7 +25,7 @@ const Colors = {
 
 export const theme = createTheme({
   direction: "rtl",
-  fontFamily: ['koodak'].join(","),
+  fontFamily: [yekan].join(","),
   palette: {
     primary: {
       main: Colors.primary,

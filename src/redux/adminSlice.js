@@ -9,12 +9,12 @@ export const adminSlice = createSlice({
         password:""
     },
     reducers: {
-        addUser: (state,action) => {
+        adminloggedIn: (state,action) => {
             return action.payload
         }
     }
 })
 
-export const { addUser } = adminSlice.actions
+export const { adminloggedIn } = adminSlice.actions
 
 export default adminSlice.reducer
