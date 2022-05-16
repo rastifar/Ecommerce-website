@@ -19,6 +19,7 @@ import DrawerCmp from "./DrawerCmp";
 import image1 from "../../../assets/images/logo22.png";
 import image2 from "../../../assets/images/logo1.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -34,13 +35,15 @@ const StyledLink = styled(Link)`
 
 const Header = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   const [value, setValue] = useState(0);
 
   const handleLogout = () => {
-    window.localStorage.removeItem('token');
-  }
+    window.localStorage.removeItem("token");
+    navigate("/", { replace: false });
+  };
 
   return (
     <AppBar position="static" color="inherit">
@@ -52,7 +55,7 @@ const Header = () => {
             </Box>
             <Box>
               <Badge badgeContent={0} color="error">
-                <LogoutIcon />
+                <LogoutIcon onClick={handleLogout}/>
               </Badge>
             </Box>
             <DrawerCmp />
@@ -66,14 +69,14 @@ const Header = () => {
               <Tabs
                 indicatorColor="secondary"
                 value={value}
-                textColor="primary"
-                onChange={(e, val) => setValue(val)}
+                textColor='primary'
+                  onChange={(e, val) => setValue(val)}
+                  
               >
                 {LINKAdmin.map((link, index) => (
-                  <StyledLink to={link.link}  key={index}>
+                  <StyledLink to={link.link} key={index}>
                     <Tab
                       label={link.title}
-                     
                       sx={{ fontSize: "1rem", fontWeight: "bold" }}
                     />
                   </StyledLink>
@@ -82,14 +85,19 @@ const Header = () => {
             </Box>
             <Box sx={{ margin: "1rem" }}>
               <StyledLink to="/" decoration="none">
-                <Button color="warning" size="medium" variant="contained" onClick={handleLogout}>
+                <Button
+                  color="warning"
+                  size="medium"
+                  variant="contained"
+                  
+                >
                   بازکشت به سایت
                 </Button>
               </StyledLink>
             </Box>
             <Box>
               <Badge badgeContent={0} color="error">
-                <LogoutIcon />
+                <LogoutIcon onClick={handleLogout}/>
               </Badge>
             </Box>
           </>
