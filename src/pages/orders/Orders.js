@@ -50,7 +50,8 @@ const SERVICE_URL = "http://localhost:3002";
 
 export default function Orders() {
   const { products, error, loading, axiosFetch } = useFetch();
-
+  const token = localStorage.getItem('token')
+console.log(token);
   useEffect(() => {
     getData();
   }, []);
@@ -60,8 +61,8 @@ export default function Orders() {
       url: "/orders",
       requestConfig: {
         headers: {
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFtaXIgaG9zc2VpbiBNYWhkaW91biIsImlhdCI6MTY1MjY2MjkxMywiZXhwIjoxNjUyNjczNzEzfQ.95SgX2404wUAquTv1bgobTAzFzqskUBkELMRBVKb89E",
+          token:token
+          
         },
       },
     });
