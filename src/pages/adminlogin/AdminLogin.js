@@ -3,7 +3,8 @@ import usePost from "../../hooks/usePost";
 import axios from '../../api/httpRequestApi'
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   Container,
@@ -60,7 +61,15 @@ export default function AdminLogin() {
               navigate("/dashboard", { replace: false });
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => toast.error('🦄نام کاربری یا رمز عبور اشتباه است!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            }));
       }, 1000);
     },
     validationSchema,
@@ -71,7 +80,17 @@ export default function AdminLogin() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <ToastContainer />
+        <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
         <Box
           sx={{
             marginTop: 8,
