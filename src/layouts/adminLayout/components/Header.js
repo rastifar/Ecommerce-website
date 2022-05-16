@@ -20,10 +20,13 @@ import image1 from "../../../assets/images/logo22.png";
 import image2 from "../../../assets/images/logo1.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+//redux
+import { removeToken } from "../../../redux/tokenSlice";
+import { useDispatch } from "react-redux";
+//---------------------
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-
   &:focus,
   &:hover,
   &:visited,
@@ -37,11 +40,12 @@ const Header = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-
+  const dispatch = useDispatch()
   const [value, setValue] = useState(0);
 
   const handleLogout = () => {
-    window.localStorage.removeItem("token");
+    dispatch(removeToken());
+    // window.localStorage.removeItem("token");
     navigate("/", { replace: false });
   };
 
