@@ -5,12 +5,12 @@ import axios from "axios";
 
 import ProductCards from "../../components/ProductCards";
 const ProductGroups = () => {
-  const { id } = useParams();
+  const { categoryNum } = useParams();
   const [data, setData] = useState([]);
   // const { products, error, loading, axiosFetch } = useFetch();
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/products?category=${id}`)
+      .get(`http://localhost:3002/products?category=${categoryNum}`)
       .then((res) => setData(res.data));
   }, []);
 
