@@ -31,13 +31,7 @@ const topMsg = [
 ];
 
 const Home = () => {
-  const [image, setImage] = useState();
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3002/products/11")
-      .then((res) => setImage(splitArrayOfImage(res.data.image)));
-  }, []);
+  
 
   // splitArrayOfImage(image)
   return (
