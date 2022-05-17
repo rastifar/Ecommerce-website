@@ -38,7 +38,7 @@ const MyRoutes = () => {
           }
         />
         <Route
-          path="/productgroup/:id"
+          path="/productgroup/:categoryid"
           element={
             <UserLayout>
               <ProductGroups />
