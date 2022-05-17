@@ -29,8 +29,8 @@ const Header = () => {
 
 
   return (
-    <AppBar position="static" color="inherit">
-      <Toolbar>
+    <AppBar  color="inherit" >
+      <Toolbar >
         {isMatch ? (
           <>
             <Box sx={{ flexGrow: 1 }}>
