@@ -22,7 +22,6 @@ import { useNavigate } from "react-router-dom";
 
 import MyLink from "../../../components/MyLink";
 
-
 const Header = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -40,12 +39,14 @@ const Header = () => {
       <Toolbar>
         {isMatch ? (
           <>
-            <Box sx={{ flexGrow: 1 }}>
-              <img src={image2} style={{ width: "60px" }} />
-            </Box>
+            <MyLink to="/">
+              <Box sx={{ flexGrow: 1 }}>
+                <img src={image2} style={{ width: "60px" }} />
+              </Box>
+            </MyLink>
             <Box>
               <Badge badgeContent={0} color="error">
-                <LogoutIcon onClick={handleLogout}/>
+                <LogoutIcon onClick={handleLogout} />
               </Badge>
             </Box>
             <DrawerCmp />
@@ -59,9 +60,8 @@ const Header = () => {
               <Tabs
                 indicatorColor="secondary"
                 value={value}
-                textColor='primary'
-                  onChange={(e, val) => setValue(val)}
-                  
+                textColor="primary"
+                onChange={(e, val) => setValue(val)}
               >
                 {LINKAdmin.map((link, index) => (
                   <MyLink to={link.link} key={index}>
@@ -75,19 +75,14 @@ const Header = () => {
             </Box>
             <Box sx={{ margin: "1rem" }}>
               <MyLink to="/" decoration="none">
-                <Button
-                  color="warning"
-                  size="medium"
-                  variant="contained"
-                  
-                >
+                <Button color="warning" size="medium" variant="contained">
                   بازکشت به سایت
                 </Button>
               </MyLink>
             </Box>
             <Box>
               <Badge badgeContent={0} color="error">
-                <LogoutIcon onClick={handleLogout}/>
+                <LogoutIcon onClick={handleLogout} />
               </Badge>
             </Box>
           </>
