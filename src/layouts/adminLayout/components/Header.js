@@ -18,20 +18,10 @@ import DrawerCmp from "./DrawerCmp";
 
 import image1 from "../../../assets/images/logo22.png";
 import image2 from "../../../assets/images/logo1.png";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
+import MyLink from "../../../components/MyLink";
 
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
-`;
 
 const Header = () => {
   const theme = useTheme();
@@ -74,17 +64,17 @@ const Header = () => {
                   
               >
                 {LINKAdmin.map((link, index) => (
-                  <StyledLink to={link.link} key={index}>
+                  <MyLink to={link.link} key={index}>
                     <Tab
                       label={link.title}
                       sx={{ fontSize: "1rem", fontWeight: "bold" }}
                     />
-                  </StyledLink>
+                  </MyLink>
                 ))}
               </Tabs>
             </Box>
             <Box sx={{ margin: "1rem" }}>
-              <StyledLink to="/" decoration="none">
+              <MyLink to="/" decoration="none">
                 <Button
                   color="warning"
                   size="medium"
@@ -93,7 +83,7 @@ const Header = () => {
                 >
                   بازکشت به سایت
                 </Button>
-              </StyledLink>
+              </MyLink>
             </Box>
             <Box>
               <Badge badgeContent={0} color="error">
