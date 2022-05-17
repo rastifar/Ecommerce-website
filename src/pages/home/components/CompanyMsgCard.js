@@ -1,7 +1,7 @@
 import { Card, CardContent, CardMedia, Paper, Typography } from "@mui/material";
 import React from "react";
 
-const CompanyMsgCard = ({image,title,description}) => {
+const CompanyMsgCard = ({image,title,description=""}) => {
   return (
       <div style={{textAlign:"center"}}>
           <img src={image} />

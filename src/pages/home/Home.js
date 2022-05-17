@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { Container, Grid, Slider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
@@ -10,16 +10,14 @@ import image2 from "../../assets/images/h2s.png";
 import image3 from "../../assets/images/h3s.png";
 import image4 from "../../assets/images/h4s.png";
 import homeImage from "../../assets/images/homePage.jpg";
-import cat1 from "../../assets/images/ffruit.png";
-import cat2 from "../../assets/images/fveg.jpg";
-import cat3 from "../../assets/images/fsmooth.png";
-import cat4 from "../../assets/images/ffrozen.png";
-import cat5 from "../../assets/images/vegfrozen.png";
-import cat6 from "../../assets/images/gsmooth.png";
+import cat2 from "../../assets/images/fr2.png";
+import cat5 from "../../assets/images/f2.png";
+import cat6 from "../../assets/images/s2.png";
 
 //components
 import CompanyMsgCard from "./components/CompanyMsgCard";
-import {splitArrayOfImage} from "../../utils/utils"
+import { splitArrayOfImage } from "../../utils/utils";
+
 
 const topMsg = [
   { image: image4, title: "پشتیبانی", description: "7 روز هفته" },
@@ -37,16 +35,15 @@ const Home = () => {
 
   useEffect(() => {
     axios
-    .get("http://localhost:3002/products/11")   
-    .then((res) => setImage(splitArrayOfImage(res.data.image)))
-  },[])
+      .get("http://localhost:3002/products/11")
+      .then((res) => setImage(splitArrayOfImage(res.data.image)));
+  }, []);
 
-  
-    // splitArrayOfImage(image)
+  // splitArrayOfImage(image)
   return (
     <div>
       <Box sx={{ mt: 5 }}>
-        <Grid container sx={{ placeItems: "center" }}>
+        <Grid container sx={{ placeItems: "center" }} direction="column">
           <Grid item>
             <Box
               xs={11}
@@ -62,135 +59,45 @@ const Home = () => {
               <Typography></Typography>
             </Box>
           </Grid>
+          <Grid container direction='row'>
           {topMsg.map((i) => (
             <Grid key={i.title} item xs={12} md={6} lg={3}>
               <CompanyMsgCard
                 image={i.image}
                 title={i.title}
                 description={i.description}
+                
               />
             </Grid>
           ))}
-          <Grid
-            container
-            item
-            direction="column"
-            xs={12}
-            sx={{ p: 2, m: 2, background: "lightGreen" }}
-          >
-            <Grid item>
-              <Typography sx={{ borderBottom: "1px solid green" }}>
-                میوه و سبزی تازه
-              </Typography>
             </Grid>
-            <Grid container item direction="row">
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              >
-                <img sx={{width:'100px',height:'100px'}} src={"http://localhost:3002" + image} />
-              </Box>
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              ></Box>
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              ></Box>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            item
-            direction="column"
-            xs={12}
-            sx={{ p: 2, m: 2, background: "lightGreen" }}
-          >
-            <Grid item>
-              <Typography sx={{ borderBottom: "1px solid green" }}>
-                میوه و سبزی منجمد
-              </Typography>
-            </Grid>
-            <Grid container item direction="row">
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              ></Box>
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              ></Box>
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              ></Box>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            item
-            direction="column"
-            xs={12}
-            sx={{ p: 2, m: 2, background: "lightGreen" }}
-          >
-            <Grid item>
-              <Typography sx={{ borderBottom: "1px solid green" }}>
-                انواع نوشیدنی های سرد و گرم
-              </Typography>
-            </Grid>
-            <Grid container item direction="row">
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              ></Box>
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              ></Box>
-              <Box
-                sx={{
-                  background: "lightYellow",
-                  width: "10vw",
-                  height: "10vh",
-                }}
-              ></Box>
-            </Grid>
+        
+          <Grid item sx={{my:5}}>
+            <Typography variant="h4" component="h3">دسته بندی های انار سبز</Typography>
           </Grid>
           <Grid item>
-            <Grid container>
-              <Grid item></Grid>
-              <Grid item></Grid>
-              <Grid item></Grid>
-            </Grid>
-            <Grid container>
-              <Grid item></Grid>
-              <Grid item></Grid>
-              <Grid item></Grid>
+            <Grid container spacing={1}>
+              <Grid item>
+                <CompanyMsgCard
+                  image={cat2}
+                  title="میوه و سبزی تازه"                 
+                />
+             
+              </Grid>
+              <Grid item>
+              <CompanyMsgCard
+                  image={cat5}
+                  title="میوه و سبزی منجمد"                 
+                />
+              
+              </Grid>
+              <Grid item>
+              <CompanyMsgCard
+                  image={cat6}
+                  title="انواع نوشیدنی "                
+                />
+             
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
