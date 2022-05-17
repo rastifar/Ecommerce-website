@@ -12,7 +12,7 @@ const ProductGroups = () => {
     axios
       .get(`http://localhost:3002/products?category=${id}`)
       .then((res) => setData(res.data));
-  }, {});
+  }, []);
 
   return (
     <Grid
@@ -28,7 +28,7 @@ const ProductGroups = () => {
       <Grid
         container
         direction="row"
-        style={{ textAlign: "center" }}
+        sx={{ textAlign: "center" }}
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
