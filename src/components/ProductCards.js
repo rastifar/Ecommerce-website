@@ -11,7 +11,8 @@ import {
 
 //components
 import MyLink from "./MyLink";
-
+//
+import {BASE_URL} from '../constants/apiConst';
 //---------------------------------------------
 
 export default function ProductCards({ image, name ,price}) {
@@ -21,7 +22,7 @@ export default function ProductCards({ image, name ,price}) {
         component="img"
         alt={name}
         height="200"
-        image={image}
+        image={BASE_URL+image}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
