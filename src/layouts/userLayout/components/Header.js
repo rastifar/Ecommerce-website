@@ -31,9 +31,11 @@ const Header = () => {
       <Toolbar>
         {isMatch ? (
           <>
-            <Box sx={{ flexGrow: 1 }}>
-              <img src={image2} style={{ width: "60px" }} />
-            </Box>
+            <MyLink to="/">
+              <Box sx={{ flexGrow: 1 }}>
+                <img src={image2} style={{ width: "60px" }} />
+              </Box>
+            </MyLink>
             <Box>
               <Badge badgeContent={0} color="error">
                 <AddShoppingCart />
@@ -43,9 +45,11 @@ const Header = () => {
           </>
         ) : (
           <>
-            <Box>
-              <img src={image1} style={{ width: "200px" }} />
-            </Box>
+            <MyLink to="/">
+              <Box>
+                <img src={image1} style={{ width: "200px" }} />
+              </Box>
+            </MyLink>
             <Box sx={{ flexGrow: 1, marginRight: "5rem" }}>
               <Tabs
                 indicatorColor="secondary"
