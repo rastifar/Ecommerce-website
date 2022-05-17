@@ -11,25 +11,23 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
-import { LINKARRAYS } from "../../../constants/layoutConst"
+import { LINKARRAYS } from "../../../constants/layoutConst";
 
 import DrawerCmp from "./DrawerCmp";
 
-import image1 from "../../../assets/images/logo22.png"
-import image2 from "../../../assets/images/logo1.png"
+import image1 from "../../../assets/images/logo22.png";
+import image2 from "../../../assets/images/logo1.png";
 import { Link } from "react-router-dom";
-
+import MyLink from "../../../components/MyLink";
 
 const Header = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   const [value, setValue] = useState(0);
-  
-
 
   return (
-    <AppBar position="static" color="inherit">
+    <AppBar color="inherit">
       <Toolbar>
         {isMatch ? (
           <>
@@ -64,12 +62,12 @@ const Header = () => {
                 ))}
               </Tabs>
             </Box>
-              <Box sx={{ margin: "1rem" }}>
-                <Link to='/login'>
-              <Button color="warning" size="medium" variant="contained" >
-                مدیریت
-                  </Button>
-                  </Link>
+            <Box sx={{ margin: "1rem" }}>
+              <MyLink to="/login">
+                <Button color="warning" size="medium" variant="contained">
+                  مدیریت
+                </Button>
+              </MyLink>
             </Box>
             <Box>
               <Badge badgeContent={0} color="error">
