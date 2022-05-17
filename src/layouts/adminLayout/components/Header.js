@@ -53,9 +53,11 @@ const Header = () => {
           </>
         ) : (
           <>
-            <Box>
-              <img src={image1} style={{ width: "200px" }} />
-            </Box>
+            <MyLink to="/">
+              <Box>
+                <img src={image1} style={{ width: "200px" }} />
+              </Box>
+            </MyLink>
             <Box sx={{ flexGrow: 1, marginRight: "5rem" }}>
               <Tabs
                 indicatorColor="secondary"
