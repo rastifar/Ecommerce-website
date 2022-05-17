@@ -14,6 +14,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 //Consts
 import { LINKARRAYRESPONSIVE } from "../../../constants/layoutConst";
+import MyLink from "../../../components/MyLink";
 
 const DrawerCmp = () => {
   const [open, setOpen] = useState(false);
@@ -30,11 +31,11 @@ const DrawerCmp = () => {
             <ListItemButton key={index} divider onClick={() => setOpen(false)}>
               <ListItemIcon>
                 {link == "مدیریت" ? (
-                  <Link to="/login">
+                  <MyLink to="/login">                 
                     <Button color="warning" size="medium" variant="contained">
                       مدیریت
                     </Button>
-                  </Link>
+                    </MyLink>
                 ) : (
                   <ListItemText sx={{ color: "white" }}>{link}</ListItemText>
                 )}

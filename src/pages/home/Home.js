@@ -76,25 +76,28 @@ const Home = () => {
             <Typography variant="h4" component="h3">دسته بندی های انار سبز</Typography>
           </Grid>
           <Grid item>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} mb={15}>
               <Grid item>
                 <CompanyMsgCard
                   image={cat2}
-                  title="میوه و سبزی تازه"                 
+                  title="میوه و سبزی تازه"  
+                  link="/login"
                 />
              
               </Grid>
               <Grid item>
               <CompanyMsgCard
                   image={cat5}
-                  title="میوه و سبزی منجمد"                 
+                  title="میوه و سبزی منجمد"   
+                  link="/login"
                 />
               
               </Grid>
               <Grid item>
               <CompanyMsgCard
                   image={cat6}
-                  title="انواع نوشیدنی "                
+                  title="انواع نوشیدنی "     
+                  link="/login"
                 />
              
               </Grid>
