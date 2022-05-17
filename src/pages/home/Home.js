@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Slider, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Container, Grid, Slider, Typography,Box } from "@mui/material";
+
 import axios from "axios";
 
 //images
