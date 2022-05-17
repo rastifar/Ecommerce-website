@@ -81,7 +81,8 @@ const Home = () => {
                 <CompanyMsgCard
                   image={cat2}
                   title="میوه و سبزی تازه"  
-                  link="/login"
+                  link="/productgroup/1"
+
                 />
              
               </Grid>
@@ -89,7 +90,7 @@ const Home = () => {
               <CompanyMsgCard
                   image={cat5}
                   title="میوه و سبزی منجمد"   
-                  link="/login"
+                  link="/productgroup/2"
                 />
               
               </Grid>
@@ -97,7 +98,7 @@ const Home = () => {
               <CompanyMsgCard
                   image={cat6}
                   title="انواع نوشیدنی "     
-                  link="/login"
+                  link="/productgroup/3"
                 />
              
               </Grid>
