@@ -1,5 +1,5 @@
 import { Container, Grid, Slider } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box } from "@mui/system"; 
 import React from "react";
 import image1 from "../../assets/images/h1s.png";
 import image2 from "../../assets/images/h2s.png";
