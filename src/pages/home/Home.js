@@ -3,11 +3,21 @@ import { Container, Grid, Slider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 
+//images
+
 import image1 from "../../assets/images/h1s.png";
 import image2 from "../../assets/images/h2s.png";
 import image3 from "../../assets/images/h3s.png";
 import image4 from "../../assets/images/h4s.png";
 import homeImage from "../../assets/images/homePage.jpg";
+import cat1 from "../../assets/images/ffruit.png";
+import cat2 from "../../assets/images/fveg.jpg";
+import cat3 from "../../assets/images/fsmooth.png";
+import cat4 from "../../assets/images/ffrozen.png";
+import cat5 from "../../assets/images/vegfrozen.png";
+import cat6 from "../../assets/images/gsmooth.png";
+
+//components
 import CompanyMsgCard from "./components/CompanyMsgCard";
 import {splitArrayOfImage} from "../../utils/utils"
 
