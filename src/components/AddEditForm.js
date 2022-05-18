@@ -133,7 +133,7 @@ export default function AddEditForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" sx={{ mt: 15 }}>
+      <Container component="main"  sx={{ mt: 0 }}>
         <CssBaseline />
         <ToastContainer
           position="top-center"
@@ -148,25 +148,26 @@ export default function AddEditForm() {
         />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Typography
+          {/* <Typography
             component="h1"
             sx={{ color: "green" }}
             variant="body1"
             align="right"
           >
             افزودن / ویرایش کالا
-          </Typography>
+          </Typography> */}
           <Box
             component="form"
             onSubmit={formik.handleSubmit}
             noValidate
             sx={{ mt: 1 }}
+            overflow="hidden"
           >
             <Button
               variant="outlined"

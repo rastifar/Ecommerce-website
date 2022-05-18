@@ -7,6 +7,7 @@ import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import Modal from "../../components/Modal";
 //----------------------------------------------
 
 //stylecomponent
@@ -38,14 +39,23 @@ const columns = [
     headerName: "  ",
     sortable: false,
     width: 50,
-    renderCell: () => <DeleteOutlineOutlinedIcon sx={{ color: "red" }} />,
+    renderCell: (cellValues) => {
+      return <DeleteOutlineOutlinedIcon sx={{ color: "red" }}  onClick={() => {
+        // handleClick(event, cellValues);
+        console.log(cellValues.row.id);
+      }}/>}    
   },
   {
     field: "editOperation",
     headerName: "  ",
     sortable: false,
     width: 50,
-    renderCell: () => <EditOutlinedIcon sx={{ color: "green" }} />,
+   
+    renderCell: (cellValues) => {
+      return <EditOutlinedIcon sx={{ color: "green" }}  onClick={() => {
+        // handleClick(event, cellValues);
+        console.log(cellValues.row);
+      }}/>}
   },
 ];
 
@@ -86,10 +96,8 @@ export default function Goods() {
         <Grid item xs={8} align="center">
           جستجو
         </Grid>
-        <Grid item xs={2} align="left">
-          <Button variant="outlined" color="primary">
-            افزودن کالا
-          </Button>{" "}
+        <Grid item xs={2} align="left">            
+            <Modal title="افزودن کالا"/>        
         </Grid>
       </Grid>
       <Grid item sx={{ height: 400, width: "100%" }}>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import AddEditForm from "./AddEditForm";
 
 import {
   Button,
@@ -6,8 +7,8 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-    DialogTitle,
-    Box,
+  DialogTitle,
+  Box,
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -37,36 +38,10 @@ export default function Modal({ title }) {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-          افزودن/ویرایش کالا
+          افزودن / ویرایش کالا
         </DialogTitle>
-        <DialogContent>
-          <form>
-            <input type="text" name="firstName" />
-            <input type="file" name="firstName" />
-            <input type="text" name="age" />
-                      <input type="submit" />
-                      <Box>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="تصویر کالا"
-              type="text"
-              
-              variant="standard"
-            />
-            <Button variant="contained" component="label">
-              بارگذاری عکس
-              <input type="file" hidden />
-                          </Button>
-                          </Box>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            ذخیره
-          </Button>
-        </DialogActions>
+
+        <AddEditForm />
       </Dialog>
     </div>
   );
