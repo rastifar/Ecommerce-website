@@ -17,7 +17,7 @@ const ProductDetails = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/products/${10}`)
+      .get(`http://localhost:3002/products/${productid}`)
       .then((res) => setData(res.data));
   }, []);
   // console.log(data);
