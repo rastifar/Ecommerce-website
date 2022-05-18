@@ -33,6 +33,9 @@ export const theme = createTheme({
           },
           secondary: {
               main: Colors.secondary
+          },
+          muted: {
+              main:Colors.muted
           }
       },
       components: {

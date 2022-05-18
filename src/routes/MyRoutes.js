@@ -24,6 +24,7 @@ import {
   NotFound,
 } from "../pages";
 
+
 const MyRoutes = () => {
   return (
     <BrowserRouter>
