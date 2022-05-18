@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+//constant
+import { BASE_URL } from "../../constants/apiConst";
+import { PRODUCTS } from "../../constants/apiConst";
 
 //material
 import { styled } from "@mui/material/styles";
@@ -23,7 +26,7 @@ const columns = [
     headerName: "تصویر",
     width: 200,
     sortable: false,
-    renderCell: (params) => <IMG src={SERVICE_URL + params.value} />,
+    renderCell: (params) => <IMG src={BASE_URL + params.value} />,
   },
   {
     field: "name",
@@ -49,20 +52,15 @@ const columns = [
   },
 ];
 
-const SERVICE_URL = "http://localhost:3002";
+
+
 
 export default function Goods() {
-  const { products, error, loading, axiosFetch } = useFetch();
+  
+  const { products, error, loading  } = useFetch(PRODUCTS);
 
-  useEffect(() => {
-    getData();
-  }, []);
 
-  const getData = () => {
-    axiosFetch({     
-      url: "/products",
-    });
-  };
+  
 
   const rows = products.map((product) => ({
     id: product.id,
