@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "../api/httpRequestApi";
+import { toast } from 'react-toastify';
 
-const useAxios = (url, requestConfig = {}) => {
+const useAxios = (url,data, requestConfig = {}) => {
   const [response, setResponse] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
