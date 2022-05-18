@@ -1,13 +1,25 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+//constants
+import { ORDERS } from "../../constants/apiConst";
 
 //material
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Radio, Typography,RadioGroup,FormLabel,FormControlLabel,FormControl } from "@mui/material";
+import {
+  Grid,
+  Radio,
+  Typography,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel,
+  FormControl,
+} from "@mui/material";
 
 //utils
 import { convertTimeStamToDate } from "../../utils/utils";
 import { Link } from "react-router-dom";
+//reduxStore
+import { useSelector } from "react-redux";
 //---------------------------------------------------------
 //columns
 const columns = [
@@ -44,29 +56,18 @@ const columns = [
   },
 ];
 
-const SERVICE_URL = "http://localhost:3002";
-
 //-------------------------------------------------------
 
 export default function Orders() {
-  const { products, error, loading, axiosFetch } = useFetch();
-  const token = localStorage.getItem('token')
-console.log(token);
-  useEffect(() => {
-    getData();
-  }, []);
 
-  const getData = () => {
-    axiosFetch({      
-      url: "/orders",
-      requestConfig: {
-        headers: {
-          token:token
-          
-        },
-      },
-    });
-  };
+  const token = useSelector((state) => state.token);
+  const { products, error, loading } = useFetch(ORDERS, {
+    headers: {
+      token: token,
+    },
+  });
+
+
 
   const rows = products.map((product) => ({
     id: product.id,
@@ -86,7 +87,7 @@ console.log(token);
       sx={{ p: 5 }}
     >
       <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-        <Grid item xs={2} align="right" sx={{flexGrow:1}}>
+        <Grid item xs={2} align="right" sx={{ flexGrow: 1 }}>
           <Typography>مدیریت سفارش ها</Typography>
         </Grid>
         <Grid item xs={10} align="center">

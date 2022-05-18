@@ -6,6 +6,10 @@ import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+import { adminloggedIn } from "../../redux/adminSlice";
+import { addToken } from "../../redux/tokenSlice";
+import { useDispatch } from "react-redux";
+
 import {
   Container,
   Typography,
@@ -33,7 +37,7 @@ const validationSchema = yup.object().shape({
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const { response, error, loading, axiosPost } = usePost();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -56,12 +60,15 @@ export default function AdminLogin() {
           .post("http://localhost:3002/auth/login", values)
           .then((res) => {
             toast.success('خوش آمدید')
-            localStorage.setItem("token", res.data.token);
+             
+            // localStorage.setItem("token", res.data.token);
             if (res.status == 200) {
+              // dispatch(adminloggedIn(values));
+              dispatch(addToken(res.data.token))
               navigate("/dashboard", { replace: false });
             }
           })
-          .catch((err) => toast.error('🦄نام کاربری یا رمز عبور اشتباه است!', {
+          .catch((err) => toast.error('نام کاربری یا رمز عبور اشتباه است', {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -75,7 +82,7 @@ export default function AdminLogin() {
     validationSchema,
   });
 
-  console.log(response);
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
