@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
+//components
 import useFetch from "../../hooks/useFetch";
+import Modal from "../../components/Modal";
 
 //material
 import { styled } from "@mui/material/styles";
@@ -7,7 +9,6 @@ import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import Modal from "../../components/Modal";
 //----------------------------------------------
 
 //stylecomponent
@@ -40,22 +41,34 @@ const columns = [
     sortable: false,
     width: 50,
     renderCell: (cellValues) => {
-      return <DeleteOutlineOutlinedIcon sx={{ color: "red" }}  onClick={() => {
-        // handleClick(event, cellValues);
-        console.log(cellValues.row.id);
-      }}/>}    
+      return (
+        <DeleteOutlineOutlinedIcon
+          sx={{ color: "red" }}
+          onClick={() => {
+            // handleClick(event, cellValues);
+            console.log(cellValues.row.id);
+          }}
+        />
+      );
+    },
   },
   {
     field: "editOperation",
     headerName: "  ",
     sortable: false,
     width: 50,
-   
+
     renderCell: (cellValues) => {
-      return <EditOutlinedIcon sx={{ color: "green" }}  onClick={() => {
-        // handleClick(event, cellValues);
-        console.log(cellValues.row);
-      }}/>}
+      return (
+        <EditOutlinedIcon
+          sx={{ color: "green" }}
+          onClick={() => {
+            // handleClick(event, cellValues);
+            console.log(cellValues.row);
+          }}
+        />
+      );
+    },
   },
 ];
 
@@ -63,13 +76,14 @@ const SERVICE_URL = "http://localhost:3002";
 
 export default function Goods() {
   const { products, error, loading, axiosFetch } = useFetch();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = () => {
-    axiosFetch({     
+    axiosFetch({
       url: "/products",
     });
   };
@@ -80,6 +94,8 @@ export default function Goods() {
     name: product.name,
     category: product.category,
   }));
+
+  const handleAddProducts = () => {};
 
   return (
     <Grid
@@ -96,8 +112,14 @@ export default function Goods() {
         <Grid item xs={8} align="center">
           جستجو
         </Grid>
-        <Grid item xs={2} align="left">            
-            <Modal title="افزودن کالا"/>        
+        <Grid item xs={2} align="left">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleAddProducts}
+          >
+            افزودن کالا
+          </Button>{" "}
         </Grid>
       </Grid>
       <Grid item sx={{ height: 400, width: "100%" }}>
@@ -112,6 +134,7 @@ export default function Goods() {
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />
       </Grid>
+      <Modal  open={isOpen} onClose={() => setIsOpen(false)} />
     </Grid>
   );
 }
