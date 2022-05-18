@@ -68,7 +68,7 @@ export default function AdminLogin() {
               navigate("/dashboard", { replace: false });
             }
           })
-          .catch((err) => toast.error('🦄نام کاربری یا رمز عبور اشتباه است!', {
+          .catch((err) => toast.error('نام کاربری یا رمز عبور اشتباه است', {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,

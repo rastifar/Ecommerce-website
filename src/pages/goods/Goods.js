@@ -57,7 +57,7 @@ const columns = [
 
 export default function Goods() {
   
-  const { products, error, loading  } = useFetch(PRODUCTS);
+  const { products, error, loading} = useFetch(PRODUCTS);
 
 
   
