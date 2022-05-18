@@ -55,7 +55,7 @@ const useAxios = (url,requestConfig=[]) => {
   //         console.log(controller);
   //         return (()=>controller.abort())
   // },[controller])
-  return { products: response, error, loading };
+  return { products: response, error, loading,headers };
 };
 
 export default useAxios;
