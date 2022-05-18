@@ -1,39 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import axios from "../api/httpRequestApi";
 
-const useAxios = () => {
+const useAxios = (url, requestConfig = {}) => {
   const [response, setResponse] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [controller, setController] = useState();
+  const [headers, setHeaders] = useState([]);
 
-  const axiosPost = async (configObj) => {
-    const {method, url, requestConfig={},data } = configObj;
-    // const ctrl = new AbortController();
-    // setController(ctrl)
-    try {
-      setLoading(true)
-      console.log(requestConfig);
-      const res = await axios[method.toLowerCase()](url,data, {
-        ...requestConfig,
-        // signal: ctrl.singal,
-      });
-      console.log(res.data);
+  useEffect(() => {
+    setLoading(true)
+    axios.post(url, data, {
+      ...requestConfig     
+    }).then(res => {
+      setHeaders(res.headers)
       setResponse(res.data)
-    } catch (error) {
-      console.log(error);
-      setError(error.message)
-    } finally {
-        setLoading(false)
-        return response;
+      setLoading(false)
+    }).catch(error => {
+      setError(error)
+      setLoading(false)
+      if (error.response?.status === 401) {
+        toast.error("شما دسترسی لازم را ندارید");
+      } else {
+        toast.error("خطایی روی داده است");
       }
-     
-  };
-  //     useEffect(() => {
-  //         console.log(controller);
-  //         return (()=>controller.abort())
-  // },[controller])
-  return {response, error, loading, axiosPost};
+    })
+
+  },[url])
+ 
+  return { products: response, error, loading,headers };
 };
 
 export default useAxios;
