@@ -69,14 +69,22 @@ const MyRoutes = () => {
             </UserLayout>
           }
         />
-        <Route
-          path="/productDetails/:productid"
+        {/* <Route
+          path="productDetails/:productid"
           element={
             <UserLayout>
               <ProductDetails />
             </UserLayout>
           }
-        />
+          
+        /> */}
+       
+         <Route
+            path="/productgroup/:categoryNum/products/:productid"
+            element={<UserLayout>
+              <ProductDetails />
+            </UserLayout>}
+          />
         <Route
           path="/purchasefinalizing"
           element={

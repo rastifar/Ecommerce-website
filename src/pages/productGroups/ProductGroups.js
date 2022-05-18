@@ -4,6 +4,7 @@ import { Grid, Box } from "@mui/material";
 import axios from "axios";
 
 import ProductCards from "../../components/ProductCards";
+import MyLink from "../../components/MyLink";
 const ProductGroups = () => {
   const { categoryNum } = useParams();
   const [data, setData] = useState([]);
@@ -23,7 +24,7 @@ const ProductGroups = () => {
       justifyContent="center"
     >
       <Grid item>
-        <h1>This is product Group page</h1>
+        <h1> محصولات</h1>
       </Grid>
       <Grid
         container
@@ -34,11 +35,13 @@ const ProductGroups = () => {
       >
         {data.map((item) => (
           <Grid item key={item.name} xs={12} md={4} lg={3}>
-            <ProductCards
-              image={item.image}
-              name={item.name}
-              price={item.price}
-            />
+            <MyLink to={`products/${item.id}`}>
+              <ProductCards
+                image={item.image}
+                name={item.name}
+                price={item.price}
+              />
+            </MyLink>
           </Grid>
         ))}
       </Grid>
