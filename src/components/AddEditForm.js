@@ -21,6 +21,7 @@ import {
   Button,
   MenuItem,
   Select,
+  InputBase,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import RecentActorsTwoToneIcon from "@mui/icons-material/RecentActorsTwoTone";
@@ -81,25 +82,28 @@ const categories = [
   },
 ];
 
-export default function AddEditForm() {
+export default function AddEditForm({ formData }) {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkFtaXIgaG9zc2VpbiBNYWhkaW91biIsImlhdCI6MTY1Mjg1ODYxNSwiZXhwIjoxNjUyODY5NDE1fQ.wc_Qvrm061WOQJr4afkvyaC5BoQBdjKrX8XJSD5yUbY";
 
   const formik = useFormik({
     initialValues: {
-      productname: "",
-      category: "",
-      thumbnail: "",
-      gallery: "",
-      signator_text: "",
+      productname: formData.name ? formData.name : "",
+      category: formData.category ? formData.category : "",
+      thumbnail: formData.image ? formData.image : "",
+      gallery: formData.images ? formData.images : "",
+     
+    // signator_text: formData.description ? formData.description : "",
     },
     onSubmit: (values) => {
-      const pic =values.gallery
+      const pic = values.gallery;
       console.log("finish", values);
       console.log("pic", pic);
-      axios.post("http://localhost:3002/upload", pic, {
-        headers: { Authorization: `${token}` },
-      }).then(res=>console.log(res.data));
+      axios
+        .post("http://localhost:3002/upload", pic, {
+          headers: { Authorization: `${token}` },
+        })
+        .then((res) => console.log(res.data));
       // const fd = new FormData();
       // fd.append("signator_text", values.signator_text);
       //   setTimeout(() => {
@@ -133,7 +137,7 @@ export default function AddEditForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main"  sx={{ mt: 0 }}>
+      <Container component="main" sx={{ mt: 0 }}>
         <CssBaseline />
         <ToastContainer
           position="top-center"
@@ -174,7 +178,14 @@ export default function AddEditForm() {
               fullWidth={true}
               component="label"
               color="success"
+              //  sx={{mx:2}}
             >
+              {/* <InputBase 
+                    label="تصویر" 
+                    type='file'
+                    sx={{mx:4}}
+                    style={{alignSelf: 'flex-end'}}
+                /> */}
               بارگذاری عکس بندانگشنی
               <input
                 accept="image/*"
@@ -184,11 +195,12 @@ export default function AddEditForm() {
                 name="thumbnail"
                 required
                 onChange={formik.handleChange}
-                value={formik.values.thumbnail}
+                // value={formik.values.thumbnail}
               />
               <RecentActorsTwoToneIcon sx={{ mr: 4, my: 1 }} />
             </Button>
             <TextField
+              // sx={{px:10}}
               margin="dense"
               size="small"
               required
@@ -205,7 +217,9 @@ export default function AddEditForm() {
                 formik.errors.productname
               }
             />
-            <Select
+            <TextField
+              select
+              // sx={{px:10}}
               margin="dense"
               size="small"
               id="category"
@@ -227,9 +241,9 @@ export default function AddEditForm() {
                   {option.label}
                 </MenuItem>
               ))}
-            </Select>
+            </TextField>
             <Button
-              sx={{ my: 1 }}
+              // sx={{ my: 1 }}
               size="large"
               variant="outlined"
               fullWidth={true}
@@ -250,15 +264,35 @@ export default function AddEditForm() {
               <CollectionsTwoToneIcon sx={{ mr: 4, my: 2 }} />
             </Button>
 
-            <CKEditor
+            {/* <CKEditor
               editor={ClassicEditor}
               data=""
               value={formik.values.signator_text}
               id="signator_text"
               name="signator_text"
               onChange={inputHandler}
-            />
+            /> */}
 
+            <TextField
+              // sx={{px:10}}
+              margin="dense"
+              size="small"
+              required
+              fullWidth={true}
+              id="description"
+              name="description"
+              placeholder="توضیحات"
+              color="success"
+              multiline
+              rows={4}
+              onChange={formik.handleChange}
+              value={formik.values.description}
+              helperText={
+                formik.errors.description &&
+                formik.touched.description &&
+                formik.errors.description
+              }
+            />
             <Button
               type="submit"
               fullWidth={true}

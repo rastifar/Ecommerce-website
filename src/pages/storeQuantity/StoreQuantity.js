@@ -40,7 +40,7 @@
 //   }, []);
 
 //   const getData = () => {
-//     axiosFetch({   
+//     axiosFetch({
 //       url: "/products",
 //     });
 //   };
@@ -88,12 +88,13 @@
 //     </Grid>
 //   );
 // }
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 
 //material
 import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography } from "@mui/material";
+import { ChangeCircle } from "@mui/icons-material";
 
 //----------------------------------------------
 //columns
@@ -124,13 +125,21 @@ const SERVICE_URL = "http://localhost:3002";
 
 export default function StoreQuantity() {
   const { products, error, loading, axiosFetch } = useFetch();
+  const [change, setChange] = useState({});
+
+  const handleEdit = (params, event) => {
+    console.log("edit");
+    // event.stopPropagation();
+    setChange(params.row)
+    console.log(change );
+  };
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = () => {
-    axiosFetch({   
+    axiosFetch({
       url: "/products",
     });
   };
@@ -172,6 +181,8 @@ export default function StoreQuantity() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5, 10, 15]}
+          onCellFocusOut={handleEdit}
+         // onCellEditCommit={handleEdit}
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />
       </Grid>

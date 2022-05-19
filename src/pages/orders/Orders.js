@@ -1,9 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import useFetch from "../../hooks/useFetch";
 
 //material
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Radio, Typography,RadioGroup,FormLabel,FormControlLabel,FormControl } from "@mui/material";
+import {
+  Grid,
+  Radio,
+  Typography,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel,
+  FormControl,
+} from "@mui/material";
 
 //utils
 import { convertTimeStamToDate } from "../../utils/utils";
@@ -49,24 +58,29 @@ const SERVICE_URL = "http://localhost:3002";
 //-------------------------------------------------------
 
 export default function Orders() {
-  const { products, error, loading, axiosFetch } = useFetch();
-  const token = localStorage.getItem('token')
-console.log(token);
+  // const { products, error, loading, axiosFetch } = useFetch();
+  const [products, setProducts] = useState([]);
+  const token = localStorage.getItem("token");
+  console.log(products);
+  
   useEffect(() => {
-    getData();
+    axios
+      .get("http://localhost:3002/orders", { headers: { token: token } })
+      .then((res) => setProducts(res.data));
+    // getData();
   }, []);
 
-  const getData = () => {
-    axiosFetch({      
-      url: "/orders",
-      requestConfig: {
-        headers: {
-          token:token
-          
-        },
-      },
-    });
-  };
+  // const getData = () => {
+  //   axiosFetch({
+  //     url: "/orders",
+  //     requestConfig: {
+  //       headers: {
+  //         token:token
+
+  //       },
+  //     },
+  //   });
+  // };
 
   const rows = products.map((product) => ({
     id: product.id,
@@ -77,6 +91,18 @@ console.log(token);
     // url: product.id,
   }));
 
+  async function handleRecivedProducts(num) {
+    try {
+      const result = await axios.get(
+        `http://localhost:3002/orders?orderStatus=${num}`
+      );
+     
+     setProducts(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Grid
       container
@@ -86,7 +112,7 @@ console.log(token);
       sx={{ p: 5 }}
     >
       <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-        <Grid item xs={2} align="right" sx={{flexGrow:1}}>
+        <Grid item xs={2} align="right" sx={{ flexGrow: 1 }}>
           <Typography>مدیریت سفارش ها</Typography>
         </Grid>
         <Grid item xs={10} align="center">
@@ -99,12 +125,14 @@ console.log(token);
             <FormControlLabel
               value="1"
               control={<Radio />}
+              onClick={() => handleRecivedProducts(1)}
               label="سفارش های تحویل شده  
 "
             />
             <FormControlLabel
               value="2"
               control={<Radio />}
+              onClick={() => handleRecivedProducts(2)}
               label="سفارش های در انتظار ارسال"
             />
           </RadioGroup>

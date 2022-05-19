@@ -14,39 +14,35 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-export default function Modal({open, onClose}) {
-  const [open, setOpen] = React.useState(false);
+export default function Modal({ open, onClose, data }) {
+  
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  if (!open) return null;
+  console.log(data);
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
-    setOpen(false);
+    onClose();
   };
 
-  return ReactDom.createPortal(   
-  <div>
-  <Button variant="outlined" onClick={handleClickOpen}>
-    {title}
-  </Button>
-  <Dialog
-    fullScreen={fullScreen}
-    open={open}
-    onClose={handleClose}
-    aria-labelledby="responsive-dialog-title"
-  >
-    <DialogTitle id="responsive-dialog-title">
-      افزودن / ویرایش کالا
-    </DialogTitle>
-    <AddEditForm />
-  </Dialog>
-</div>   
-,
-document.getElementById("portal")
-)
-    
-  
+  return ReactDom.createPortal(
+    <div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>افزوردن / ویرایش کالا</DialogTitle>
+        <DialogContent>
+          <AddEditForm formData={data}/>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant='contained' >بستن</Button>
+          
+        </DialogActions>
+      </Dialog>
+    </div>,
+    document.getElementById("portal")
+  );
 }
