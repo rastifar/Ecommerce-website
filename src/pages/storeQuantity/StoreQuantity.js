@@ -95,6 +95,7 @@ import useFetch from "../../hooks/useFetch";
 import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography } from "@mui/material";
 import { ChangeCircle } from "@mui/icons-material";
+import axios from "axios";
 
 //----------------------------------------------
 //columns
@@ -122,27 +123,55 @@ const columns = [
 ];
 
 const SERVICE_URL = "http://localhost:3002";
-
+const changedItem = []
 export default function StoreQuantity() {
-  const { products, error, loading, axiosFetch } = useFetch();
-  const [change, setChange] = useState({});
-
-  const handleEdit = (params, event) => {
-    console.log("edit");
-    // event.stopPropagation();
-    setChange(params.row)
-    console.log(change );
-  };
+  // const { products, error, loading, axiosFetch } = useFetch();
+  const [products, setProducts] = useState([]);
+  
+  const [change, setChange] = useState();
 
   useEffect(() => {
-    getData();
+    axios
+      .get("http://localhost:3002/products")
+      .then((res) => setProducts(res.data));
   }, []);
 
-  const getData = () => {
-    axiosFetch({
-      url: "/products",
+  // const handleEdit = (params, event) => {
+  //   console.log("edit");
+  //   const row = params.row
+  //   console.log(row );
+  //   event.stopPropagation();
+
+  //   setChange({ ...change, row })
+  //   console.log(change );
+  // };
+  const handleEdit = (params) => {
+    // event.stopPropagation();
+    console.log("edit");
+    // const row = params.row;
+    // console.log(row);
+    const array = products.map((r) => {
+      if (r.id === params.row.id) {
+        changedItem.push(params.row.id)
+        return { ...r, [params.field]: params.value };
+        
+      } else {
+        return { ...r };
+      }
     });
+    setProducts(array);
+    console.log(array);
+    console.log("change",changedItem)
   };
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  // const getData = () => {
+  //   axiosFetch({
+  //     url: "/products",
+  //   });
+  // };
 
   const rows = products.map((product) => ({
     id: product.id,
@@ -150,6 +179,16 @@ export default function StoreQuantity() {
     price: product.price,
     count: product.count,
   }));
+
+  // const handleSave = () => {
+  //   changedItem.map(i => {
+  //     const result = products.find(product => product.id === i)
+  //     axios.put("http://localhost:3002/products",result).then(res=>{
+        
+  //     })
+    
+  //   })
+  // }
 
   return (
     <Grid
@@ -167,7 +206,7 @@ export default function StoreQuantity() {
           جستجو
         </Grid>
         <Grid item xs={2} align="left">
-          <Button variant="outlined" color="primary">
+          <Button variant="outlined" color="primary" >
             ذخیره
           </Button>{" "}
         </Grid>
@@ -181,8 +220,11 @@ export default function StoreQuantity() {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5, 10, 15]}
-          onCellFocusOut={handleEdit}
-         // onCellEditCommit={handleEdit}
+          // onCellEditCommit={handleEdit}
+          // onCellFocusOut={handleEdit}
+          // onCellEditStop={(params) => console.log(params.id, params.row)}
+          // onRowEditStop={(params) => console.log(params.id, params.row)}
+           onCellEditCommit={handleEdit}
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />
       </Grid>
