@@ -58,13 +58,22 @@ const columns = [
 
 export default function Goods() {
   
-  // const { products, error, loading} = useFetch(PRODUCTS);
+  // const { products, error, loading} = useFetch(PRODUCTS,"POST");
+  const product = useFetch(get)
+  const order = useFetch(post,"token")
+
   const [products, setProducts] = useState([])
-  useEffect(() => {
-    HttpRequestApi.get(PRODUCTS).then(res=>setProducts(res))
-  },[])
+  useEffect(() => {    
+    getApi();    
+  }, [])
+  
+  async function getApi() {
+    setProducts(await HttpRequestApi.get("/products"))
+  }
+
+  console.log(products);
   return (
-    <div>{products.map(product => <p>{product.name}</p>)}</div>
+    <div>{products.data?.map(product => <p>{product.name}</p>)}</div>
 )
   
 
