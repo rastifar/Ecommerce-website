@@ -59,10 +59,11 @@ export default function AdminLogin() {
         axios
           .post("http://localhost:3002/auth/login", values)
           .then((res) => {
-            toast.success('خوش آمدید')
+            
              
             // localStorage.setItem("token", res.data.token);
             if (res.status == 200) {
+              toast.success('خوش آمدید')
               // dispatch(adminloggedIn(values));
               dispatch(addToken(res.data.token))
               navigate("/dashboard", { replace: true });

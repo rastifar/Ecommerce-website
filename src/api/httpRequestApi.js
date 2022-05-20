@@ -14,7 +14,7 @@ class HttpRequestApi {
     axios.defaults.timeout = 2000;
     axios.interceptors.request.use(
       (config) => {
-        if ((config.url = ORDERS)) {
+        if ((config.url = "orders")) {
           config.headers["token"] = localStorage.getItem("token");
         }
         return config;
