@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-//components
+import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
-import Modal from "../../components/Modal";
+//constant
+import { BASE_URL } from "../../constants/apiConst";
+import { PRODUCTS } from "../../constants/apiConst";
 
 //material
 import { styled } from "@mui/material/styles";
@@ -10,7 +11,6 @@ import { Grid, Button, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 //----------------------------------------------
-import axios from "axios";
 
 //stylecomponent
 const IMG = styled("img")`
@@ -19,100 +19,48 @@ const IMG = styled("img")`
   border-radius: 50%;
   object-fit: cover;
 `;
+//columns
+const columns = [
+  {
+    field: "image",
+    headerName: "تصویر",
+    width: 200,
+    sortable: false,
+    renderCell: (params) => <IMG src={BASE_URL + params.value} />,
+  },
+  {
+    field: "name",
+    headerName: "نام کالا",
+    sortable: false,
+    editable: true,
+    width: 400,
+  },
+  { field: "category", headerName: "دسته بندی", width: 400 },
+  {
+    field: "deleteOperation",
+    headerName: "  ",
+    sortable: false,
+    width: 50,
+    renderCell: () => <DeleteOutlineOutlinedIcon sx={{ color: "red" }} />,
+  },
+  {
+    field: "editOperation",
+    headerName: "  ",
+    sortable: false,
+    width: 50,
+    renderCell: () => <EditOutlinedIcon sx={{ color: "green" }} />,
+  },
+];
 
-const SERVICE_URL = "http://localhost:3002";
+
+
 
 export default function Goods() {
-  //columns
-  const columns = [
-    {
-      field: "image",
-      headerName: "تصویر",
-      width: 200,
-      sortable: false,
-      renderCell: (params) => <IMG src={SERVICE_URL + params.value} />,
-    },
-    {
-      field: "name",
-      headerName: "نام کالا",
-      sortable: false,
-      editable: true,
-      width: 400,
-    },
-    { field: "category", headerName: "دسته بندی", width: 400 },
-    {
-      field: "deleteOperation",
-      headerName: "  ",
-      sortable: false,
-      width: 50,
-      renderCell: (cellValues) => {
-        return (
-          <DeleteOutlineOutlinedIcon
-            sx={{ color: "red" }}
-            onClick={() => {
-              handleDelete(cellValues.row.id);
-            }}
-          />
-        );
-      },
-    },
-    {
-      field: "editOperation",
-      headerName: "  ",
-      sortable: false,
-      width: 50,
+  
+  const { products, error, loading} = useFetch(PRODUCTS);
 
-      renderCell: (cellValues) => {
-        return (
-          <EditOutlinedIcon
-            sx={{ color: "green" }}
-            onClick={(event) => {
-              // handleClick(event, cellValues);
-              handleEdit(event, cellValues);
-              // console.log(cellValues.row);
-            }}
-          />
-        );
-      },
-    },
-  ];
-  // const { products, error, loading, axiosFetch } = useFetch();
-  const [products, setProducts] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [data, setData] = useState({});
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3002/products")
-      .then((res) => setProducts(res.data));
-  });
-  // useEffect(() => {
-
-  //   getData();
-  // }, []);
-
-  // const getData = () => {
-  //   axiosFetch({
-  //     url: "/products",
-  //   });
-  // };
-
-  const handleEdit = (event, cellValues) => {
-    // console.log("edit from handle", cellValues.row);
-    setIsOpen(true);
-    // const result = products.find(item => item.id = cellValues.row.id)
-    // console.log(result);
-    setData(cellValues.row);
-  };
-
-  async function handleDelete(id) {
-    try {
-      await axios.delete(`http://localhost:3002/products/${id}`);
-      const products = await axios.get("http://localhost:3002/products");
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  
 
   const rows = products.map((product) => ({
     id: product.id,
@@ -120,10 +68,6 @@ export default function Goods() {
     name: product.name,
     category: product.category,
   }));
-
-  const handleAddProducts = () => {
-    setIsOpen(true);
-  };
 
   return (
     <Grid
@@ -141,11 +85,7 @@ export default function Goods() {
           جستجو
         </Grid>
         <Grid item xs={2} align="left">
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleAddProducts}
-          >
+          <Button variant="outlined" color="primary">
             افزودن کالا
           </Button>{" "}
         </Grid>
@@ -162,7 +102,6 @@ export default function Goods() {
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />
       </Grid>
-      <Modal open={isOpen} onClose={() => setIsOpen(false)} data={data} />
     </Grid>
   );
 }
