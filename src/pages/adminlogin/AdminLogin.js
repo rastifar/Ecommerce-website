@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import usePost from "../../hooks/usePost";
-import axios from '../../api/httpRequestApi'
+import axios from '../../api/HttpRequestApi'
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
@@ -65,7 +65,7 @@ export default function AdminLogin() {
             if (res.status == 200) {
               // dispatch(adminloggedIn(values));
               dispatch(addToken(res.data.token))
-              navigate("/dashboard", { replace: false });
+              navigate("/dashboard", { replace: true });
             }
           })
           .catch((err) => toast.error('نام کاربری یا رمز عبور اشتباه است', {
