@@ -37,6 +37,4 @@ export const theme = createTheme({
               main:Colors.muted
           }
       },
-    },
-  },
 });
