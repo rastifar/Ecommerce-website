@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useState} from "react";
 import useFetch from "../../hooks/useFetch";
 //constant
 import { BASE_URL } from "../../constants/apiConst";
@@ -10,6 +10,7 @@ import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import HttpRequestApi from "../../api/HttpRequestApi";
 //----------------------------------------------
 
 //stylecomponent
@@ -20,7 +21,8 @@ const IMG = styled("img")`
   object-fit: cover;
 `;
 
-const SERVICE_URL = "http://localhost:3002";
+
+
 
 export default function Goods() {
   const { products, error, loading } = useFetch(PRODUCTS);
@@ -82,39 +84,52 @@ export default function Goods() {
     category: product.category,
   }));
 
+  console.log(products);
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      sx={{ p: 5 }}
-    >
-      <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-        <Grid item xs={2} align="right">
-          <Typography>مدیریت کالاها</Typography>
-        </Grid>
-        <Grid item xs={8} align="center">
-          جستجو
-        </Grid>
-        <Grid item xs={2} align="left">
-          <Button variant="outlined" color="primary">
-            افزودن کالا
-          </Button>{" "}
-        </Grid>
-      </Grid>
-      <Grid item sx={{ height: 400, width: "100%" }}>
-        {/* <div > */}
-        <DataGrid
-          item
-          sx={{ background: "white" }}
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5, 10, 15]}
-          localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
-        />
-      </Grid>
-    </Grid>
-  );
+    <div>{products.data?.map(product => <p>{product.name}</p>)}</div>
+)
+  
+
+  // const rows = products?.map((product) => ({
+  //   id: product.id,
+  //   image: product.image,
+  //   name: product.name,
+  //   category: product.category,
+  // }));
+
+  // return (
+  //   <Grid
+  //     container
+  //     direction="column"
+  //     alignItems="center"
+  //     justifyContent="center"
+  //     sx={{ p: 5 }}
+  //   >
+  //     <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
+  //       <Grid item xs={2} align="right">
+  //         <Typography>مدیریت کالاها</Typography>
+  //       </Grid>
+  //       <Grid item xs={8} align="center">
+  //         جستجو
+  //       </Grid>
+  //       <Grid item xs={2} align="left">
+  //         <Button variant="outlined" color="primary">
+  //           افزودن کالا
+  //         </Button>{" "}
+  //       </Grid>
+  //     </Grid>
+  //     <Grid item sx={{ height: 400, width: "100%" }}>
+  //       {/* <div > */}
+  //       <DataGrid
+  //         item
+  //         sx={{ background: "white" }}
+  //         rows={rows}
+  //         columns={columns}
+  //         pageSize={5}
+  //         rowsPerPageOptions={[5, 10, 15]}
+  //         localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
+  //       />
+  //     </Grid>
+  //   </Grid>
+  // );
 }

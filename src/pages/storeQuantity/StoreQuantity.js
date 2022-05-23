@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+//constant
+import { PRODUCTS } from "../../constants/apiConst";
 
 //material
 import { DataGrid, faIR } from "@mui/x-data-grid";
@@ -30,20 +32,12 @@ const columns = [
   },
 ];
 
-const SERVICE_URL = "http://localhost:3002";
+
 
 export default function StoreQuantity() {
-  const { products, error, loading, axiosFetch } = useFetch();
+  const { products, error, loading, axiosFetch } = useFetch(PRODUCTS);
 
-  useEffect(() => {
-    getData();
-  }, []);
 
-  const getData = () => {
-    axiosFetch({   
-      url: "/products",
-    });
-  };
 
   const rows = products.map((product) => ({
     id: product.id,
