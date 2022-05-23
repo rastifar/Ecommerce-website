@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 //constant
 import { PRODUCTS } from "../../constants/apiConst";
@@ -16,58 +16,107 @@ import axios from "axios";
 const columns = [
   {
     field: "productName",
-    headerName: "کالا",    
+    headerName: "کالا",
     sortable: false,
     editable: false,
-    flex:1,
+    flex: 1,
   },
   {
     field: "price",
-    headerName: "قیمت ",
+    headerName: "قیمت (تومان) ",
     sortable: false,
     editable: true,
     flex: 1,
     renderCell: (params) => {
       return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+    },
+    preProcessEditCellProps: (params) => {
+      const num = Number(params.props.value);
+      const hasError = !(Number.isInteger(num) && num >= 0);
+      return { ...params.props, error: hasError };
+    },
   },
   {
     field: "count",
     headerName: "موجودی",
     sortable: false,
     editable: true,
-    flex:1,
+    flex: 1,
+    renderCell: (params) => {
+      return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    preProcessEditCellProps: (params) => {
+      const num = Number(params.props.value);
+      const hasError = !(Number.isInteger(num) && num >= 0);
+      return { ...params.props, error: hasError };
+    },
   },
 ];
 
+
+const changedArray = []
+
 export default function StoreQuantity() {
   //const { products, error, loading, axiosFetch } = useFetch(PRODUCTS);
-  const[products,setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const [pageSize, setPageSize] = useState(5);
-  useEffect(() => {getData()}, [])
-  const getData = async() => {
-    setProducts(await api.get(PRODUCTS))
-  }
-
-  const handleEdit = (params) => {
-  //   // event.stopPropagation();
-  //   console.log("edit");
-  //   // const row = params.row;
-  //   // console.log(row);
-  //   const array = products.map((r) => {
-  //     if (r.id === params.row.id) {
-  //       changedItem.push(params.row.id)
-  //       return { ...r, [params.field]: params.value };
-        
-  //     } else {
-  //       return { ...r };
-  //     }
-  //   });
-  //   setProducts(array);
-  //   console.log(array);
-  //   console.log("change",changedItem)
+  const [editMode, setEditMode] = useState(false);
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    setProducts(await api.get(PRODUCTS));
   };
-  
+
+  const handleEdit = async (params) => {
+    // console.log(changedArray);
+    setEditMode(true);
+    const {id,field,value} = params
+
+
+    // const itemIndex = changedArray.findIndex(item=>item.id ===id)   
+    // if (itemIndex < 0) {
+    //   changedArray.push({id:id,[field]:value})
+    // }
+    // else {
+    //   const updatedValue = changedArray[itemIndex]
+    //   updatedValue[field] = value
+    // }
+
+    // console.log(params);
+    // console.log(params.id);
+    console.log('id',id);
+    console.log('field',field);
+    console.log('value', value);
+    
+    // changedArray.map(item => {
+    //   if (item.id === id) {
+    //     return{...item,[field]:value}
+    //   }
+    //   else {
+    //     return {...item}
+    //   }
+    // })
+
+    //  console.log('edit');
+    //   // event.stopPropagation();
+    //   console.log("edit");
+    //const row = params.id;
+    //console.log(row);
+      // const array = products.map((r) => {
+      //   if (r.id === id) {
+      //     //changedItem.push(params.row.id)
+      //     return { ...r, [field]: value };
+
+      //   } else {
+      //     return { ...r };
+      //   }
+      // });
+      // setProducts(array);
+    //   console.log(array);
+    console.log("change",products)
+  };
+
   const rows = products.map((product) => ({
     id: product.id,
     productName: product.name,
@@ -79,11 +128,22 @@ export default function StoreQuantity() {
   //   changedItem.map(i => {
   //     const result = products.find(product => product.id === i)
   //     axios.put("http://localhost:3002/products",result).then(res=>{
-        
+
   //     })
-    
+
   //   })
   // }
+  // const handleStartEdit = () => {
+  //   console.log('start edit');
+  //   setEditMode(true)
+  // }
+  const handlechange = () => {
+    console.log("page is changing");
+  };
+
+  const handleSendEdit = () => {
+    console.log(changedArray);
+  }
 
   return (
     <Grid
@@ -101,7 +161,12 @@ export default function StoreQuantity() {
           جستجو
         </Grid>
         <Grid item xs={2} align="left">
-          <Button variant="outlined" color="primary" >
+          <Button
+            variant="outlined"
+            color="primary"
+            disabled={editMode ? false : true}
+            onClick={handleSendEdit}
+          >
             ذخیره
           </Button>{" "}
         </Grid>
@@ -117,7 +182,9 @@ export default function StoreQuantity() {
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           rowsPerPageOptions={[5, 10, 20]}
           pagination
+          onPageChange={handlechange}
           onCellEditCommit={handleEdit}
+          // onRowEditCommit={handleEdit}
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />
       </Grid>

@@ -3,6 +3,7 @@ import useFetch from "../../hooks/useFetch";
 //constant
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
+import { category } from "../../constants/categoryConst";
 //axiosApi
 import api from "../../api/api";
 
@@ -93,7 +94,7 @@ export default function Goods() {
     id: product.id,
     image: product.image,
     name: product.name,
-    category: product.category,
+    category: category[product.category-1],
   }));
  
 
