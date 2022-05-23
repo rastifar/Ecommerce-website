@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import useFetch from "../../hooks/useFetch";
 //constants
 import { BASE_URL, ORDERS } from "../../constants/apiConst";
 
 //material
-import { DataGrid, faIR, getDataGridUtilityClass } from "@mui/x-data-grid";
+import { DataGrid, faIR } from "@mui/x-data-grid";
 import {
   Grid,
   Radio,
@@ -20,7 +21,7 @@ import { convertTimeStamToDate } from "../../utils/utils";
 import { Link } from "react-router-dom";
 //reduxStore
 import { useSelector } from "react-redux";
-import axios from "axios";
+
 import OrderModal from "./components/OrderModal";
 import api from "../../api/api";
 //---------------------------------------------------------
@@ -163,16 +164,30 @@ export default function Orders() {
   };
   console.log(products);
   const handlechange = (value) => {
-    if (value === 0) {
+
+    // try {
+    //   const result = await axios.get(
+    //     `http://localhost:3002/orders?orderStatus=${num}`
+    //   );
+     
+    //  setProducts(result.data);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+
+    if (value === 0 && products.length === 0) {
       axios
         .get(BASE_URL + ORDERS, { headers: { token: token } })
         .then((res) => setProducts(res.data));
       return;
     }
-    axios
-      .get(BASE_URL + ORDERS + `?orderStatus=${value}`)
-      .then((res) => setProducts(res.data));
-
+    if (value === 1 || value === 2) {
+            axios
+        .get(BASE_URL + ORDERS + `?orderStatus=${value}`)
+        .then((res) => setProducts(res.data));
+    }
+    return null;
     // products = useFetch(, {
     //   headers: {
     //     token: token,

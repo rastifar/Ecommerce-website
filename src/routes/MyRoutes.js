@@ -38,7 +38,7 @@ const MyRoutes = () => {
           }
         />
         <Route
-          path="/productgroup"
+          path="/productgroup/:categoryNum"
           element={
             <UserLayout>
               <ProductGroups />
@@ -69,8 +69,18 @@ const MyRoutes = () => {
             </UserLayout>
           }
         />
+        {/* <Route
+          path="productDetails/:productid"
+          element={
+            <UserLayout>
+              <ProductDetails />
+            </UserLayout>
+          }
+          
+        /> */}
+
         <Route
-          path="/productDetails"
+          path="/productgroup/:categoryNum/products/:productid"
           element={
             <UserLayout>
               <ProductDetails />
@@ -112,6 +122,7 @@ const MyRoutes = () => {
         >
           <Route path="orders" element={<Orders />} />
           <Route path="goods" element={<Goods />} />
+
           <Route path="storequantity" element={<StoreQuantity />} />
         </Route>
       </Routes>
