@@ -15,53 +15,67 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 //stylecomponent
 const IMG = styled("img")`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 18px;
   object-fit: cover;
 `;
-//columns
-const columns = [
-  {
-    field: "image",
-    headerName: "تصویر",
-    width: 200,
-    sortable: false,
-    renderCell: (params) => <IMG src={BASE_URL + params.value} />,
-  },
-  {
-    field: "name",
-    headerName: "نام کالا",
-    sortable: false,
-    editable: true,
-    width: 400,
-  },
-  { field: "category", headerName: "دسته بندی", width: 400 },
-  {
-    field: "deleteOperation",
-    headerName: "  ",
-    sortable: false,
-    width: 50,
-    renderCell: () => <DeleteOutlineOutlinedIcon sx={{ color: "red" }} />,
-  },
-  {
-    field: "editOperation",
-    headerName: "  ",
-    sortable: false,
-    width: 50,
-    renderCell: () => <EditOutlinedIcon sx={{ color: "green" }} />,
-  },
-];
 
 
 
 
 export default function Goods() {
-  
-  const { products, error, loading} = useFetch(PRODUCTS);
+  const { products, error, loading } = useFetch(PRODUCTS);
+  const [pageSize, setPageSize] = useState(5);
+  //columns
+  const columns = [
+    {
+      field: "image",
+      headerName: "تصویر",
+      flex: 1,
+      sortable: false,
+      editable: false,
+      renderCell: (params) => <IMG src={BASE_URL + params.value} />,
+    },
+    {
+      field: "name",
+      headerName: "نام کالا",
+      sortable: false,
+      editable: false,
+      flex: 3,
+    },
+    { field: "category", headerName: "دسته بندی", flex: 3 },
+    {
+      field: "deleteOperation",
+      headerName: " حذف محصول",
+      editable: false,
+      sortable: false,
+      flex: 1,
+      renderCell: (params) => (
+        <DeleteOutlineOutlinedIcon
+          onClick={() => handleDeleter(params)}
+          sx={{ color: "red" }}
+        />
+      ),
+    },
+    {
+      field: "editOperation",
+      headerName: "ویرایش محصول",
+      sortable: false,
+      flex: 1,
+      renderCell: () => (
+        <EditOutlinedIcon onClick={handleEdit} sx={{ color: "green" }} />
+      ),
+    },
+  ];
 
-
-  
+  const handleDeleter = async (params) => {
+    // await axios.delete(BASE_URL+Products)
+    console.log(params.row);
+  };
+  const handleEdit = () => {
+    console.log("Edit");
+  };
 
   const rows = products.map((product) => ({
     id: product.id,
@@ -69,53 +83,43 @@ export default function Goods() {
     name: product.name,
     category: product.category,
   }));
+ 
 
-  console.log(products);
-  return (
-    <div>{products.data?.map(product => <p>{product.name}</p>)}</div>
-)
-  
-
-  // const rows = products?.map((product) => ({
-  //   id: product.id,
-  //   image: product.image,
-  //   name: product.name,
-  //   category: product.category,
-  // }));
-
-  // return (
-  //   <Grid
-  //     container
-  //     direction="column"
-  //     alignItems="center"
-  //     justifyContent="center"
-  //     sx={{ p: 5 }}
-  //   >
-  //     <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-  //       <Grid item xs={2} align="right">
-  //         <Typography>مدیریت کالاها</Typography>
-  //       </Grid>
-  //       <Grid item xs={8} align="center">
-  //         جستجو
-  //       </Grid>
-  //       <Grid item xs={2} align="left">
-  //         <Button variant="outlined" color="primary">
-  //           افزودن کالا
-  //         </Button>{" "}
-  //       </Grid>
-  //     </Grid>
-  //     <Grid item sx={{ height: 400, width: "100%" }}>
-  //       {/* <div > */}
-  //       <DataGrid
-  //         item
-  //         sx={{ background: "white" }}
-  //         rows={rows}
-  //         columns={columns}
-  //         pageSize={5}
-  //         rowsPerPageOptions={[5, 10, 15]}
-  //         localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
-  //       />
-  //     </Grid>
-  //   </Grid>
-  // );
+return (
+  <Grid
+    container
+    direction="column"
+    alignItems="center"
+    justifyContent="center"
+    sx={{ p: 5 }}
+  >
+    <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
+      <Grid item xs={2} align="right">
+        <Typography>مدیریت کالاها</Typography>
+      </Grid>
+      <Grid item xs={8} align="center">
+        جستجو
+      </Grid>
+      <Grid item xs={2} align="left">
+        <Button variant="outlined" color="primary">
+          افزودن کالا
+        </Button>{" "}
+      </Grid>
+    </Grid>
+    <Grid item sx={{ height: 400, width: "100%" }}>
+      
+      <DataGrid
+        item
+        sx={{ background: "white" }}
+        rows={rows}
+        columns={columns}          
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        rowsPerPageOptions={[5, 10, 20]}
+        pagination
+        localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
+      />
+    </Grid>
+  </Grid>
+);
 }
