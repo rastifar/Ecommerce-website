@@ -3,6 +3,8 @@ import useFetch from "../../hooks/useFetch";
 //constant
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
+//axiosApi
+import api from "../../api/api";
 
 //material
 import { styled } from "@mui/material/styles";
@@ -25,8 +27,13 @@ const IMG = styled("img")`
 
 
 export default function Goods() {
-  const { products, error, loading } = useFetch(PRODUCTS);
+  // const { products, error, loading } = useFetch(PRODUCTS);
+  const[products,setProducts] = useState([])
   const [pageSize, setPageSize] = useState(5);
+  useEffect(() => {getData()}, [])
+  const getData = async() => {
+    setProducts(await api.get(PRODUCTS))
+  }
   //columns
   const columns = [
     {
@@ -76,6 +83,8 @@ export default function Goods() {
   const handleEdit = () => {
     console.log("Edit");
   };
+
+//console.log(products);
 
   const rows = products.map((product) => ({
     id: product.id,
