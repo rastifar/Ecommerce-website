@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import usePost from "../../hooks/usePost";
-import axios from '../../api/HttpRequestApi'
+import axios from "../../api/HttpRequestApi";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import { adminloggedIn } from "../../redux/adminSlice";
 import { addToken } from "../../redux/tokenSlice";
@@ -59,45 +59,44 @@ export default function AdminLogin() {
         axios
           .post("http://localhost:3002/auth/login", values)
           .then((res) => {
-            toast.success('خوش آمدید')
-             
-            // localStorage.setItem("token", res.data.token);
             if (res.status == 200) {
-              // dispatch(adminloggedIn(values));
-              dispatch(addToken(res.data.token))
-              navigate("/dashboard", { replace: false });
+              toast.success("خوش آمدید");
+              localStorage.setItem("token", res.data.token);
+              dispatch(addToken(res.data.token));
+              navigate("/dashboard", { replace: true });
             }
           })
-          .catch((err) => toast.error('نام کاربری یا رمز عبور اشتباه است', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            }));
+          .catch((err) =>
+            toast.error("نام کاربری یا رمز عبور اشتباه است", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            })
+          );
       }, 1000);
     },
     validationSchema,
   });
 
-  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <ToastContainer
-position="top-center"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-/>
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <Box
           sx={{
             marginTop: 8,
