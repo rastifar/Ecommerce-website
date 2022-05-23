@@ -83,53 +83,43 @@ export default function Goods() {
     name: product.name,
     category: product.category,
   }));
+ 
 
-  console.log(products);
-  return (
-    <div>{products.data?.map(product => <p>{product.name}</p>)}</div>
-)
-  
-
-  // const rows = products?.map((product) => ({
-  //   id: product.id,
-  //   image: product.image,
-  //   name: product.name,
-  //   category: product.category,
-  // }));
-
-  // return (
-  //   <Grid
-  //     container
-  //     direction="column"
-  //     alignItems="center"
-  //     justifyContent="center"
-  //     sx={{ p: 5 }}
-  //   >
-  //     <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-  //       <Grid item xs={2} align="right">
-  //         <Typography>مدیریت کالاها</Typography>
-  //       </Grid>
-  //       <Grid item xs={8} align="center">
-  //         جستجو
-  //       </Grid>
-  //       <Grid item xs={2} align="left">
-  //         <Button variant="outlined" color="primary">
-  //           افزودن کالا
-  //         </Button>{" "}
-  //       </Grid>
-  //     </Grid>
-  //     <Grid item sx={{ height: 400, width: "100%" }}>
-  //       {/* <div > */}
-  //       <DataGrid
-  //         item
-  //         sx={{ background: "white" }}
-  //         rows={rows}
-  //         columns={columns}
-  //         pageSize={5}
-  //         rowsPerPageOptions={[5, 10, 15]}
-  //         localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
-  //       />
-  //     </Grid>
-  //   </Grid>
-  // );
+return (
+  <Grid
+    container
+    direction="column"
+    alignItems="center"
+    justifyContent="center"
+    sx={{ p: 5 }}
+  >
+    <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
+      <Grid item xs={2} align="right">
+        <Typography>مدیریت کالاها</Typography>
+      </Grid>
+      <Grid item xs={8} align="center">
+        جستجو
+      </Grid>
+      <Grid item xs={2} align="left">
+        <Button variant="outlined" color="primary">
+          افزودن کالا
+        </Button>{" "}
+      </Grid>
+    </Grid>
+    <Grid item sx={{ height: 400, width: "100%" }}>
+      
+      <DataGrid
+        item
+        sx={{ background: "white" }}
+        rows={rows}
+        columns={columns}          
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        rowsPerPageOptions={[5, 10, 20]}
+        pagination
+        localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
+      />
+    </Grid>
+  </Grid>
+);
 }
