@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import usePost from "../../hooks/usePost";
-import axios from "../../api/HttpRequestApi";
+import axios from "../../api/httpRequestApi";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
