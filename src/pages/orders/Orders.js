@@ -60,6 +60,8 @@ const columns = [
 
 export default function Orders() {
 
+  //const token = useSelector((state) => state.token);
+  //const token = localStorage.getItem('token')
   const token = useSelector((state) => state.token);
   const [pageSize, setPageSize] = useState(5);
   const { products, error, loading } = useFetch(ORDERS, {

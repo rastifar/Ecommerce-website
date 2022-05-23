@@ -7,12 +7,13 @@ import { toast } from "react-toastify";
 class Api {
   
     constructor() {
-        axios.defaults.baseURL = BASE_URL;
+      axios.defaults.baseURL = BASE_URL;
+      // axios.defaults.headers.common['Authorization'] = localStorage.getItem("token");
         axios.defaults.timeout = 2000;
         axios.interceptors.request.use(
           (config) => {
             if(config.url===ORDERS){
-              config.headers["token"]=localStorage.getItem("token")
+              config.headers["token"] =localStorage.getItem("token")
             }
            
             return config;
