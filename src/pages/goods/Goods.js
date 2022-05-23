@@ -10,7 +10,7 @@ import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import HttpRequestApi from "../../api/HttpRequestApi";
+
 //----------------------------------------------
 
 //stylecomponent
