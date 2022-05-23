@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import useFetch from "../../hooks/useFetch";
 //constant
 import { PRODUCTS } from "../../constants/apiConst";
@@ -12,30 +12,33 @@ import { Grid, Button, Typography } from "@mui/material";
 const columns = [
   {
     field: "productName",
-    headerName: "کالا",
-    width: 400,
+    headerName: "کالا",    
     sortable: false,
+    editable: false,
+    flex:1,
   },
   {
     field: "price",
     headerName: "قیمت ",
     sortable: false,
     editable: true,
-    width: 400,
+    flex: 1,
+    renderCell: (params) => {
+      return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   },
   {
     field: "count",
     headerName: "موجودی",
     sortable: false,
     editable: true,
-    width: 400,
+    flex:1,
   },
 ];
 
-
-
 export default function StoreQuantity() {
   const { products, error, loading, axiosFetch } = useFetch(PRODUCTS);
+  const [pageSize, setPageSize] = useState(5);
 
 
 
@@ -74,8 +77,10 @@ export default function StoreQuantity() {
           sx={{ background: "white" }}
           rows={rows}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5, 10, 15]}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          pagination
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />
       </Grid>
