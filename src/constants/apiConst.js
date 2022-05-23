@@ -5,3 +5,4 @@ export const PRODUCTS = "/products";
 export const ORDERS = "/orders";
 export const AUTH_LOGIN = "/auth/login"
 
+export const UPLOAD = "/upload"

@@ -78,13 +78,15 @@ const MyRoutes = () => {
           }
           
         /> */}
-       
-         <Route
-            path="/productgroup/:categoryNum/products/:productid"
-            element={<UserLayout>
+
+        <Route
+          path="/productgroup/:categoryNum/products/:productid"
+          element={
+            <UserLayout>
               <ProductDetails />
-            </UserLayout>}
-          />
+            </UserLayout>
+          }
+        />
         <Route
           path="/purchasefinalizing"
           element={
@@ -120,6 +122,7 @@ const MyRoutes = () => {
         >
           <Route path="orders" element={<Orders />} />
           <Route path="goods" element={<Goods />} />
+
           <Route path="storequantity" element={<StoreQuantity />} />
         </Route>
       </Routes>

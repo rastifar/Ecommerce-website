@@ -24,21 +24,17 @@ const Colors = {
 };
 
 export const theme = createTheme({
-  direction: "rtl",
-  fontFamily: [yekan].join(","),
-  palette: {
-    primary: {
-      main: Colors.primary,
-    },
-    secondary: {
-      main: Colors.secondary,
-    },
-  },
-  components: {
-    MuiButton: {
-      defaultProps: {
-        disableRipple: true,
+    direction: 'rtl',
+  
+      palette: {
+          primary: {
+              main: Colors.primary
+          },
+          secondary: {
+              main: Colors.secondary
+          },
+          muted: {
+              main:Colors.muted
+          }
       },
-    },
-  },
 });
