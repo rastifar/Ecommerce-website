@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+//constant
+import { BASE_URL } from "../../constants/apiConst";
+import { PRODUCTS } from "../../constants/apiConst";
 
 //material
 import { styled } from "@mui/material/styles";
@@ -11,57 +14,65 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 //stylecomponent
 const IMG = styled("img")`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 18px;
   object-fit: cover;
 `;
-//columns
-const columns = [
-  {
-    field: "image",
-    headerName: "تصویر",
-    width: 200,
-    sortable: false,
-    renderCell: (params) => <IMG src={SERVICE_URL + params.value} />,
-  },
-  {
-    field: "name",
-    headerName: "نام کالا",
-    sortable: false,
-    editable: true,
-    width: 400,
-  },
-  { field: "category", headerName: "دسته بندی", width: 400 },
-  {
-    field: "deleteOperation",
-    headerName: "  ",
-    sortable: false,
-    width: 50,
-    renderCell: () => <DeleteOutlineOutlinedIcon sx={{ color: "red" }} />,
-  },
-  {
-    field: "editOperation",
-    headerName: "  ",
-    sortable: false,
-    width: 50,
-    renderCell: () => <EditOutlinedIcon sx={{ color: "green" }} />,
-  },
-];
 
 const SERVICE_URL = "http://localhost:3002";
 
 export default function Goods() {
-  const { products, error, loading, axiosFetch } = useFetch();
+  const { products, error, loading } = useFetch(PRODUCTS);
+  const [pageSize, setPageSize] = useState(5);
+  //columns
+  const columns = [
+    {
+      field: "image",
+      headerName: "تصویر",
+      flex: 1,
+      sortable: false,
+      editable: false,
+      renderCell: (params) => <IMG src={BASE_URL + params.value} />,
+    },
+    {
+      field: "name",
+      headerName: "نام کالا",
+      sortable: false,
+      editable: false,
+      flex: 3,
+    },
+    { field: "category", headerName: "دسته بندی", flex: 3 },
+    {
+      field: "deleteOperation",
+      headerName: " حذف محصول",
+      editable: false,
+      sortable: false,
+      flex: 1,
+      renderCell: (params) => (
+        <DeleteOutlineOutlinedIcon
+          onClick={() => handleDeleter(params)}
+          sx={{ color: "red" }}
+        />
+      ),
+    },
+    {
+      field: "editOperation",
+      headerName: "ویرایش محصول",
+      sortable: false,
+      flex: 1,
+      renderCell: () => (
+        <EditOutlinedIcon onClick={handleEdit} sx={{ color: "green" }} />
+      ),
+    },
+  ];
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = () => {
-    axiosFetch({     
-      url: "/products",
-    });
+  const handleDeleter = async (params) => {
+    // await axios.delete(BASE_URL+Products)
+    console.log(params.row);
+  };
+  const handleEdit = () => {
+    console.log("Edit");
   };
 
   const rows = products.map((product) => ({
