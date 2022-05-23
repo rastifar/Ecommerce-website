@@ -20,7 +20,7 @@ import image1 from "../../../assets/images/logo22.png";
 import image2 from "../../../assets/images/logo1.png";
 import { useNavigate } from "react-router-dom";
 //redux
-import { removeToken } from "../../../redux/tokenSlice";
+import { removeToken } from "../../../redux/tokenSlice"
 import { useDispatch } from "react-redux";
 //---------------------
 
