@@ -30,6 +30,9 @@ export default function Goods() {
   // const { products, error, loading } = useFetch(PRODUCTS);
   const[products,setProducts] = useState([])
   const [pageSize, setPageSize] = useState(5);
+  const [isOpen, setIsOpen] = useState(false);
+
+  
   useEffect(() => {getData()}, [])
   const getData = async() => {
     setProducts(await api.get(PRODUCTS))
