@@ -24,20 +24,7 @@ import { removeToken } from "../../../redux/tokenSlice";
 import { useDispatch } from "react-redux";
 //---------------------
 
-<<<<<<< HEAD
 import MyLink from "../../../components/MyLink";
-=======
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
-`;
->>>>>>> hotfix/reduxStore
 
 const Header = () => {
   const theme = useTheme();
