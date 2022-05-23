@@ -173,12 +173,13 @@ export default function AddEditForm({ formData }) {
             sx={{ mt: 1 }}
             overflow="hidden"
           >
-            <Button
+          <Button
+              // sx={{ my: 1 }}
+              size="large"
               variant="outlined"
               fullWidth={true}
               component="label"
               color="success"
-              //  sx={{mx:2}}
             >
               {/* <InputBase 
                     label="تصویر" 

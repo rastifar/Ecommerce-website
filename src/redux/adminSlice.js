@@ -1,11 +1,20 @@
-import React from 'react';
+import { createSlice } from '@reduxjs/toolkit';
 
-const adminSlice = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
 
-export default adminSlice;
+
+export const adminSlice = createSlice({
+    name: 'admin',
+    initialState: {
+        username: "",
+        password:""
+    },
+    reducers: {
+        adminloggedIn: (state,action) => {
+            return action.payload
+        }
+    }
+})
+
+export const { adminloggedIn } = adminSlice.actions
+
+export default adminSlice.reducer
