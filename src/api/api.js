@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL, ORDERS } from "../constants/apiConst";
-import { ORDERS } from "../constants/apiConst";
+
 import { toast } from "react-toastify";
 
 
@@ -48,7 +48,7 @@ class Api {
       get = async(url) => {
         try {
           const response = await axios.get(url);
-          return response;
+          return response.data;
         } catch (error) {
           return error;
         }
