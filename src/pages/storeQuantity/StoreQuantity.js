@@ -55,7 +55,7 @@ const columns = [
 
 
 const changedArray = []
-
+let array = {}
 export default function StoreQuantity() {
   //const { products, error, loading, axiosFetch } = useFetch(PRODUCTS);
   const [products, setProducts] = useState([]);
@@ -71,9 +71,18 @@ export default function StoreQuantity() {
   const handleEdit = async (params) => {
     // console.log(changedArray);
     setEditMode(true);
-    const {id,field,value} = params
+    const { id, field, value } = params
+    
+         array = products.map((r) => {
+        if (r.id === id) {
+          //changedItem.push(params.row.id)
+          return { ...r, [field]: value };
 
-
+        } 
+         });
+    console.log(array);
+//changedArray.push({id,[field]:value})
+//console.log(changedArray);
     // const itemIndex = changedArray.findIndex(item=>item.id ===id)   
     // if (itemIndex < 0) {
     //   changedArray.push({id:id,[field]:value})
@@ -85,9 +94,9 @@ export default function StoreQuantity() {
 
     // console.log(params);
     // console.log(params.id);
-    console.log('id',id);
-    console.log('field',field);
-    console.log('value', value);
+    // console.log('id',id);
+    // console.log('field',field);
+    // console.log('value', value);
     
     // changedArray.map(item => {
     //   if (item.id === id) {
@@ -114,7 +123,7 @@ export default function StoreQuantity() {
       // });
       // setProducts(array);
     //   console.log(array);
-    console.log("change",products)
+   // console.log("change",products)
   };
 
   const rows = products.map((product) => ({
