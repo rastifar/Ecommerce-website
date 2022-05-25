@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import image from "../../../assets/images/f2.png";
-import { caterories } from "../../../constants/formsConst";
+import { caterories } from "../../../constants/categoryConst";
 import RecentActorsTwoToneIcon from "@mui/icons-material/RecentActorsTwoTone";
 import CollectionsTwoToneIcon from "@mui/icons-material/CollectionsTwoTone";
 import CloseIcon from "@mui/icons-material/Close";
@@ -28,7 +28,7 @@ import axios from "axios";
 import { HttpTwoTone } from "@mui/icons-material";
 
 const validationSchema = yup.object().shape({
-  productname: yup.string().required(" فیلد ضروری است"),
+  name: yup.string().required(" فیلد ضروری است"),
   price: yup.number().required(" فیلد ضروری است"),
   count: yup.number().required(" فیلد ضروری است"),
   wieght: yup.number().required(" فیلد ضروری است"),
@@ -38,59 +38,85 @@ const validationSchema = yup.object().shape({
   description: yup.string().required(" فیلد ضروری است"),
 });
 
-const FormAddOrEdit = () => {
+const FormAddOrEdit = ({ data }) => {
   const thumbnailRef = useRef("");
+  const gallaryRef = useRef("");
   const formik = useFormik({
     initialValues: {
-      productname: "",
-      price: "",
-      count: "",
-      wieght: "",
-      category: "",
-      thumbnail: "",
-      gallery: [],
+      name: data.name || "",
+      price: data.price || "",
+      count: data.count || "",
+      wieght: data.wieght || "",
+      category: data.category || "",
+      image: data.image || "",
+      images: data.images || [""],
       description: "",
     },
     onSubmit: (values) => {
-      setTimeout(() => {
-        axios
-          .post("http://localhost:3002/auth/login", values)
-          .then((res) => {
-            toast.success("خوش آمدید");
+      const formData = new FormData();
 
-            // localStorage.setItem("token", res.data.token);
-            if (res.status == 200) {
-              // dispatch(adminloggedIn(values));
-            }
+      Object.entries(values).map((key, value) => {
+        formData.append(key[0], key[1]);
+      });
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+
+      axios
+        .post("http://localhost:3002/products", formData)
+        .then((res) => {
+          // localStorage.setItem("token", res.data.token);
+          if (res.status == 200) {
+            // dispatch(adminloggedIn(values));
+            toast.success("اطلاعات با موفقیت ثبت شده است");
+          }
+        })
+        .catch((err) =>
+          toast.error("عملیات به درستی انجام نشده است", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
           })
-          .catch((err) =>
-            toast.error("نام کاربری یا رمز عبور اشتباه است", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            })
-          );
-      }, 1000);
+        );
+      // }, 1000);
     },
     validationSchema,
   });
-  const handleChange = (e) => {
-    // console.log(e.target.files[0]);
-    const data = e.target.files[0]
-    // const thumbnail = thumbnailRef.current.value;
-    // console.log(thumbnail);
+  
+  const handleChange = async (e) => {
+    const data = e.target.files[0];
     const formData = new FormData();
     formData.append("image", data);
-    // formData.append('image',e.target.files[0],'thumbnail')
-    // console.log(formData);
+    const filename = await axios.post("http://localhost:3002/upload", formData);
+    console.log(filename.data.filename);
+    formik.setFieldValue("image", filename.data.filename, false);
    
-    axios
-      .post("http://localhost:3002/upload", formData)
-      .then((res) => console.log(res)).catch(error=>console.log(error))
+  };
+
+  const handleBulkImageChange = async (e) => {
+    const files = Array.from(e.target.files);
+    //preview(files[0]);
+    console.log(files);
+    let temp = [];
+    files.map((item) => {
+      const formData = new FormData();
+      formData.append("image", item);
+      const tempRequest = axios.post("http://localhost:3002/upload", formData);
+      temp.push(tempRequest);
+    });
+
+    const arrayResponse = await Promise.all(temp);
+    //(i) => i.data.filename
+    const resultArray = arrayResponse.map(function (item) {
+      return item["data"]["filename"];
+    });
+    console.log(resultArray);
+    formik.setFieldValue("images", [resultArray], true);
   };
 
   return (
@@ -99,14 +125,14 @@ const FormAddOrEdit = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        mt:8
+        
       }}
     >
       <Box
         component="form"
         onSubmit={formik.handleSubmit}
         noValidate
-        sx={{ mt: 5, border: "1px solid black", borderRadius: "5px"}}
+        sx={{  border: "1px solid black", borderRadius: "5px" }}
       >
         <Grid container>
           <Grid item>
@@ -115,24 +141,22 @@ const FormAddOrEdit = () => {
               margin="dense"
               size="small"
               required
-              id="productname"
-              name="productname"
+              id="name"
+              name="name"
               placeholder="نام کالا"
-              autoComplete="productname"
+              autoComplete="name"
               color="success"
               onChange={formik.handleChange}
-              value={formik.values.productname}
+              value={formik.values.name}
               helperText={
-                formik.errors.productname &&
-                formik.touched.productname &&
-                formik.errors.productname
+                formik.errors.name && formik.touched.name && formik.errors.name
               }
             />
           </Grid>
           <Grid item>
             {" "}
             <TextField
-               margin="dense"
+              margin="dense"
               size="small"
               required
               fullWidth={true}
@@ -177,9 +201,9 @@ const FormAddOrEdit = () => {
         <Grid container>
           <Grid item>
             <TextField
-               margin="dense"
-               size="small"
-               required
+              margin="dense"
+              size="small"
+              required
               fullWidth={true}
               name="wieght"
               placeholder="وزن"
@@ -239,6 +263,7 @@ const FormAddOrEdit = () => {
               component="label"
               color="success"
               //  sx={{mx:2}}
+              value={formik.values.image}
               helperText={
                 formik.errors.thumbnail &&
                 formik.touched.thumbnail &&
@@ -252,6 +277,27 @@ const FormAddOrEdit = () => {
                 hidden
                 id="thumbnail"
                 name="thumbnail"
+                required
+                onChange={async (e) => {
+                  handleChange(e);
+                  // const data = e.target.files[0];
+                  // const formData = new FormData();
+                  // formData.append("image", data);
+                  // thumbnailRef.current = e.target.files[0]
+                  // console.log(await handleChange(e));
+                  // const value = await handleChange(e);
+                  // handleChange(e);
+                  // thumbnailRef.current = value;
+                  //formik.handleChange(e.target.files[0])
+                  // formik.setFieldValue("image", value, false);
+                }}
+              />
+              {/* <input
+                accept="image/jpg,image/jpeg"
+                type="file"
+                hidden
+                id="thumbnail"
+                name="thumbnail"
                 required                    
                 onChange={(e) => {
                   // thumbnailRef.current = e.target.files[0]
@@ -259,7 +305,7 @@ const FormAddOrEdit = () => {
                   formik.handleChange(e)
                 }}
                 value={formik.values.thumbnail}
-              />
+              /> */}
               <RecentActorsTwoToneIcon sx={{ mr: 4, my: 1 }} />
             </Button>
           </Grid>
@@ -291,6 +337,7 @@ const FormAddOrEdit = () => {
               fullWidth={true}
               component="label"
               color="success"
+              value={formik.values.images}
               helperText={
                 formik.errors.gallery &&
                 formik.touched.gallery &&
@@ -306,13 +353,26 @@ const FormAddOrEdit = () => {
                 name="gallery"
                 required
                 hidden
-                onChange={formik.handleChange}
-                value={formik.values.gallery}
+                multiple
+                onChange={async (e) => {
+                  handleBulkImageChange(e);
+                  // const data = e.target.files[0];
+                  // const formData = new FormData();
+                  // formData.append("image", data);
+                  // thumbnailRef.current = e.target.files[0]
+                  // console.log(await handleChange(e));
+                  // const value = await handleChange(e);
+                  //   gallaryRef.current = value;
+                  // handleChange(e);
+                  // formik.setFieldValue("images",value, true);
+                }}
               />
               <CollectionsTwoToneIcon sx={{ mr: 4, my: 2 }} />
             </Button>
           </Grid>
-          <Grid item></Grid>
+          <Grid item>
+            {formik.images ? <Box>has</Box> : <Box>has not</Box>}
+          </Grid>
         </Grid>
         <Grid container>
           <Grid item>

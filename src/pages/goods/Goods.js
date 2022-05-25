@@ -6,7 +6,8 @@ import { PRODUCTS } from "../../constants/apiConst";
 import { category } from "../../constants/categoryConst";
 //axiosApi
 import api from "../../api/api";
-
+//modal
+import AddOrEditModal from './components/AddOrEditModal'
 //material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
@@ -31,7 +32,7 @@ export default function Goods() {
   // const { products, error, loading } = useFetch(PRODUCTS);
   const[products,setProducts] = useState([])
   const [pageSize, setPageSize] = useState(5);
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   
   useEffect(() => {getData()}, [])
@@ -79,7 +80,9 @@ export default function Goods() {
       ),
     },
   ];
-
+  const handleAdd = () => {
+  
+}
   const handleDeleter = async (params) => {
     // await axios.delete(BASE_URL+Products)
     console.log(params.row);
@@ -110,11 +113,11 @@ return (
       <Grid item xs={2} align="right">
         <Typography>مدیریت کالاها</Typography>
       </Grid>
-      <Grid item xs={8} align="center">
+      {/* <Grid item xs={8} align="center">
         جستجو
-      </Grid>
+      </Grid> */}
       <Grid item xs={2} align="left">
-        <Button variant="outlined" color="primary">
+        <Button variant="outlined" color="primary" onClick={handleAdd}>
           افزودن کالا
         </Button>{" "}
       </Grid>
@@ -133,6 +136,7 @@ return (
         localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
       />
     </Grid>
+    <AddOrEditModal open={open} onclose={() => setOpen(false)} />
   </Grid>
 );
 }

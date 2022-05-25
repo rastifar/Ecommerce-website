@@ -13,41 +13,31 @@ import {
 import { useTheme } from "@mui/material/styles";
 import FormAddOrEdit from "./FormAddOrEdit";
 
-export default function Modal({ title }) {
-  const [open, setOpen] = React.useState(true);
+export default function Modal({ open, onClose , data }) {
+ 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+ 
 
   return (
     <Box>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        {title}
-      </Button>
+     
       <Dialog
         fullScreen={fullScreen}
         maxWidth='lg'
         open={open}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
           افزودن/ویرایش کالا
         </DialogTitle>
         <DialogContent>
-          <FormAddOrEdit/>
+          <FormAddOrEdit data={data}/>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            بستن
-          </Button>
+        <button onClick={onClose}>بستن</button>          
         </DialogActions>
       </Dialog>
     </Box>
