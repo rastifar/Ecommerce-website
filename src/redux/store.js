@@ -1,6 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import adminReducer from "./adminSlice";
 import tokenReducer from "./tokenSlice";
+import productReducer from "./productsSlice"
+import cartReducer from './cartSlice';
+import modalReducer from './modalSlice';
+
+
 
 const loadPreloadState = () => {
   try {
@@ -25,10 +30,25 @@ export const store = configureStore({
   reducer: {
     admin: adminReducer,
     token: tokenReducer,
+    products : productReducer,
+    cart:cartReducer,
+    modal:modalReducer
   },
 });
 
 store.subscribe(() => {
+  saveState({ token: store.getState().token,cart: store.getState().cart });
     // saveState({ admin: store.getState().admin });
-    saveState({ token: store.getState().token });
+  //saveState({ token: store.getState().token });
+  //saveState({ cart: store.getState().cart });
 });
+
+// store.dispatch(productsFetch());
+//store.dispatch(getTotals());
+
+// store.subscribe(throttle(() => {
+//   saveState({
+//     todos: store.getState().todos
+//   });
+// }, 1000));
+
