@@ -1,0 +1,191 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: iranSanse;
+  src: url("../fonts/iranSanse.woff") format("woff");
+  font-size: normal;
+  font-weight: normal;
+}
+
+body {
+  font-family: iranSance;
+  font-size: 1rem;
+}
+
+.container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  direction: rtl;
+}
+
+.d-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.space-between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.space-around {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.flex-start {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.wrap {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.header {
+  background-color: #F3F4F9;
+  height: 6rem;
+}
+
+.header .border-Bottom {
+  background-color: #FEC711;
+  height: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.header .logo-container {
+  width: 5rem;
+  height: 4rem;
+}
+
+.logo {
+  width: 5rem;
+  height: 4rem;
+}
+
+.main {
+  margin-top: 3rem;
+}
+
+.form {
+  background-color: #FEC711;
+  padding: 2rem;
+  -ms-flex-preferred-size: 60%;
+      flex-basis: 60%;
+  border-radius: 3px;
+}
+
+.form .form-container {
+  width: 80%;
+  margin-right: 5%;
+}
+
+.form .form-label {
+  margin: 1rem;
+  padding: 3px;
+  -ms-flex-preferred-size: 20%;
+      flex-basis: 20%;
+  font-family: iranSanse;
+}
+
+.form .form-input {
+  font-family: iranSanse;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.form .action-btn {
+  padding: 7px 10px;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  font-family: iranSanse;
+}
+
+.form .success {
+  background-color: #0BA350;
+  -ms-flex-preferred-size: 60%;
+      flex-basis: 60%;
+}
+
+.form .failure {
+  background-color: #C84043;
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;
+}
+
+.form .href {
+  display: inline-block;
+  font-family: iranSanse;
+  padding: 5px 7px;
+  color: #111212;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+}
+
+.width {
+  width: 100%;
+}
+
+.company {
+  background-color: #FFFFFF;
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;
+}
+
+.keyboard {
+  width: 80%;
+}
+
+.key {
+  background-color: #F0F0F0;
+  color: #898989;
+  text-align: center;
+  margin: 12px;
+  -ms-flex-preferred-size: 14%;
+      flex-basis: 14%;
+  height: 2.4rem;
+  font-family: iranSanse;
+}
+
+.company-info {
+  width: 80%;
+  margin-top: 2rem;
+}
+
+.company-info .right-lbl {
+  font-family: iranSanse;
+}
+
+.company-info .left-lbl {
+  font-family: iranSanse;
+  color: #009937;
+}
+
+.footer {
+  text-align: center;
+  font-family: iranSanse;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #F3F4F9;
+}
+/*# sourceMappingURL=style.css.map */

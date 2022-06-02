@@ -1,0 +1,39 @@
+* {
+    margin:0;
+    padding:0;
+    text-decoration: none;
+  }
+  
+@font-face {
+    font-family: iranSanse;
+    src: url("../fonts/iranSanse.woff") format("woff");
+    font-size: normal;
+    font-weight: normal;
+  }
+  body{
+    font-family: iranSance;
+    font-size: 1rem;
+  }
+.container{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  direction: rtl;
+}
+.d-flex{
+  display: flex;  
+}
+.column{
+  flex-direction: column;
+}
+.space-between{
+  justify-content: space-between;
+}
+.space-around{
+  justify-content: space-around;
+}
+.flex-start{
+  justify-content: flex-start;
+}
+.wrap{
+  flex-wrap: wrap;
+}
