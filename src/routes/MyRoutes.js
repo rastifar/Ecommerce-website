@@ -23,6 +23,7 @@ import {
   Orders,
   NotFound,
 } from "../pages";
+import RequiredAuth from "./components/RequiredAuth";
 
 const MyRoutes = () => {
   return (
@@ -133,7 +134,9 @@ const MyRoutes = () => {
           path="/dashboard"
           element={
             <AdminLayout>
-              <AdminDashboard />
+              {/* <RequiredAuth> */}
+                <AdminDashboard />
+              {/* </RequiredAuth> */}
             </AdminLayout>
           }
         >
