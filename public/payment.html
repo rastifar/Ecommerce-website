@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/scss/style.css" />
+    <title>درگاه پرداخت سداد</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="d-flex space-between">
+          <div class="logo-container">
+            <img src="./assets/images/logo-removebg-preview.png" class="logo" />
+          </div>
+          <div class="logo-container">
+            <img
+              src="./assets/images/shaparak-removebg-preview.png"
+              class="logo"
+            />
+          </div>
+        </div>
+        <div class="border-Bottom"></div>
+      </header>
+      <main class="main d-flex space-between">
+        <!-- right side which is user card info -->
+        <sectin class="form">
+          <form class="form-container">
+            <div class="d-flex space-between">
+              <label for="cartNumber" class="form-label">شماره کارت</label>
+              <input type="text" id="cartNumber" class="form-input width" />
+            </div>
+            <div class="d-flex flex-start">
+              <label for="cartNumber" class="form-label">رمز اینترنتی </label>
+              <input type="text" id="cartNumber" class="form-input" />
+            </div>
+            <div class="d-flex flex-start">
+              <label for="cartNumber" class="form-label">کد CVV2</label>
+              <input type="text" id="cartNumber" class="form-input" />
+            </div>
+            <div class="d-flex flex-start">
+              <label for="cartNumber" class="form-label"
+                >تاریخ انقضای کارت</label
+              >
+              <input type="text" id="cartNumber" class="form-input" />
+            </div>
+
+            <div class="d-flex flex-start">
+              <label for="cartNumber" class="form-label">کد امنیتی</label>
+              <input type="text" id="cartNumber" class="form-input" />
+            </div>
+            <div class="d-flex space-between">
+              <label for="cartNumber" class="form-label">ایمیل</label>
+              <input type="text" id="cartNumber" class="form-input width" />
+            </div>
+            <div class="d-flex space-around">
+              <!-- <button class="success action-btn">پرداخت</button>
+              <button class="failure action-btn">انصراف</button> -->
+              <a
+              href="http://localhost:3000/purchaseresult?status=success"
+              class="href success "
+              >پرداخت</a
+            >
+            <a
+              href="http://localhost:3000/purchaseresult?status=failed"
+              class="href failure"
+              >انصراف</a
+            >
+            </div>
+          </form>
+        </sectin>
+        <!-- left side which is company info -->
+        <sectin class="company d-flex column">
+          <!-- keyboard -->
+          <div class="keyboard d-flex wrap space-around">
+            <div class="key">1</div>
+            <div class="key">2</div>
+            <div class="key">3</div>
+            <div class="key">4</div>
+            <div class="key">5</div>
+            <div class="key">6</div>
+            <div class="key">7</div>
+            <div class="key">8</div>
+            <div class="key"></div>
+            <div class="key">9</div>
+            <div class="key">0</div>
+            <div class="key"></div>
+          </div>
+          <!-- company info -->
+          <div class="company-info">
+            <div class="d-flex space-between">
+              <label class="right-lbl">انار سبز</label>
+              <img src="./assets/images/logo1.png" />
+            </div>
+            <div class="d-flex space-between">
+                <label class="right-lbl">مبلغ تراکنش(تومان)</label>
+                <label id="priceTotal" class="left-lbl"></label>
+            </div>
+            <div class="d-flex space-between">
+                <label class="right-lbl">شماره پذیرنده</label>
+                <label class="left-lbl">00000256146</label>
+            </div>
+            <div class="d-flex space-between">
+                <label class="right-lbl">شماره سفارش</label>
+                <label class="left-lbl">170611402</label>
+            </div>
+            <div class="d-flex space-between">
+                <label class="right-lbl">آدرس وب</label>
+                <label class="left-lbl">www.anarsabz.ir</label>
+            </div>
+          </div>
+        </sectin>
+      </main>
+      <footer class="footer">
+          <div>صفحه درگاه پرداخت سداد </div>
+      </footer>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search)
+      let totalPrice = params.get("totalPrice");
+     totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      document.getElementById('priceTotal').innerHTML = totalPrice
+    </script>
+  </body>
+</html>
