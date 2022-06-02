@@ -1,44 +1,54 @@
-import React, { useEffect ,useState} from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 //constant
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
-import { category } from "../../constants/categoryConst";
-//axiosApi
 import api from "../../api/api";
+import { category } from "../../constants/categoryConst";
 //modal
-import AddOrEditModal from './components/AddOrEditModal'
+import AddOrEditModal from "./components/AddOrEditModal";
+import DeleteConfirmModal from "./components/DeleteConfirmModal";
+//components
+import CustomPagination from '../../components/CustomPagination';
+
+
 //material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-
+import axios from "axios";
+import LinearProgress from '@mui/material/LinearProgress';
 //----------------------------------------------
 
 //stylecomponent
 const IMG = styled("img")`
   width: 3rem;
-  height: 3rem;
+  height: 3rem;   
   border-radius: 18px;
   object-fit: cover;
 `;
 
-
-
-
 export default function Goods() {
-  // const { products, error, loading } = useFetch(PRODUCTS);
-  const[products,setProducts] = useState([])
+  //const { products, error, loading } = useFetch(PRODUCTS);
+  const [products, setProducts] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [data, setData] = useState("");
   
-  useEffect(() => {getData()}, [])
-  const getData = async() => {
-    setProducts(await api.get(PRODUCTS))
-  }
+
+  useEffect(() => {
+    console.log('in useEffect');
+    getData();
+  }, [open,isDeleteOpen,data]);
+
+  const getData = async () => {
+    const response = await api.get(PRODUCTS+`?_sort=id&_order=desc`)
+    setProducts(response.data);
+  };
+  //console.log(isDeleteOpen);
   //columns
   const columns = [
     {
@@ -47,25 +57,39 @@ export default function Goods() {
       flex: 1,
       sortable: false,
       editable: false,
-      renderCell: (params) => <IMG src={BASE_URL + params.value} />,
+      disableColumnMenu	:true,
+      headerAlign: "left",
+      renderCell: (params) => <IMG src={BASE_URL + "/files/" + params.value} />,
     },
     {
       field: "name",
       headerName: "نام کالا",
       sortable: false,
       editable: false,
-      flex: 3,
+      disableColumnMenu	:true,
+      flex: 2,
+      headerAlign: "left",
     },
-    { field: "category", headerName: "دسته بندی", flex: 3 },
+    {
+      field: "category",
+      headerName: "دسته بندی",
+      sortable: true,
+      editable: false,
+      disableColumnMenu	:true,
+      flex: 2,
+    },
     {
       field: "deleteOperation",
       headerName: " حذف محصول",
       editable: false,
       sortable: false,
+      disableColumnMenu	:true,
+      headerAlign: "center",
+      align: "center",
       flex: 1,
       renderCell: (params) => (
         <DeleteOutlineOutlinedIcon
-          onClick={() => handleDeleter(params)}
+          onClick={() => handleDelete(params)}
           sx={{ color: "red" }}
         />
       ),
@@ -73,70 +97,109 @@ export default function Goods() {
     {
       field: "editOperation",
       headerName: "ویرایش محصول",
+      editable: false,
       sortable: false,
+      disableColumnMenu	:true,
       flex: 1,
-      renderCell: () => (
-        <EditOutlinedIcon onClick={handleEdit} sx={{ color: "green" }} />
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params) => (
+        <EditOutlinedIcon
+          onClick={() => handleEdit(params)}
+          sx={{ color: "green" }}
+        />
       ),
     },
   ];
-  const handleAdd = () => {
-  
-}
-  const handleDeleter = async (params) => {
+
+  const handleDelete = async (params) => {
     // await axios.delete(BASE_URL+Products)
-    console.log(params.row);
+    const id = params.row.id;
+    console.log(id);
+    setData(id);
+    setIsDeleteOpen(true);
+    // console.log(params.row);
   };
-  const handleEdit = () => {
-    console.log("Edit");
+  const handleEdit = (params) => {
+    const id = params.row.id;
+    console.log("Edit", params.row.id);
+    setData(products.find((item) => item.id === id));
+    setOpen(true);
   };
 
-//console.log(products);
-
-  const rows = products.map((product) => ({
+  const rows = products?.map((product) => ({
     id: product.id,
     image: product.image,
     name: product.name,
-    category: category[product.category-1],
+    category: category[product.category - 1],
   }));
- 
 
-return (
-  <Grid
-    container
-    direction="column"
-    alignItems="center"
-    justifyContent="center"
-    sx={{ p: 5 }}
-  >
-    <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-      <Grid item xs={2} align="right">
-        <Typography>مدیریت کالاها</Typography>
+  const handleOpenModal = () => {
+    setOpen(true);
+  };
+
+  return (
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ p: .4 }}
+    >
+      <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
+        <Grid item xs={2} align="right">
+          <Typography>مدیریت کالاها</Typography>
+        </Grid>
+        <Grid item xs={8} align="center">
+          جستجو
+        </Grid>
+        <Grid item xs={2} align="left">
+          <Button variant="outlined" color="primary" onClick={handleOpenModal}>
+            افزودن کالا
+          </Button>{" "}
+        </Grid>
       </Grid>
-      {/* <Grid item xs={8} align="center">
-        جستجو
-      </Grid> */}
-      <Grid item xs={2} align="left">
-        <Button variant="outlined" color="primary" onClick={handleAdd}>
-          افزودن کالا
-        </Button>{" "}
+      <Grid item sx={{ height: 400, width: "100%" }}>
+        {/* <div > */}
+        <DataGrid
+          item
+          sx={{ background: "white" }}
+          rows={rows}
+          columns={columns}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          disableSelectionOnClick
+          pagination
+          components={{
+            Pagination: CustomPagination,
+            LoadingOverlay: LinearProgress
+          }}
+          // {...data}
+
+          localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
+        />
       </Grid>
-    </Grid>
-    <Grid item sx={{ height: 400, width: "100%" }}>
-      
-      <DataGrid
-        item
-        sx={{ background: "white" }}
-        rows={rows}
-        columns={columns}          
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[5, 10, 20]}
-        pagination
-        localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
+      <AddOrEditModal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+          setData("");
+        }}
+        data={data}
+        getData={getData}
+        // onReRenderAfterModal={() => setReRenderAfterModal(!reRenderAfterModal)}
+      />
+      <DeleteConfirmModal
+        open={isDeleteOpen}
+        onClose={() => {
+          setIsDeleteOpen(false)
+          setData("")
+        }}
+        data={data}
+        getData={getData}
+        // onReRenderAfterModal={() => setReRenderAfterModal(!reRenderAfterModal)}
       />
     </Grid>
-    <AddOrEditModal open={open} onclose={() => setOpen(false)} />
-  </Grid>
-);
+  );
 }

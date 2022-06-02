@@ -1,53 +1,51 @@
 import * as React from "react";
-
+//----------Material
 import {
   Button,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
-    DialogTitle,
-    Box,
-  useMediaQuery,
+  DialogContentText,
+  DialogTitle,
+  Box,
   Typography
 } from "@mui/material";
-import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
-import { useTheme } from "@mui/material/styles";
-import FormAddOrEdit from "./FormAddOrEdit";
 import CancelPresentationTwoToneIcon from '@mui/icons-material/CancelPresentationTwoTone';
 
-export default function Modal({ open, onClose , data,getData }) {
- 
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import OrderForm from "./OrderForm";
+
+export default function OrderModal({ data, open, onClose ,handlechange}) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleClose = () => {
     onClose();
-  
- }
+  };
 
   return (
-    <Box>
-     
+    <div>
       <Dialog
-        fullScreen={fullScreen}
-        maxWidth='lg'
+       fullScreen={fullScreen}
+       maxWidth='lg'
         open={open}
-        onClose={onClose}
+        onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-        <Box display='flex' justifyContent='space-between'>
-            <Typography>افزودن/ویرایش کالا</Typography>
+          <Box display='flex' justifyContent='space-between'>
+            <Typography>  نمایش سفارش</Typography>
             <CancelPresentationTwoToneIcon sx={{ color: "red" }} onClick={onClose} />
           </Box>
         
         </DialogTitle>
-        <DialogContent>
-          <FormAddOrEdit data={data} onClose={onClose} getData={getData}/>
+
+        <DialogContent  sx={{width:'60vw'}}>
+                  <OrderForm data={data} onClose={onClose} handlechange={handlechange}/>
         </DialogContent>
-      
+        
       </Dialog>
-    </Box>
+    </div>
   );
 }

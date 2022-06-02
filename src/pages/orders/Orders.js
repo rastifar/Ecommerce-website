@@ -15,57 +15,62 @@ import {
   FormControlLabel,
   FormControl,
 } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
 
 //utils
-import { convertTimeStamToDate } from "../../utils/utils";
+import { convertTimeStamToDate,numberDivider } from "../../utils/utils";
 import { Link } from "react-router-dom";
+import OrderModal from "./component/OrderModal";
+//components
+import CustomPagination from "../../components/CustomPagination";
 //reduxStore
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { changeState } from "../../redux/modalSlice";
 
-import OrderModal from "./components/OrderModal";
-import api from "../../api/api";
 //---------------------------------------------------------
 //columns
-const columns = [
-  {
-    field: "username",
-    headerName: "نام کاربر",
-    width: 300,
-    sortable: false,
-    editable: false,
-  },
-  {
-    field: "purchaseTotal",
-    headerName: "مجموع مبلغ",
-    width: 300,
-    sortable: false,
-    editable: false,
-  },
-  {
-    field: "delivery",
-    headerName: "زمان ثبت سفارش",
-    width: 300,
-    sortable: true,
-    editable: false,
-  },
-  {
-    field: "orderStatus",
-    headerName: "  ",
-    width: 300,
-    sortable: false,
-    editable: false,
-    // renderCell: (cellValues) => {
-    //   return <Link href={`#${cellValues.row.url}`}>بررسی سفارش</Link>
-    // }
-  },
-];
+// const columns = [
+//   {
+//     field: "username",
+//     headerName: "نام کاربر",
+//     width: 300,
+//     sortable: false,
+//     editable: false,
+//   },
+//   {
+//     field: "purchaseTotal",
+//     headerName: "مجموع مبلغ",
+//     width: 300,
+//     sortable: false,
+//     editable: false,
+//   },
+//   {
+//     field: "delivery",
+//     headerName: "زمان ثبت سفارش",
+//     width: 300,
+//     sortable: true,
+//     editable: false,
+//   },
+//   {
+//     field: "orderStatus",
+//     headerName: "  ",
+//     width: 300,
+//     sortable: false,
+//     editable: false,
+
+//     // renderCell: (cellValues) => {
+//     //   return <Link href={`#${cellValues.row.url}`}>بررسی سفارش</Link>
+//     // }
+//   },
+// ];
 
 //-------------------------------------------------------
 
 export default function Orders() {
-  //const token = useSelector((state) => state.token);
+  const modalmode = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
   //const token = localStorage.getItem('token')
- const token = useSelector((state) => state.token);
+  const token = useSelector((state) => state.token);
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState("");
   const [products, setProducts] = useState([]);
@@ -102,6 +107,7 @@ export default function Orders() {
       width: 300,
       sortable: false,
       editable: false,
+      disableColumnMenu: true,
     },
     {
       field: "purchaseTotal",
@@ -109,9 +115,10 @@ export default function Orders() {
       width: 300,
       sortable: false,
       editable: false,
-      renderCell: (params) => {
-        return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      },
+      disableColumnMenu: true,
+      // renderCell: (params) => {
+      //   return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      // },
       //   valueFormatter: (params) => {
       //     return ('تومان'+ " " +params.value.toLocaleString());
       // }
@@ -122,6 +129,7 @@ export default function Orders() {
       width: 300,
       sortable: true,
       editable: false,
+      disableColumnMenu: true,
     },
     {
       field: "orderStatus",
@@ -129,61 +137,66 @@ export default function Orders() {
       width: 300,
       sortable: false,
       editable: false,
+      disableColumnMenu: true,
 
+      // renderCell: (params) => (
+      //   <a href="#" onClick={() => handleOrder(params)} sx={{ color: "blue" }}>
+      //     بررسی سفارش
+      //   </a>
+      // ),
       renderCell: (params) => (
-        <a href="#" onClick={() => handleOrder(params)} sx={{ color: "blue" }}>
+        <Typography
+          onClick={() => handleOrder(params)}
+          sx={{ color: "#2155CD" }}
+        >
+          {" "}
           بررسی سفارش
-        </a>
+        </Typography>
       ),
+
       // renderCell: (params) => (
       //   <Link to={`#${params.value}`} onClick={(params)=>handleOrderStatus(params)}>بررسی سفارش </Link>
       // )
     },
   ];
 
-  const rows = products.map((product) => ({
+  const rows = products?.map((product) => ({
     id: product.id,
     username:
       product.customerDetail.firstName + " " + product.customerDetail.lastName,
-    purchaseTotal: product.purchaseTotal,
-    delivery: convertTimeStamToDate(product.delivery),
+    purchaseTotal:numberDivider( product.purchaseTotal),
+    delivery: convertTimeStamToDate(product.createdAt),
     url: "#",
   }));
 
   const handleOrder = (params) => {
     const id = params.row.id;
-    console.log(id);
-
-    console.log(products);
-    //await axios.get(BASE_URL + ORDERS + `/${id}`, { headers: { token: token } });
-    //axios.get(BASE_URL+ORDERS+`/${params.row.id}`,{headers:{token:token}}).then(res=>console.log(res.data))
-    //setData(params.row.id)
     setData(products.find((item) => item.id === id));
     setIsOpen(true);
-    console.log(data);
+    dispatch(changeState());
+   // console.log(data);
   };
-  console.log(products);
+ // console.log(products);
   const handlechange = (value) => {
-
+    console.log(value);
     // try {
     //   const result = await axios.get(
     //     `http://localhost:3002/orders?orderStatus=${num}`
     //   );
-     
+
     //  setProducts(result.data);
     // } catch (error) {
     //   console.log(error);
     // }
 
-
-    if (value === 0 && products.length === 0) {
+    if (value === 0) {
       axios
         .get(BASE_URL + ORDERS, { headers: { token: token } })
         .then((res) => setProducts(res.data));
       return;
     }
     if (value === 1 || value === 2) {
-            axios
+      axios
         .get(BASE_URL + ORDERS + `?orderStatus=${value}`)
         .then((res) => setProducts(res.data));
     }
@@ -202,7 +215,7 @@ export default function Orders() {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        sx={{ p: 5 }}
+        sx={{ p: 0.4 }}
       >
         <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
           <Grid item xs={2} align="right" sx={{ flexGrow: 1 }}>
@@ -218,15 +231,13 @@ export default function Orders() {
               <FormControlLabel
                 value="0"
                 control={<Radio />}
-                label="تمام سفارشات  
-"
+                label="تمام سفارشات "
                 onChange={() => handlechange(0)}
               />
               <FormControlLabel
                 value="1"
                 control={<Radio />}
-                label="سفارش های تحویل شده  
-"
+                label="سفارش های تحویل شده  "
                 onChange={() => handlechange(1)}
               />
               <FormControlLabel
@@ -248,11 +259,20 @@ export default function Orders() {
             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             rowsPerPageOptions={[5, 10, 20]}
             pagination
+            components={{
+              Pagination: CustomPagination,
+              LoadingOverlay: LinearProgress,
+            }}
             localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
+          />
+          <OrderModal
+            data={data}
+            open={isOpen}
+            onClose={() => setIsOpen(false)}
+            handlechange={handlechange}
           />
         </Grid>
       </Grid>
-      <OrderModal open={isOpen} onClose={() => setIsOpen(false)} data={data} />
     </>
   );
 }

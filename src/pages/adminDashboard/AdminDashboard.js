@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 const AdminDashboard = () => {
   return (
-    <Box sx={{ background: "lightGray" }}>
+    <Box sx={{ background: "#82A284" }}>
       <Outlet />
     </Box>
   );

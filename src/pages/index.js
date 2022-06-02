@@ -11,5 +11,6 @@ export { default as NotFound } from "./pagenotfound/NotFound";
 export { default as ProductDetails } from "./productDetails/ProductDetails";
 export { default as ProductGroups } from "./productGroups/ProductGroups";
 export { default as PurchaseFinalizing } from "./purchaseFinalizing/PurchaseFinalizing";
+
 export { default as PurchaseResult } from "./purchaseResult/PurchaseResult"; 
 export { default as Orders } from "./orders/Orders";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import usePost from "../../hooks/usePost";
-import axios from "../../api/httpRequestApi";
+import axios from "../../api/HttpRequestApi";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
@@ -63,7 +63,7 @@ export default function AdminLogin() {
               toast.success("خوش آمدید");
               localStorage.setItem("token", res.data.token);
               dispatch(addToken(res.data.token));
-              navigate("/dashboard", { replace: true });
+              navigate("/dashboard", { replace: false });
             }
           })
           .catch((err) =>
@@ -85,21 +85,11 @@ export default function AdminLogin() {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        <CssBaseline />      
         <Box
           sx={{
             marginTop: 8,
+            marginBottom:10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -154,26 +144,29 @@ export default function AdminLogin() {
                 formik.errors.password
               }
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="success" />}
               label="مرا به خاطر بسپار"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth={true}
               variant="contained"
               color="success"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 10 }}
             >
               ورود
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2" sx={{ textDecoration: "none" }}>
-                  فراموشی رمز عبور
+                  بازگشت به سایت
+                </Link>
+                <Link href="#" variant="body2" sx={{ textDecoration: "none" }}>
+                محصولات
                 </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
       </Container>
