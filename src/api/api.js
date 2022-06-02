@@ -46,10 +46,10 @@ class Api {
     //   );
     // }
   }
-      get = async(url) => {
+      get = (url) => {
         try {
-          const response = await axios.get(url);
-          return response.data;
+          const response =  axios.get(url);
+          return response;
         } catch (error) {
           return error;
         }
@@ -66,9 +66,9 @@ class Api {
     
       };
     
-      patch = async(url,data) => {
+      patch = async(url,data,headers) => {
         try {
-          const response = await axios.patch(url,data);
+          const response = await axios.patch(url,data,headers);
           return response;
         } catch (error) {
           return error;
