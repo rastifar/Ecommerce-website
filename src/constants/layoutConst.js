@@ -1,36 +1,66 @@
-export const LINKARRAYS = ["فروشگاه", "درباره ما", "تماس با ما"]
-export const LINKARRAYRESPONSIVE = ["فروشگاه", "درباره ما", "تماس با ما", "مدیریت"]
+export const LINKARRAYS = [
+  {
+    title: "تازه",
+    link: "/productgroup/1",
+  },
+  {
+    title: "منجمد",
+    link: "/productgroup/2",
+  },
+  {
+    title: "نوشیدنی",
+    link: "/productgroup/3",
+  },
+];
+export const LINKARRAYRESPONSIVE = [
+  {
+    title: "تازه",
+    link: "/productgroup/1",
+  },
+  {
+    title: "منجمد",
+    link: "/productgroup/2",
+  },
+  {
+    title: "نوشیدنی",
+    link: "/productgroup/3",
+  },
+  {
+    title: "مدیریت",
+    link: "/login",
+  }
+];
+
 
 export const LINKAdmin = [
-    {
-        title: "کالاها",
-        link:"goods"
-    },
-    {
-        title:"موجودی و انبار",
-        link:"storequantity"
-    },
-    {
-        title:"سفارش ها",
-        link:"orders"
-    }
-
-]
+  {
+    title: "کالاها",
+    link: "goods",
+  },
+  {
+    title: "موجودی و انبار",
+    link: "storequantity",
+  },
+  {
+    title: "سفارش ها",
+    link: "orders",
+  },
+];
 export const LINKADMINRESPONSIVE = [
-    {
-        title: "کالاها",
-        link:"goods"
-    },
-    {
-        title:"موجودی و انبار",
-        link:"storequantity"
-    },
-    {
-        title:"سفارش ها",
-        link:"orders"
-    }, {
-        title: "بازگشت",
-        link:"/"
-    }
-
-]
+  {
+    title: "کالاها",
+    link: "goods",
+  },
+  {
+    title: "موجودی و انبار",
+    link: "storequantity",
+  },
+  {
+    title: "سفارش ها",
+    link: "orders",
+  },
+  {
+    title: "بازگشت",
+    link: "/",
+  },
+];
