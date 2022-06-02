@@ -27,17 +27,19 @@ const DrawerCmp = () => {
         onClose={() => setOpen(false)}
       >
         <List>
-          {LINKARRAYRESPONSIVE.map((link, index) => (
+          {LINKARRAYRESPONSIVE.map((item, index) => (
             <ListItemButton key={index} divider onClick={() => setOpen(false)}>
               <ListItemIcon>
-                {link == "مدیریت" ? (
+                {item.title == "مدیریت" ? (
                   <MyLink to="/login">                 
                     <Button color="warning" size="medium" variant="contained">
                       مدیریت
                     </Button>
                     </MyLink>
                 ) : (
-                  <ListItemText sx={{ color: "white" }}>{link}</ListItemText>
+                    <MyLink to={item.link}>
+                      <ListItemText sx={{ color: "white" }}>{item.title}</ListItemText>
+                      </MyLink>
                 )}
               </ListItemIcon>
             </ListItemButton>

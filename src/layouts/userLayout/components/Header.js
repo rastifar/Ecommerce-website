@@ -7,27 +7,39 @@ import {
   Tab,
   Tabs,
   useTheme,
-  Badge,
+ Badge,
   useMediaQuery,
+  Stack
 } from "@mui/material";
-import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { LINKARRAYS } from "../../../constants/layoutConst";
+
 
 import DrawerCmp from "./DrawerCmp";
 
 import image1 from "../../../assets/images/logo22.png";
 import image2 from "../../../assets/images/logo1.png";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import MyLink from "../../../components/MyLink";
 
-const Header = () => {
+
+//Redux
+import { useSelector } from 'react-redux';
+
+const Header = ({withSidebar=false}) => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
+  const location = useLocation();
+  const search = location.pathname.split("/").splice(1, 2).join("/");   
+  const tabVal = LINKARRAYS.findIndex((i) => i.link === "/".concat(search)); 
+  console.log(tabVal);
   const [value, setValue] = useState(0);
+  const itemInBasket = useSelector(state => state.cart.cartTotalQuantity) ;
 
   return (
-    <AppBar color="inherit">
+   
+    <AppBar color="inherit" sx={{bgcolor:'#F3F4F9'}} position="static" elevation={0} >
       <Toolbar>
         {isMatch ? (
           <>
@@ -37,9 +49,11 @@ const Header = () => {
               </Box>
             </MyLink>
             <Box>
-              <Badge badgeContent={0} color="error">
-                <AddShoppingCart />
-              </Badge>
+              <MyLink to="/cart">
+              <Badge badgeContent={itemInBasket} color="warning">
+                <ShoppingCartIcon  />
+                </Badge>
+                </MyLink>
             </Box>
             <DrawerCmp />
           </>
@@ -50,7 +64,13 @@ const Header = () => {
                 <img src={image1} style={{ width: "200px" }} />
               </Box>
             </MyLink>
-            <Box sx={{ flexGrow: 1, marginRight: "5rem" }}>
+              <Box sx={{ flexGrow: 1, marginRight: "5rem" }}>
+                {/* <Stack direction="row" spacing={2}>
+
+                  <Button color='inherit'>میوه تازه</Button>
+                  <Button color='inherit'>میوه منجمد</Button>
+                  <Button color='inherit'>نوشیدنی</Button>
+                </Stack> */}
               <Tabs
                 indicatorColor="secondary"
                 value={value}
@@ -59,8 +79,10 @@ const Header = () => {
               >
                 {LINKARRAYS.map((link, index) => (
                   <Tab
-                    label={link}
+                    label={link.title}
                     key={index}
+                    component={Link}
+                    to={link.link}
                     sx={{ fontSize: "1rem", fontWeight: "bold" }}
                   />
                 ))}
@@ -73,15 +95,18 @@ const Header = () => {
                 </Button>
               </MyLink>
             </Box>
-            <Box>
-              <Badge badgeContent={0} color="error">
-                <AddShoppingCart />
-              </Badge>
+              <Box>
+              <MyLink to="/cart">
+              <Badge badgeContent={itemInBasket} color="warning" >
+                 <ShoppingCartIcon />
+                  </Badge>
+                  </MyLink>
             </Box>
           </>
         )}
       </Toolbar>
     </AppBar>
+      
   );
 };
 

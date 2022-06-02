@@ -18,9 +18,9 @@ import DrawerCmp from "./DrawerCmp";
 
 import image1 from "../../../assets/images/logo22.png";
 import image2 from "../../../assets/images/logo1.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 //redux
-import { removeToken } from "../../../redux/tokenSlice"
+import { removeToken } from "../../../redux/tokenSlice";
 import { useDispatch } from "react-redux";
 //---------------------
 
@@ -28,17 +28,22 @@ import MyLink from "../../../components/MyLink";
 
 const Header = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  const dispatch = useDispatch()
-  const [value, setValue] = useState(0);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const search = location.pathname.split("/").pop();
+  const tabVal = LINKAdmin.findIndex((i) => i.link === search);
+  const [value, setValue] = useState(tabVal || 0);
 
   const handleLogout = () => {
     dispatch(removeToken());
-    // window.localStorage.removeItem("token");
+    window.localStorage.removeItem("token");
     navigate("/", { replace: false });
   };
-
+  console.log(LINKAdmin.title);
   return (
     <AppBar position="static" color="inherit">
       <Toolbar>
@@ -71,12 +76,15 @@ const Header = () => {
                 onChange={(e, val) => setValue(val)}
               >
                 {LINKAdmin.map((link, index) => (
-                  <MyLink to={link.link} key={index}>
-                    <Tab
-                      label={link.title}
-                      sx={{ fontSize: "1rem", fontWeight: "bold" }}
-                    />
-                  </MyLink>
+                  // <MyLink to={link.link} key={index}>
+                  <Tab
+                    label={link.title}
+                    key={index}
+                    component={Link}
+                    to={link.link}
+                    sx={{ fontSize: "1rem", fontWeight: "bold" }}
+                  />
+                  // </MyLink>
                 ))}
               </Tabs>
             </Box>
