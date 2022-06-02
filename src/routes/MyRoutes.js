@@ -29,6 +29,7 @@ const MyRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="*" element={<NotFound />} />
+
         <Route
           path="/"
           element={
@@ -37,10 +38,11 @@ const MyRoutes = () => {
             </UserLayout>
           }
         />
+
         <Route
           path="/productgroup/:categoryNum"
           element={
-            <UserLayout>
+            <UserLayout withSidebar={true}>
               <ProductGroups />
             </UserLayout>
           }
@@ -88,6 +90,14 @@ const MyRoutes = () => {
           }
         />
         <Route
+          path="/products/:productid"
+          element={
+            <UserLayout>
+              <ProductDetails />
+            </UserLayout>
+          }
+        />
+        <Route
           path="/purchasefinalizing"
           element={
             <UserLayout>
@@ -111,7 +121,14 @@ const MyRoutes = () => {
             </UserLayout>
           }
         />
-        <Route path="/login" element={<AdminLogin />} />
+        <Route
+          path="/login"
+          element={
+            <UserLayout>
+              <AdminLogin />
+            </UserLayout>
+          }
+        />
         <Route
           path="/dashboard"
           element={
@@ -122,7 +139,6 @@ const MyRoutes = () => {
         >
           <Route path="orders" element={<Orders />} />
           <Route path="goods" element={<Goods />} />
-
           <Route path="storequantity" element={<StoreQuantity />} />
         </Route>
       </Routes>
