@@ -22,9 +22,9 @@ import InputIcon from "react-multi-date-picker/components/input_icon";
 import { useSelector } from "react-redux";
 import { TryRounded } from "@mui/icons-material";
 //-------------REGEX
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-// /^(09)+\d{9}$/;
+const phoneRegExp = /^(09)+\d{9}$/;
+// /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/;
+//
 //------------Theme
 const theme = createTheme();
 
@@ -42,7 +42,11 @@ const validationSchema = yup.object({
     .required("لطفا نام خانوادگی را وارد کنید"),
   phoneNumber: yup
     .string()
-    .matches(phoneRegExp, "شماره وارد شده معتبر نمی باشد"),
+    .matches(
+    /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/,
+    "این شماره نامعتبر است"
+    )
+    .max(11, "این شماره نامعتبر است").required("لطفا شماره تماس را وارد کنید"),    
   address: yup
     .string()
     .min(3, "کمتر از 3 حرف مجاز نمی باشد")
@@ -205,6 +209,11 @@ const PurchaseFinalizing = () => {
               fullWidth={true}
               margin="dense"
               color="secondary"
+              helperText={
+                formik.errors.phoneNumber &&
+                formik.touched.phoneNumber &&
+                formik.errors.phoneNumber
+              }
             />
           </Grid>
           <Grid item xs={12} sm={6}>        

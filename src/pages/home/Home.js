@@ -1,34 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Grid,
-  Slider,
-  Typography,
-  Box,
-  styled,
-} from "@mui/material";
+import { Grid, Typography, Box, styled } from "@mui/material";
 import { Navigation, Pagination, Autoplay } from "swiper";
-
 import axios from "axios";
-
 //------------------------------images
-
-import image1 from "../../assets/images/h1s.png";
-import image2 from "../../assets/images/h2s.png";
-import image3 from "../../assets/images/h3s.png";
-import image4 from "../../assets/images/h4s.png";
-import homeImage from "../../assets/images/homePage.jpg";
-import cat2 from "../../assets/images/fr2.png";
-import cat5 from "../../assets/images/f2.png";
-import cat6 from "../../assets/images/s2.png";
-//hero
-import hero1 from "../../assets/images/homePage.jpg";
-import hero2 from "../../assets/images/frozenHero.jpeg";
-import hero3 from "../../assets/images/smoothyHero.png";
-
+import Images from "../../assets/index";
 //components
 import CompanyMsgCard from "./components/CompanyMsgCard";
-import ProductCards from "../../components/ProductCards";
 import MyLink from "../../components/MyLink";
 import Carousel from "./components/Carousel";
 
@@ -37,17 +14,22 @@ const Section = styled("section")({
 });
 
 const topMsg = [
-  { image: image4, title: "پشتیبانی", description: "7 روز هفته" },
-  { image: image1, title: "کیفیت برتر ", description: "محصولات با کیفیت" },
-  { image: image2, title: "همیشه تازه", description: "بسته بندی عالی محصولات" },
+  { image: Images.Mes4, title: "پشتیبانی", description: "7 روز هفته" },
+  { image: Images.Mes1, title: "کیفیت برتر ", description: "محصولات با کیفیت" },
   {
-    image: image3,
+    image: Images.Mes2,
+    title: "همیشه تازه",
+    description: "بسته بندی عالی محصولات",
+  },
+  {
+    image: Images.Mes3,
     title: "ارسال رایگان",
     description: "خریدهای بالای 300 تومان",
   },
 ];
 
-const carouselImage = [hero1, hero2, hero3];
+const carouselImg = [Images.HomeSlide1, Images.HomeSlide2, Images.HomeSlide3];
+
 const Home = () => {
   const [fruit, setFruit] = useState([]);
   const [frozen, setFrozen] = useState([]);
@@ -74,7 +56,7 @@ const Home = () => {
       >
         <header>
           <Carousel
-            Slides={carouselImage}
+            Slides={carouselImg}
             width="98vw"
             height="70vh"
             isImg={true}
@@ -113,7 +95,7 @@ const Home = () => {
         <Section>
           <Box sx={{ mb: 2 }}>
             <MyLink to="/productgroup/1">
-              <Typography sx={{ fontSize: "1.8rem" }}>
+              <Typography sx={{ fontSize: "1.8rem", p: 2 }}>
                 میوه و سبزی تازه
               </Typography>
             </MyLink>
@@ -122,9 +104,9 @@ const Home = () => {
             <Carousel
               Slides={fruit}
               width="90vw"
-              height="40vh"
+              height="45vh"
               isImg={false}
-              moludes={[Autoplay, Pagination]}
+              moludes={[Navigation]}
               slidesPerView={4}
               padding={10}
             />
@@ -133,7 +115,7 @@ const Home = () => {
         <Section>
           <Box sx={{ mb: 2 }}>
             <MyLink to="/productgroup/2">
-              <Typography sx={{ fontSize: "1.8rem" }}>
+              <Typography sx={{ fontSize: "1.8rem", p: 2 }}>
                 میوه و سبزی منجمد
               </Typography>
             </MyLink>
@@ -142,9 +124,9 @@ const Home = () => {
             <Carousel
               Slides={frozen}
               width="90vw"
-              height="40vh"
+              height="45vh"
               isImg={false}
-              moludes={[Pagination]}
+              moludes={[Navigation]}
               slidesPerView={4}
               padding={5}
             />
@@ -160,9 +142,9 @@ const Home = () => {
             <Carousel
               Slides={smothie}
               width="90vw"
-              height="40vh"
+              height="45vh"
               isImg={false}
-              moludes={[Autoplay, Pagination]}
+              moludes={[Navigation]}
               slidesPerView={4}
               padding={15}
             />

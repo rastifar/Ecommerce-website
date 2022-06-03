@@ -55,6 +55,7 @@ const cartSlice = createSlice({
       const index = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
+     
       const removeItemQuantity = state.cartItems[index].quantity;
       const removeItemPrice = Number(action.payload.price);
       state.cartTotalAmount -= removeItemPrice * removeItemQuantity;

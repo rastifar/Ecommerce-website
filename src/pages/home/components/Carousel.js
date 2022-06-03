@@ -27,9 +27,9 @@ const Carousel = ({
       sx={{
         width: { width },
         height: { height },
-        my:4,
+        my: 4,
         border: "1px solid lightgray",
-        p: {padding},
+        p: { padding },
       }}
     >
       <Swiper
@@ -37,20 +37,29 @@ const Carousel = ({
         effect="fade"
         modules={moludes}
         slidesPerView={slidesPerView}
-        navigation
-        autoplay={isImg?{ delay: 3000, disableOnInteraction: false }:{ delay: 100000, disableOnInteraction: false }}
-        // pagination={{ clickable: true }}
-        style={{ width: "100%", height: "100%" ,marginTop:'.5rem'}}
-        // grabCursor={true}
-        spaceBetween={10}
+        slidesPerGroup={1}
+        navigation={!isImg ? true : false}
+        autoplay={isImg ? { delay: 3000, disableOnInteraction: false } : false}
+        pagination={{ clickable: true }}
+        style={{
+          width: "100%", height: "100%", marginTop: ".5rem",
+          "--swiper-navigation-size": "30px",
+          "--swiper-navigation-color": "#d3a98c",
+          "--swiper-pagination-color": "#d3a98c",
+        
+        }}
+        grabCursor={true}
+        spaceBetween={30}
         centeredSlides={true}
         zoom={false}
-        slidesPerGroup={1}
+        //slidesPerGroup={1}
         loop={true}
         loopFillGroupWithBlank={false}
+        
       >
-        {Slides?.map((item) => (
+        {Slides?.map((item, index) => (
           <SwiperSlide
+            key={index}
             width={"100%"}
             height={"70vh"}
             modules={moludes}
@@ -60,10 +69,16 @@ const Carousel = ({
               position: "relative",
             }}
           >
-            <div>{isImg ?  <img
-                        src={item}
-                        style={{ width: "100vw", borderRadius: "8px" }}
-                      /> : <ProductCards productData={item} />}</div>
+            <div>
+              {isImg ? (
+                <img
+                  src={item}
+                  style={{ width: "100vw", borderRadius: "8px" }}
+                />
+              ) : (
+                <ProductCards productData={item} />
+              )}
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -72,3 +87,5 @@ const Carousel = ({
 };
 
 export default Carousel;
+
+// { delay: 100000, disableOnInteraction: false }

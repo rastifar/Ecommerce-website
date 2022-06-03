@@ -54,10 +54,10 @@ export default function ProductCards({ productData }) {
           // sx={{ objectFit: "contain" ,}}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center',mt:2}}>
             {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{textAlign:'center'}}>
             {numberDivider(price)} تومان
           </Typography>
         </CardContent>
