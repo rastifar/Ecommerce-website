@@ -27,43 +27,6 @@ import CustomPagination from "../../components/CustomPagination";
 import { useSelector, useDispatch } from "react-redux";
 import { changeState } from "../../redux/modalSlice";
 
-//---------------------------------------------------------
-//columns
-// const columns = [
-//   {
-//     field: "username",
-//     headerName: "نام کاربر",
-//     width: 300,
-//     sortable: false,
-//     editable: false,
-//   },
-//   {
-//     field: "purchaseTotal",
-//     headerName: "مجموع مبلغ",
-//     width: 300,
-//     sortable: false,
-//     editable: false,
-//   },
-//   {
-//     field: "delivery",
-//     headerName: "زمان ثبت سفارش",
-//     width: 300,
-//     sortable: true,
-//     editable: false,
-//   },
-//   {
-//     field: "orderStatus",
-//     headerName: "  ",
-//     width: 300,
-//     sortable: false,
-//     editable: false,
-
-//     // renderCell: (cellValues) => {
-//     //   return <Link href={`#${cellValues.row.url}`}>بررسی سفارش</Link>
-//     // }
-//   },
-// ];
-
 //-------------------------------------------------------
 
 export default function Orders() {

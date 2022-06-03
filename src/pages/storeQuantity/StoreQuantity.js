@@ -83,7 +83,7 @@ export default function StoreQuantity() {
       promiseTempArray.push(tempRequest);
     });
     Promise.all(promiseTempArray)
-      .then((res) => toast.success(" in storeاطلاعات با موفقیت به روز رسانی شده است"))
+      .then((res) => toast.success(" اطلاعات با موفقیت به روز رسانی شده است"))
       .catch((error) =>
         toast.error("خطایی در بروز رسانی داده ها  رخ داده است")
       );

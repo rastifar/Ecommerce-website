@@ -41,7 +41,7 @@ export default function OrderModal({ data, open, onClose ,handlechange}) {
         
         </DialogTitle>
 
-        <DialogContent  sx={{width:'60vw'}}>
+        <DialogContent  >
                   <OrderForm data={data} onClose={onClose} handlechange={handlechange}/>
         </DialogContent>
         

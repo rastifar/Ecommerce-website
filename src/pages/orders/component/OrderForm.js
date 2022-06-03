@@ -41,7 +41,7 @@ export default function OrderForm({ data, onClose,handlechange }) {
       )
       .then((res) => {
         handlechange(2)
-        toast.success("in orderبا موفقیت به روز رسانی شد")
+        toast.success("با موفقیت به کالاهای تحویل شده اضافه شد")
       })
       .catch((error) =>
       toast.error("خطایی روی داده است لطفا دوباره امتحان کنید")
@@ -51,16 +51,21 @@ export default function OrderForm({ data, onClose,handlechange }) {
     onClose();
   };
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
+    <Box>
+      <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+      // sx={{
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   alignItems: "center",
+      // }}
       >
       
       <Box sx={{ border: "1px solid black", borderRadius: "5px" }}>
-        <Grid container spacing={1} sx={{ mb: 2 }}>
+        <Grid container spacing={1} sx={{ mb: 2,p:2 }}>
           <Grid item xs={12} sm={6} sx={{ p: 2, mt: 1 }}>
             <Typography>
               {" "}
@@ -148,7 +153,7 @@ export default function OrderForm({ data, onClose,handlechange }) {
           </Box>
         )}
           </Box>
-     
+          </Box>
     </Box>
   );
 }
