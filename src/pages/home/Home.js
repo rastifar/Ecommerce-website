@@ -8,6 +8,8 @@ import Images from "../../assets/index";
 import CompanyMsgCard from "./components/CompanyMsgCard";
 import MyLink from "../../components/MyLink";
 import Carousel from "./components/Carousel";
+import useFetch from "../../hooks/useFetch";
+import { BASE_URL, PRODUCTS } from "../../constants/apiConst";
 
 const Section = styled("section")({
   marginTop: "1.5 rem",
@@ -31,21 +33,42 @@ const topMsg = [
 const carouselImg = [Images.HomeSlide1, Images.HomeSlide2, Images.HomeSlide3];
 
 const Home = () => {
-  const [fruit, setFruit] = useState([]);
-  const [frozen, setFrozen] = useState([]);
-  const [smothie, setSmothie] = useState([]);
+  // const [fruit, setFruit] = useState([]);
+  // const [frozen, setFrozen] = useState([]);
+  // const [smothie, setSmothie] = useState([]);
+  let {fruit,frozen,smothie}=[]
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3002/products?category=1&_sort=id&_order=desc`)
-      .then((res) => setFruit(res.data.splice(0, 6)));
-    axios
-      .get("http://localhost:3002/products?category=2&_sort=id&_order=desc")
-      .then((res) => setFrozen(res.data.splice(0, 6)));
-    axios
-      .get("http://localhost:3002/products?category=3&_sort=id&_order=desc")
-      .then((res) => setSmothie(res.data.splice(0, 6)));
-  }, []);
+  const { data, loading } = useFetch(BASE_URL + PRODUCTS);
+  console.log("data", data);
+
+  //to group the products based on 3 categories:'fresh/1','frozen/2','smoothie/3'
+  const productCategorized = data?.reduce((groupedProducts, product) => {
+    const group = product.category;
+    if (groupedProducts[group] == null) groupedProducts[group] = [];
+    groupedProducts[group].push(product);
+    return groupedProducts;
+  }, {});
+  if (productCategorized) {
+    fruit=productCategorized[1];
+    frozen=productCategorized[2];
+    smothie=productCategorized[3];
+  }
+  console.log("fruit", fruit);
+  console.log("frozen", frozen);
+  console.log("smothie", smothie);
+  console.log("productCategorized", productCategorized);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:3002/products?category=1&_sort=id&_order=desc`)
+  //     .then((res) => setFruit(res.data.splice(0, 6)));
+  //   axios
+  //     .get("http://localhost:3002/products?category=2&_sort=id&_order=desc")
+  //     .then((res) => setFrozen(res.data.splice(0, 6)));
+  //   axios
+  //     .get("http://localhost:3002/products?category=3&_sort=id&_order=desc")
+  //     .then((res) => setSmothie(res.data.splice(0, 6)));
+  // }, []);
   return (
     <Box>
       <Box
