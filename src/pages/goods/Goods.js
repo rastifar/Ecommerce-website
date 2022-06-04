@@ -146,7 +146,7 @@ export default function Goods() {
     >
       <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
         <Grid item xs={2} align="right">
-          <Typography>مدیریت کالاها</Typography>
+          <Typography textAlign={'center' }>مدیریت کالاها</Typography>
         </Grid>
         <Grid item xs={7} align="center">
           جستجو
@@ -157,7 +157,7 @@ export default function Goods() {
           </Button>{" "}
         </Grid>
       </Grid>
-      <Grid item sx={{ height: 400, width: "100%" }}>
+      <Grid item xs={12} sx={{ height: 400, width: "100%" }}>
         {/* <div > */}
         <DataGrid
           item
