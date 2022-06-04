@@ -90,8 +90,8 @@ export default function StoreQuantity() {
   };
 
   return (
-    <Box>
-      <Grid
+   
+      <Box
         container
         direction="column"
         alignItems="center"
@@ -99,13 +99,13 @@ export default function StoreQuantity() {
         sx={{ p: 0.4 }}
       >
         <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-          <Grid item xs={2} align="right">
+          <Grid item xs={12} sm={3} align="right" py={{xs:1,md:0}}>
             <Typography>مدیریت موجودی و قیمت ها</Typography>
           </Grid>
-          <Grid item xs={8} align="center">
+        <Grid item xs={12} sm={7} align={{ xs: "right", sm:'center' }} py={{xs:1,md:0}}>
             جستجو
           </Grid>
-          <Grid item xs={2} align="left">
+        <Grid item xs={12} sm={2} align={{ xs: "right", sm:'left' }} py={{xs:1,md:0}}>
             <Button
               variant="outlined"
               color="primary"
@@ -116,7 +116,7 @@ export default function StoreQuantity() {
             </Button>{" "}
           </Grid>
         </Grid>
-        <Grid item sx={{ height: 400, width: "100%", display: "flex" }}>
+      <Grid item xs={12} sx={{ height: 400, width: "100%", display: "flex" }}>
           <div style={{ flexGrow: 1 }}>
             <DataGrid
               item
@@ -138,7 +138,7 @@ export default function StoreQuantity() {
             />
           </div>
         </Grid>
-      </Grid>      
+         
     </Box>
   );
 }
