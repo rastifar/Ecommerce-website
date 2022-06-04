@@ -36,7 +36,7 @@ const ProductImagesSlider = ({width,height,items,modules,slidesPerGroup}) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <Swiper
+      {/* <Swiper
         onSwiper={setActiveThumb}
         dir="ltr"
         effect="fade"
@@ -60,7 +60,7 @@ const ProductImagesSlider = ({width,height,items,modules,slidesPerGroup}) => {
             </div>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper> */}
     </>
   );
 };
