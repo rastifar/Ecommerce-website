@@ -16,8 +16,7 @@ import { LINKAdmin } from "../../../constants/layoutConst";
 
 import DrawerCmp from "./DrawerCmp";
 
-import image1 from "../../../assets/images/logo22.png";
-import image2 from "../../../assets/images/logo1.png";
+import Images from "../../../assets";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 //redux
 import { removeToken } from "../../../redux/tokenSlice";
@@ -50,22 +49,26 @@ const Header = () => {
         {isMatch ? (
           <>
             <MyLink to="/">
-              <Box sx={{ flexGrow: 1 }}>
-                <img src={image2} style={{ width: "60px" }} />
+              <Box >
+                <img src={Images.LogoResponsive} style={{ width: "60px" }} />
               </Box>
             </MyLink>
-            <Box>
+            <Box  sx={{ flexGrow: 1 }}  display="flex"
+   
+        justifyContent="flex-end">
               <Badge badgeContent={0} color="error">
                 <LogoutIcon onClick={handleLogout} />
               </Badge>
             </Box>
-            <DrawerCmp />
+            <Box>
+              <DrawerCmp />
+              </Box>
           </>
         ) : (
           <>
             <MyLink to="/">
               <Box>
-                <img src={image1} style={{ width: "200px" }} />
+                <img src={Images.LogoMain} style={{ width: "200px" }} />
               </Box>
             </MyLink>
             <Box sx={{ flexGrow: 1, marginRight: "5rem" }}>
