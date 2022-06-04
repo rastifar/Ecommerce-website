@@ -245,17 +245,19 @@ const PurchaseFinalizing = () => {
                 formik.errors.deliveryDate}
             </Box>
           </Grid>
+          <Grid item xs={12}>
           <Button
             fullWidth={true}
             type="submit"
             variant="contained"
             //color="secondary"
-            sx={{bgcolor:"#BDF2D5",'&:hover': {
+            sx={{bgcolor:"#BDF2D5",mt:2,'&:hover': {
               background: "#4B8673",
            }}}
           >
             پرداخت
           </Button>
+          </Grid>
         </Grid>
       </Box>
     </Box>
