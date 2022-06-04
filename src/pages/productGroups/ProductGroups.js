@@ -50,7 +50,13 @@ const ProductGroups = () => {
         </Box>
       )}
       {headers && (
-        <Box sx={{ my: 5 }}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ my: 5 }}
+        >
           <Pagination
             variant="outlined"
             defaultPage={1}
