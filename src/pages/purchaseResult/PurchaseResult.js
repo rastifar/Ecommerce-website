@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 //--------Material
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 //--------ReactRouter
 import { useLocation } from "react-router-dom";
 //----------Image
@@ -8,16 +8,18 @@ import successImage from "../../assets/images/success.png";
 import failureImage from "../../assets/images/failure.jpg";
 //---------Redux
 import { useDispatch, useSelector } from "react-redux";
-import {clearCart} from '../../redux/cartSlice'
+import { clearCart } from "../../redux/cartSlice";
 //----------Api
 import api from "../../api/api";
 import axios from "axios";
 //----------Toast
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 
 import { BASE_URL, ORDERS, PRODUCTS } from "../../constants/apiConst";
 
 const PurchageResult = () => {
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const location = useLocation();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
@@ -31,17 +33,16 @@ const PurchageResult = () => {
         handleInventories();
         handlecartItems();
       } catch (error) {
-        toast.error('خطایی روی داده است')
+        toast.error("خطایی روی داده است");
       }
     }
   }, []);
 
-  const handleUpdateOrders = async() => {
+  const handleUpdateOrders = async () => {
     const order = JSON.parse(localStorage.getItem("orders"));
     console.log(order);
-    const result = await api.post(BASE_URL + ORDERS, order)
+    const result = await api.post(BASE_URL + ORDERS, order);
     //api.post(BASE_URL + ORDERS, order).then(res=>localStorage.removeItem('orders'))
-    
   };
   const handleInventories = () => {
     const tempArray = [];
@@ -59,37 +60,39 @@ const PurchageResult = () => {
     });
   };
   const handlecartItems = () => {
-    dispatch(clearCart())
+    dispatch(clearCart());
   };
 
   return (
-    <Box sx={{ p: 5 }}>
-      <Typography sx={{ fontSize: "1.5rem" }}>نتیجه پرداخت</Typography>
-      {purchaseResult === "success" ? (
-        <Box display={"flex"} sx={{ p: 10 }}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ p: 5 }}
+    >
+      <Typography sx={{ fontSize: "1.5rem", mb: 3 }}>نتیجه پرداخت</Typography>
+      <Grid container sx={{ width: "100%" }}>
+        <Grid item xs={12} sm={4} align={"center"}>
           <img
-            src={successImage}
+            src={purchaseResult === "success" ? successImage : failureImage}
             alt="sucess image"
-            style={{ width: "10rem", m: 3, display: "inline-block" }}
+            style={{ width: "100%", maxWidth: "150px", height: "auto", mb: 3 }}
           />
-
-          <Typography sx={{ m: 5 }}>
-            با تشکر از پرداخت شما، سفارش شما ثبت شده و جهت هماهنگی ارسال با شما
-            تماس گرفته خواهد شد
-          </Typography>
-        </Box>
-      ) : (
-        <Box display={"flex"} sx={{ p: 10 }}>
-          <img
-            src={failureImage}
-            alt="failure image"
-            style={{ width: "10rem", m: 3, display: "inline-block" }}
-          />
-          <Typography sx={{ m: 5 }}>
-            پرداخت موفقیت آمیز نبود.سفارش شما در انتظار پرداخت است
-          </Typography>
-        </Box>
-      )}
+        </Grid>
+        <Grid item sx={12} sm={8}>
+          {purchaseResult === "success" ? (
+            <Typography sx={{ my: 7, textAlign: "center" }}>
+              با تشکر از پرداخت شما، سفارش شما ثبت شده و جهت هماهنگی ارسال با
+              شما تماس گرفته خواهد شد
+            </Typography>
+          ) : (
+            <Typography sx={{ my: 7, textAlign: "center" }}>
+              پرداخت موفقیت آمیز نبود.سفارش شما در انتظار پرداخت است
+            </Typography>
+          )}
+        </Grid>
+      </Grid>
     </Box>
   );
 };
