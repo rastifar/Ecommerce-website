@@ -1,7 +1,9 @@
 import MyRoutes from "./routes/MyRoutes";
 import {store} from "./redux/store";
 import { Provider } from "react-redux";
-import {  ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   return (

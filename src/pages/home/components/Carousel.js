@@ -23,15 +23,7 @@ const Carousel = ({
   slidesPerView,
 }) => {
   return (
-    <Box
-      sx={{
-        width: { width },
-        height: { height },
-        my: 4,
-        border: "1px solid lightgray",
-        p: { padding },
-      }}
-    >
+    <Box sx={{maxWidth: 'lg' ,height:'40vh',background:'yellow'}}>
       <Swiper
         dir="rtl"
         effect="fade"
@@ -42,7 +34,7 @@ const Carousel = ({
         autoplay={isImg ? { delay: 3000, disableOnInteraction: false } : false}
         pagination={{ clickable: true }}
         style={{
-          width: "100%", height: "100%", marginTop: ".5rem",
+          width: "80%", height: "100%", marginTop: ".5rem",background:'red',
           "--swiper-navigation-size": "30px",
           "--swiper-navigation-color": "#d3a98c",
           "--swiper-pagination-color": "#d3a98c",
@@ -68,6 +60,18 @@ const Carousel = ({
               overflow: "hidden",
               position: "relative",
             }}
+            breakpoints={{
+              // when window width is >= 640px
+              640: {
+                width: 640,
+                slidesPerView: 1,
+              },
+              // when window width is >= 768px
+              768: {
+                width: 768,
+                slidesPerView: 2,
+              },
+            }}
           >
             <div>
               {isImg ? (
@@ -82,7 +86,7 @@ const Carousel = ({
           </SwiperSlide>
         ))}
       </Swiper>
-    </Box>
+      </Box>
   );
 };
 

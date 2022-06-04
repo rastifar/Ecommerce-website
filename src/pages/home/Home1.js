@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Typography, Box, styled,useTheme,useMediaQuery } from "@mui/material";
+import { Grid, Typography, Box, styled } from "@mui/material";
 import { Navigation, Pagination, Autoplay } from "swiper";
 import axios from "axios";
 //------------------------------images
@@ -33,8 +33,6 @@ const topMsg = [
 const carouselImg = [Images.HomeSlide1, Images.HomeSlide2, Images.HomeSlide3];
 
 const Home = () => {
-    const theme = useTheme();
-    const largeScreen = useMediaQuery(theme.breakpoints.up('sm'));
   // const [fruit, setFruit] = useState([]);
   // const [frozen, setFrozen] = useState([]);
   // const [smothie, setSmothie] = useState([]);
@@ -51,9 +49,9 @@ const Home = () => {
     return groupedProducts;
   }, {});
   if (productCategorized) {
-    fruit=productCategorized[1].splice(0,6);
-    frozen=productCategorized[2].splice(0,6);
-    smothie=productCategorized[3].splice(0,6);
+    fruit=productCategorized[1];
+    frozen=productCategorized[2];
+    smothie=productCategorized[3];
   }
   console.log("fruit", fruit);
   console.log("frozen", frozen);
@@ -117,44 +115,26 @@ const Home = () => {
             </Typography>
           </Box>
         </Section>
-       <Box sx={{width:'95%'}}>
-        <Grid container sx={{my:2}} >
-          <Grid item xs={6} sm={3} md={2} sx={{ background: 'red' }}>
-            <img src={Images.Mes1 }/>
-          </Grid>
-            <Grid item xs={6} sm={8} md={9} sx={{ background: 'blue' }}>
-            <Carousel
-              Slides={fruit}
-              
-              isImg={false}
-              moludes={[Navigation]}
-              slidesPerView={3}
-              padding={1}
-            />
-              </Grid>
-          </Grid>
-          </Box>
-              {/* <Grid container direction={largeScreen?"row":"column"}>
-                  <Grid item >  <Box sx={{ mb: 2 }}>
+        <Section>
+          <Box sx={{ mb: 2 }}>
             <MyLink to="/productgroup/1">
               <Typography sx={{ fontSize: "1.8rem", p: 2 }}>
                 میوه و سبزی تازه
               </Typography>
             </MyLink>
-          </Box></Grid>
-                  <Grid item > 
+          </Box>
+          <Box>
             <Carousel
               Slides={fruit}
-              
+              width="90vw"
+              height="45vh"
               isImg={false}
               moludes={[Navigation]}
-              slidesPerView={3}
-              padding={1}
+              slidesPerView={4}
+              padding={10}
             />
-          </Grid>
-        
-         
-        </Grid> */}
+          </Box>
+        </Section>
         <Section>
           <Box sx={{ mb: 2 }}>
             <MyLink to="/productgroup/2">

@@ -54,7 +54,7 @@ const Header = () => {
               </Box>
             </MyLink>
             <Box  sx={{ flexGrow: 1 }}  display="flex"
-   
+
         justifyContent="flex-end">
               <Badge badgeContent={0} color="error">
                 <LogoutIcon onClick={handleLogout} />

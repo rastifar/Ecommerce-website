@@ -15,7 +15,7 @@ import CustomPagination from '../../components/CustomPagination';
 //material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography } from "@mui/material";
+import { Grid, Button, Typography,Box } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import axios from "axios";
@@ -114,15 +114,13 @@ export default function Goods() {
 
   const handleDelete = async (params) => {
     // await axios.delete(BASE_URL+Products)
-    const id = params.row.id;
-    console.log(id);
+    const id = params.row.id; 
     setData(id);
     setIsDeleteOpen(true);
     // console.log(params.row);
   };
   const handleEdit = (params) => {
-    const id = params.row.id;
-    console.log("Edit", params.row.id);
+    const id = params.row.id;    
     setData(products.find((item) => item.id === id));
     setOpen(true);
   };
@@ -139,7 +137,7 @@ export default function Goods() {
   };
 
   return (
-    <Grid
+    <Box
       container
       direction="column"
       alignItems="center"
@@ -150,7 +148,7 @@ export default function Goods() {
         <Grid item xs={2} align="right">
           <Typography>مدیریت کالاها</Typography>
         </Grid>
-        <Grid item xs={8} align="center">
+        <Grid item xs={7} align="center">
           جستجو
         </Grid>
         <Grid item xs={2} align="left">
@@ -200,6 +198,6 @@ export default function Goods() {
         getData={getData}
         // onReRenderAfterModal={() => setReRenderAfterModal(!reRenderAfterModal)}
       />
-    </Grid>
+    </Box>
   );
 }

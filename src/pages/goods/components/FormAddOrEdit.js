@@ -171,7 +171,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
         sx={{ border: "1px solid black", borderRadius: "5px" }}
       >
         <Grid container sx={{ my: 2 }} >
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} >
             <Button
               variant="outlined"
               component="label"
@@ -206,7 +206,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
                 formik.errors.image}
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} >
             <Box
               style={{
                 backgroundImage: `url(${image})`,
@@ -217,6 +217,8 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
                 color: "#f5f5f5",
                 marginRight: "auto",
               }}
+              mx={{ xs: 'auto', sm: 'auto',md:2}}
+              // sx={{mx:'auto'}}
             >
               {formik.values.image ? (
                 <Preview src={formik.values.image} bulk={false} />

@@ -5,6 +5,7 @@ export const columns = [
       sortable: false,
       editable: false,
       disableColumnMenu: true,
+      minWidth: 300,
       flex: 1,
     },
     {
@@ -13,6 +14,7 @@ export const columns = [
       sortable: true,
       editable: true,
       disableColumnMenu: true,
+      minWidth: 300,
       flex: 1,
       renderCell: (params) => {
         return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -29,6 +31,7 @@ export const columns = [
       sortable: true,
       editable: true,
       disableColumnMenu: true,
+      minWidth: 300,
       flex: 1,
       // renderCell: (params) => {
       //   return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");

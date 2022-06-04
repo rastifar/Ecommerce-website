@@ -11,7 +11,7 @@ import {
   Radio,
   Typography,
   RadioGroup,
-  FormLabel,
+  Box,
   FormControlLabel,
   FormControl,
 } from "@mui/material";
@@ -67,7 +67,8 @@ export default function Orders() {
     {
       field: "username",
       headerName: "نام کاربر",
-      width: 300,
+      minWidth: 300,
+      flex: 1,
       sortable: false,
       editable: false,
       disableColumnMenu: true,
@@ -75,7 +76,8 @@ export default function Orders() {
     {
       field: "purchaseTotal",
       headerName: " مجموع مبلغ (تومان)",
-      width: 300,
+      minWidth: 300,
+      flex: 1,
       sortable: false,
       editable: false,
       disableColumnMenu: true,
@@ -89,7 +91,8 @@ export default function Orders() {
     {
       field: "delivery",
       headerName: "زمان ثبت سفارش",
-      width: 300,
+      minWidth: 300,
+      flex: 1,
       sortable: true,
       editable: false,
       disableColumnMenu: true,
@@ -97,7 +100,8 @@ export default function Orders() {
     {
       field: "orderStatus",
       headerName: "وضعیت تحویل",
-      width: 300,
+      minWidth: 300,
+  flex: 1,
       sortable: false,
       editable: false,
       disableColumnMenu: true,
@@ -140,18 +144,7 @@ export default function Orders() {
    // console.log(data);
   };
  // console.log(products);
-  const handlechange = (value) => {
-    console.log(value);
-    // try {
-    //   const result = await axios.get(
-    //     `http://localhost:3002/orders?orderStatus=${num}`
-    //   );
-
-    //  setProducts(result.data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
+  const handlechange = (value) => { 
     if (value === 0) {
       axios
         .get(BASE_URL + ORDERS, { headers: { token: token } })
@@ -163,22 +156,17 @@ export default function Orders() {
         .get(BASE_URL + ORDERS + `?orderStatus=${value}`)
         .then((res) => setProducts(res.data));
     }
-    return null;
-    // products = useFetch(, {
-    //   headers: {
-    //     token: token,
-    //   },
-    // });
+    return null;   
   };
 
   return (
     <>
-      <Grid
-        container
-        direction="column"
+      <Box
+        display="flex"
+        flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        sx={{ p: 0.4 }}
+        p={0.4}
       >
         <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
           <Grid item xs={2} align="right" sx={{ flexGrow: 1 }}>
@@ -235,7 +223,7 @@ export default function Orders() {
             handlechange={handlechange}
           />
         </Grid>
-      </Grid>
+      </Box>
     </>
   );
 }
