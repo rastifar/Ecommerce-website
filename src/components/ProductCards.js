@@ -36,7 +36,13 @@ import IndeterminateCheckBoxTwoToneIcon from "@mui/icons-material/IndeterminateC
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 //---------------------------------------------
 
-export default function ProductCards({ productData }) {
+export default function ProductCards({
+  productData,
+  width,
+  fontSize,
+  height,
+  
+}) {
   const state = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -44,20 +50,29 @@ export default function ProductCards({ productData }) {
   const payload = { id, name, price, count };
 
   return (
-    <Card sx={{ maxWidth: 250,mb:'1.3rem' }}>
+    <Card sx={{ width: { width }, mb: "1.3rem" }}>
       <MyLink to={`/products/${id}`}>
         <CardMedia
           component="img"
           alt={name}
-          height="150"
+          height={height}
           image={BASE_URL + "/files/" + image}
-          sx={{ objectFit: "contain" ,}}
+          sx={{ objectFit: 'contain'}}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center',mt:2}}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ textAlign: "center", mt: 2, fontSize: { fontSize } }}
+          >
             {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{textAlign:'center'}}>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ textAlign: "center" }}
+          >
             {numberDivider(price)} تومان
           </Typography>
         </CardContent>

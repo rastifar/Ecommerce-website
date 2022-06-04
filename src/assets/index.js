@@ -1,5 +1,5 @@
-import HomeSlide1 from "./images/homePage.jpg";
-import HomeSlide2 from "./images/frozenHero.jpeg";
+import HomeSlide1 from "./images/homePage.png";
+import HomeSlide2 from "./images/frozenHero.png";
 import HomeSlide3 from "./images/smoothyHero.png";
 import Mes1 from "./images/h1s.png";
 import Mes2 from "./images/h2s.png";

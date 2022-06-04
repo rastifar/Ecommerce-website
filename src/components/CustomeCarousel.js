@@ -7,7 +7,7 @@ const CustomeCarousel = ({ settings, slidesData, isImg }) => {
   return (
     <Box>
       <Slider {...settings}>
-        {slidesData.map((slide, index) => (
+        {slidesData?.map((slide, index) => (
           <div key={index}>
             {isImg ? (
               <img src={slide} style={{ width: "100vw", borderRadius: "8px" }} />

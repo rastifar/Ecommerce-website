@@ -21,15 +21,16 @@ const Carousel = ({
   isImg,
   moludes,
   slidesPerView,
+  slidesPerGroup
 }) => {
   return (
-    <Box sx={{maxWidth: 'lg' ,height:'40vh',background:'yellow'}}>
+    <Box sx={{width: {width} ,height:{height}}}>
       <Swiper
         dir="rtl"
         effect="fade"
         modules={moludes}
         slidesPerView={slidesPerView}
-        slidesPerGroup={1}
+        slidesPerGroup={slidesPerGroup}
         navigation={!isImg ? true : false}
         autoplay={isImg ? { delay: 3000, disableOnInteraction: false } : false}
         pagination={{ clickable: true }}
@@ -52,26 +53,25 @@ const Carousel = ({
         {Slides?.map((item, index) => (
           <SwiperSlide
             key={index}
-            width={"100%"}
-            height={"70vh"}
+          
             modules={moludes}
             sx={{
               paddingTop: "100%",
               overflow: "hidden",
               position: "relative",
             }}
-            breakpoints={{
-              // when window width is >= 640px
-              640: {
-                width: 640,
-                slidesPerView: 1,
-              },
-              // when window width is >= 768px
-              768: {
-                width: 768,
-                slidesPerView: 2,
-              },
-            }}
+            // breakpoints={{
+            //   // when window width is >= 640px
+            //   640: {
+            //     width: 640,
+            //     slidesPerView: 1,
+            //   },
+            //   // when window width is >= 768px
+            //   768: {
+            //     width: 768,
+            //     slidesPerView: 2,
+            //   },
+            // }}
           >
             <div>
               {isImg ? (
