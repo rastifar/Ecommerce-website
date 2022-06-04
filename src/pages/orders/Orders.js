@@ -169,10 +169,10 @@ export default function Orders() {
         p={0.4}
       >
         <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-          <Grid item xs={2} align="right" sx={{ flexGrow: 1 }}>
-            <Typography>مدیریت سفارش ها</Typography>
+          <Grid item xs={12} sm={3} md={2}  color={{xs:'red',sm:'text.primary'}}  >
+            <Typography p={1}>مدیریت سفارش ها</Typography>
           </Grid>
-          <Grid item xs={10} align="center">
+          <Grid item xs={12} sm={4} md={10} align="right">
             <RadioGroup
               row
               aria-labelledby="demo-radio-buttons-group-label"
