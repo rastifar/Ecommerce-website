@@ -11,16 +11,20 @@ import { Navigation, Pagination, Autoplay } from "swiper";
 //---------------------images
 import Images from "../../assets/index";
 //---------------------utils
-import {productCategorizer} from '../../utils/utils'
+import { productCategorizer } from "../../utils/utils";
 //---------------------components
 import CompanyMsgCard from "./components/CompanyMsgCard";
 import MyLink from "../../components/MyLink";
 import Carousel from "./components/Carousel";
 import useFetch from "../../hooks/useFetch";
 import { BASE_URL, PRODUCTS } from "../../constants/apiConst";
+import CustomeCarousel from "../../components/CustomeCarousel";
+//--------------------settings
+import { heroSettings } from "./components/carouselSettings";
+import ProductCards from "../../components/ProductCards";
 
 const Section = styled("section")({
-  marginTop: "1.5 rem",
+  marginTop: "1rem",
 });
 
 const topMsg = [
@@ -45,7 +49,7 @@ const Home = () => {
   const largeScreen = useMediaQuery(theme.breakpoints.up("sm"));
   let { fruit, frozen, smothie } = [];
   const { data, loading } = useFetch(BASE_URL + PRODUCTS);
-  
+
   //to group the products based on 3 categories:'fresh/1','frozen/2','smoothie/3'
   const productCategorized = productCategorizer(data);
   if (productCategorized) {
@@ -78,18 +82,20 @@ const Home = () => {
         justifyContent="center"
       >
         <header>
-          <Carousel
+          
+          {/* <Carousel
             Slides={carouselImg}
             width="98vw"
             height="70vh"
             isImg={true}
             moludes={[Autoplay, Pagination]}
             slidesPerView={1}
+            slidesPerGroup={1}
             padding={0}
-          />
+          /> */}
         </header>
 
-        {/* <Section>
+        <Section>
           <Grid container direction={"row"} sx={{ width: "100vw" }}>
             {topMsg.map((i) => (
               <Grid item key={i.title} xs={12} sm={6} lg={3}>
@@ -101,7 +107,9 @@ const Home = () => {
               </Grid>
             ))}
           </Grid>
-        </Section> */}
+        </Section>
+
+        {/* Categories */}
         <Section>
           <Box
             display="flex"
@@ -115,79 +123,131 @@ const Home = () => {
             </Typography>
           </Box>
         </Section>
-        <Box sx={{ width: "95%" }}>
-          <Grid container sx={{ my: 2 }}>
-            <Grid item xs={6} sm={3} md={2} sx={{ background: "red" }}>
-              <img src={Images.Mes1} />
-            </Grid>
-            <Grid item xs={6} sm={8} md={9} sx={{ background: "blue" }}>
-              <Carousel
-                Slides={fruit}
-                isImg={false}
-                moludes={[Navigation]}
-                slidesPerView={3}
-                padding={1}
-              />
-            </Grid>
-          </Grid>
-        </Box>
-        {/* <Grid container direction={largeScreen?"row":"column"}>
-                  <Grid item >  <Box sx={{ mb: 2 }}>
-            <MyLink to="/productgroup/1">
-              <Typography sx={{ fontSize: "1.8rem", p: 2 }}>
-                میوه و سبزی تازه
-              </Typography>
-            </MyLink>
-          </Box></Grid>
-                  <Grid item > 
-            <Carousel
-              Slides={fruit}
-              
-              isImg={false}
-              moludes={[Navigation]}
-              slidesPerView={3}
-              padding={1}
-            />
-          </Grid>
-        
-         
-        </Grid> */}
+
+        {/* fruit section */}
         <Section>
-          <Box sx={{ mb: 2 }}>
-            <MyLink to="/productgroup/2">
-              <Typography sx={{ fontSize: "1.8rem", p: 2 }}>
-                میوه و سبزی منجمد
-              </Typography>
-            </MyLink>
-          </Box>
-          <Box>
-            <Carousel
-              Slides={frozen}
-              width="90vw"
-              height="45vh"
-              isImg={false}
-              moludes={[Navigation]}
-              slidesPerView={4}
-              padding={5}
-            />
+          <Box
+            display={"flex"}
+            sx={{
+              overflowX: "scroll",
+              width: "98vw",
+              mb: 5,
+              border: "1px dashed #4B5D67",
+              borderRadius: 5,
+              bgcolor: "#E4E9BE",
+              scrollbarColor: "green",
+            }}
+          >
+            <Box sx={{ width: "190px" }}>
+              {" "}
+              <MyLink to="/productgroup/1">
+                <Typography
+                  sx={{
+                    fontSize: "1.8rem",
+                    py: "45%",
+                    px: 2,
+                    textAlign: "center",
+                  }}
+                >
+                  میوه و سبزی تازه
+                </Typography>
+              </MyLink>
+            </Box>
+            {fruit?.map((item, index) => (
+              <Box sx={{ m: 2 }} key={index}>
+                <ProductCards
+                  productData={item}
+                  width={"150px"}
+                  fontSize={"1rem"}
+                  height={"80px"}
+                  // objectFit={"contain"}
+                />
+              </Box>
+            ))}
           </Box>
         </Section>
+        {/* frozen section */}
         <Section>
-          <Box sx={{ mb: 2 }}>
-            <MyLink to="/productgroup/3">
-              <Typography sx={{ fontSize: "1.8rem" }}>نوشیدنی</Typography>
-            </MyLink>
+          <Box
+            display={"flex"}
+            sx={{
+              overflowX: "scroll",
+              width: "98vw",
+              mb: 5,
+              border: "1px dashed #4B5D67",
+              borderRadius: 5,
+              bgcolor: "#F6FBF4",
+              scrollbarColor: "green",
+            }}
+          >
+            <Box sx={{ width: "190px" }}>
+              {" "}
+              <MyLink to="/productgroup/2">
+                <Typography
+                  sx={{
+                    fontSize: "1.8rem",
+                    py: "45%",
+                    px: 2,
+                    textAlign: "center",
+                  }}
+                >
+                  میوه و سبزی منجمد
+                </Typography>
+              </MyLink>
+            </Box>
+            {frozen?.map((item, index) => (
+              <Box sx={{ m: 2 }} key={index}>
+                <ProductCards
+                  productData={item}
+                  width={"150px"}
+                  fontSize={"1rem"}
+                  height={"80px"}
+                  // objectFit={"contain"}
+                />
+              </Box>
+            ))}
           </Box>
-          <Box>
-            <Carousel
-              Slides={smothie}
-              width="90vw"
-              height="45vh"
-              isImg={false}
-              moludes={[Navigation]}
-              slidesPerView={4}
-              padding={15}
-            />
+        </Section>
+        {/* smoothie */}
+        <Section>
+          <Box
+            display={"flex"}
+            sx={{
+              overflowX: "scroll",
+              width: "98vw",
+              mb: 10,
+              border: "1px dashed #371B58",
+              borderRadius: 5,
+              bgcolor: "#FFF6EA",
+              scrollbarColor: "green",
+            }}
+          >
+            <Box sx={{ width: "190px" }}>
+              {" "}
+              <MyLink to="/productgroup/3">
+                <Typography
+                  sx={{
+                    fontSize: "1.8rem",
+                    py: "48%",
+                    px: 2,
+                    textAlign: "center",
+                  }}
+                >
+                  نوشیدنیها
+                </Typography>
+              </MyLink>
+            </Box>
+            {smothie?.map((item, index) => (
+              <Box sx={{ m: 2 }} key={index}>
+                <ProductCards
+                  productData={item}
+                  width={"150px"}
+                  fontSize={"1rem"}
+                  height={"80px"}
+                  objectFit="contain"
+                />
+              </Box>
+            ))}
           </Box>
         </Section>
       </Box>
