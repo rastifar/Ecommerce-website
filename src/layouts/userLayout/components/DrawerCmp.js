@@ -23,6 +23,7 @@ const DrawerCmp = () => {
     <>
       <Drawer
         PaperProps={{ sx: { backgroundColor: "darkgray" } }}
+        anchor='right'
         open={open}
         onClose={() => setOpen(false)}
       >
