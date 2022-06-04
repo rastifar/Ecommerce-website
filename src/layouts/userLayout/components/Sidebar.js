@@ -40,23 +40,19 @@ import MyLink from "../../../components/MyLink";
 // });
 const MyPaper = styled(Paper)(({ theme }) => ({
   display: "none",
-  //backgroundColor: 'red',
-  color: "darkslategray",
+  // backgroundColor: 'blue',
+  color: "text.secondary",
   marginTop: "2rem",
-  marginRight: "5rem",
-  marginBottom: "0rem",
-  maxHeight: 200,
+  paddingLeft: '10px',
+  marginLeft:'3px',   
+ minHeight:'100vh',
   overflow: 'auto',
-  // backgroundColor: "aliceblue",
   padding: 8,
   borderRadius: 4,
-  width: 250,
-  minHeight: "100vh",
-  //   height: `calc(100vh - 70px)`,
+  width: 250,  
   transition: "transform 1s",
 
-  [theme.breakpoints.up("sm")]: {
-    //backgroundColor: 'orange',
+  [theme.breakpoints.up("sm")]: {   
     display: "block",
   },
   // [theme.breakpoints.up("md")]: {
@@ -69,20 +65,6 @@ const MyPaper = styled(Paper)(({ theme }) => ({
   // },
 }));
 
-// const MyPaper = styled(Paper)(({theme})=>({
-//   color: "darkslategray",
-//   marginTop: "2rem",
-//     marginRight: "5rem",
-//   marginBottom:'0rem',
-//   // backgroundColor: "aliceblue",
-//   padding: 8,
-//   borderRadius: 4,
-//     width: 250,
-//   minHeight:'100vh',
-// //   height: `calc(100vh - 70px)`,
-//   transition: "transform 1s",
-
-// }));
 
 const products = [
   {
@@ -103,27 +85,26 @@ const Sidebar = ({}) => {
   return (
     <>
       <MyPaper square variant="outlined">
-        {/* <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
-      <Box position="fixed"> */}
+       
         <Box>
           <Typography textAlign={"center"} py={2}>
             لیست محصولات
           </Typography>
+          <Divider/>
         </Box>
         <List component="nav">
           {products.map((product, index) => (
             <MyLink to={product.link} key={index}>
               <ListItem button component={"li"}>
-                <Typography textAlign={"right"} py={1}>
+                <Typography  py={1}>
                   {product.category}
                 </Typography>
               </ListItem>
               <Divider />
             </MyLink>
           ))}
-        </List>
-        {/* </Box>
-    </Box> */}
+        </List>        
+        
       </MyPaper>
     </>
   );
