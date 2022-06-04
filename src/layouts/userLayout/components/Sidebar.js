@@ -9,43 +9,93 @@ import {
   List,
   ListItem,
   ListItemText,
-    Box,
-    Typography
+  Box,
+  Typography,
+  Divider,
 } from "@mui/material";
-import { styled } from "@mui/system";
+
+import { styled } from "@mui/material/styles";
 import MyLink from "../../../components/MyLink";
 
-const MyPaper = styled(Paper)({
+// const MyPaper = styled(Paper)({
+//   color: "darkslategray",
+//   marginTop: "2rem",
+//     marginRight: "5rem",
+//   marginBottom:'0rem',
+//   // backgroundColor: "aliceblue",
+//   padding: 8,
+//   borderRadius: 4,
+//     width: 250,
+//   minHeight:'100vh',
+// //   height: `calc(100vh - 70px)`,
+//   transition: "transform 1s",
+//   ${theme => theme.breakpoints.up("sm")} {
+//     background-color: orange;
+//   }
+//   //   "@media (max-width: 768px)": {
+//   //     position: "sticky",
+//   //     zIndex: "1500",
+//   //     transform: "translateX(-100%)",
+//   //   },
+// });
+const MyPaper = styled(Paper)(({ theme }) => ({
+  display: "none",
+  //backgroundColor: 'red',
   color: "darkslategray",
   marginTop: "2rem",
-    marginLeft: "5rem",
-  marginBottom:'0rem',
-  backgroundColor: "aliceblue",
+  marginRight: "5rem",
+  marginBottom: "0rem",
+  maxHeight: 200,
+  overflow: 'auto',
+  // backgroundColor: "aliceblue",
   padding: 8,
   borderRadius: 4,
-    width: 250,
-  minHeight:'100vh',
-//   height: `calc(100vh - 70px)`,
+  width: 250,
+  minHeight: "100vh",
+  //   height: `calc(100vh - 70px)`,
   transition: "transform 1s",
-  //   "@media (max-width: 768px)": {
-  //     position: "sticky",
-  //     zIndex: "1500",
-  //     transform: "translateX(-100%)",
-  //   },
-});
+
+  [theme.breakpoints.up("sm")]: {
+    //backgroundColor: 'orange',
+    display: "block",
+  },
+  // [theme.breakpoints.up("md")]: {
+  //   backgroundColor: 'yellow',
+  //   color: 'black',
+  // },
+  // [theme.breakpoints.up("lg")]: {
+  //   backgroundColor: 'green',
+  //   color: 'white',
+  // },
+}));
+
+// const MyPaper = styled(Paper)(({theme})=>({
+//   color: "darkslategray",
+//   marginTop: "2rem",
+//     marginRight: "5rem",
+//   marginBottom:'0rem',
+//   // backgroundColor: "aliceblue",
+//   padding: 8,
+//   borderRadius: 4,
+//     width: 250,
+//   minHeight:'100vh',
+// //   height: `calc(100vh - 70px)`,
+//   transition: "transform 1s",
+
+// }));
 
 const products = [
   {
     category: "میوه و سبزی تازه",
-    link:'/productgroup/1'
+    link: "/productgroup/1",
   },
   {
     category: "میوه و سبزی منجمد",
-    link:'/productgroup/2'
+    link: "/productgroup/2",
   },
   {
     category: "نوشیدنی",
-    link:'/productgroup/3'
+    link: "/productgroup/3",
   },
 ];
 
@@ -55,13 +105,21 @@ const Sidebar = ({}) => {
       <MyPaper square variant="outlined">
         {/* <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position="fixed"> */}
-        <List component="nav" aria-labelledby="محصولات">
+        <Box>
+          <Typography textAlign={"center"} py={2}>
+            لیست محصولات
+          </Typography>
+        </Box>
+        <List component="nav">
           {products.map((product, index) => (
             <MyLink to={product.link} key={index}>
-            <ListItem button  component={'li'}>
-             <Typography>{product.category}</Typography> 
+              <ListItem button component={"li"}>
+                <Typography textAlign={"right"} py={1}>
+                  {product.category}
+                </Typography>
               </ListItem>
-              </MyLink>
+              <Divider />
+            </MyLink>
           ))}
         </List>
         {/* </Box>
@@ -72,3 +130,101 @@ const Sidebar = ({}) => {
 };
 
 export default Sidebar;
+
+// import {
+//   AccountBox,
+//   Article,
+//   Group,
+//   Home,
+//   ModeNight,
+//   Person,
+//   Settings,
+//   Storefront,
+// } from "@mui/icons-material";
+// import {
+//   Box,
+//   List,
+//   ListItem,
+//   ListItemButton,
+//   ListItemIcon,
+//   ListItemText,
+//   Switch,
+// } from "@mui/material";
+// import React from "react";
+
+// const Sidebar = ({mode,setMode}) => {
+//   return (
+//     <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+//       <Box position="fixed">
+//         <List>
+//           <ListItem disablePadding>
+//             <ListItemButton component="a" href="#home">
+//               <ListItemIcon>
+//                 <Home />
+//               </ListItemIcon>
+//               <ListItemText primary="Homepage" />
+//             </ListItemButton>
+//           </ListItem>
+//           <ListItem disablePadding>
+//             <ListItemButton component="a" href="#simple-list">
+//               <ListItemIcon>
+//                 <Article />
+//               </ListItemIcon>
+//               <ListItemText primary="Pages" />
+//             </ListItemButton>
+//           </ListItem>
+//           <ListItem disablePadding>
+//             <ListItemButton component="a" href="#simple-list">
+//               <ListItemIcon>
+//                 <Group />
+//               </ListItemIcon>
+//               <ListItemText primary="Groups" />
+//             </ListItemButton>
+//           </ListItem>
+//           <ListItem disablePadding>
+//             <ListItemButton component="a" href="#simple-list">
+//               <ListItemIcon>
+//                 <Storefront />
+//               </ListItemIcon>
+//               <ListItemText primary="Marketplace" />
+//             </ListItemButton>
+//           </ListItem>
+//           <ListItem disablePadding>
+//             <ListItemButton component="a" href="#simple-list">
+//               <ListItemIcon>
+//                 <Person />
+//               </ListItemIcon>
+//               <ListItemText primary="Friends" />
+//             </ListItemButton>
+//           </ListItem>
+//           <ListItem disablePadding>
+//             <ListItemButton component="a" href="#simple-list">
+//               <ListItemIcon>
+//                 <Settings />
+//               </ListItemIcon>
+//               <ListItemText primary="Settings" />
+//             </ListItemButton>
+//           </ListItem>
+//           <ListItem disablePadding>
+//             <ListItemButton component="a" href="#simple-list">
+//               <ListItemIcon>
+//                 <AccountBox />
+//               </ListItemIcon>
+//               <ListItemText primary="Profile" />
+//             </ListItemButton>
+//           </ListItem>
+//           <ListItem disablePadding>
+//             <ListItemButton component="a" href="#simple-list">
+//               <ListItemIcon>
+//                 <ModeNight />
+//               </ListItemIcon>
+//               <Switch onChange={e=>setMode(mode === "light" ? "dark" : "light")}/>
+//             </ListItemButton>
+//           </ListItem>
+//         </List>
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default Sidebar;
