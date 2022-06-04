@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Typography, Box, styled,useTheme,useMediaQuery } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Box,
+  styled,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { Navigation, Pagination, Autoplay } from "swiper";
-import axios from "axios";
-//------------------------------images
+//---------------------images
 import Images from "../../assets/index";
-//components
+//---------------------utils
+import {productCategorizer} from '../../utils/utils'
+//---------------------components
 import CompanyMsgCard from "./components/CompanyMsgCard";
 import MyLink from "../../components/MyLink";
 import Carousel from "./components/Carousel";
@@ -33,27 +41,17 @@ const topMsg = [
 const carouselImg = [Images.HomeSlide1, Images.HomeSlide2, Images.HomeSlide3];
 
 const Home = () => {
-    const theme = useTheme();
-    const largeScreen = useMediaQuery(theme.breakpoints.up('sm'));
-  // const [fruit, setFruit] = useState([]);
-  // const [frozen, setFrozen] = useState([]);
-  // const [smothie, setSmothie] = useState([]);
-  let {fruit,frozen,smothie}=[]
-
+  const theme = useTheme();
+  const largeScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  let { fruit, frozen, smothie } = [];
   const { data, loading } = useFetch(BASE_URL + PRODUCTS);
-  console.log("data", data);
-
+  
   //to group the products based on 3 categories:'fresh/1','frozen/2','smoothie/3'
-  const productCategorized = data?.reduce((groupedProducts, product) => {
-    const group = product.category;
-    if (groupedProducts[group] == null) groupedProducts[group] = [];
-    groupedProducts[group].push(product);
-    return groupedProducts;
-  }, {});
+  const productCategorized = productCategorizer(data);
   if (productCategorized) {
-    fruit=productCategorized[1].splice(0,6);
-    frozen=productCategorized[2].splice(0,6);
-    smothie=productCategorized[3].splice(0,6);
+    fruit = productCategorized[1].splice(0, 6);
+    frozen = productCategorized[2].splice(0, 6);
+    smothie = productCategorized[3].splice(0, 6);
   }
   console.log("fruit", fruit);
   console.log("frozen", frozen);
@@ -117,24 +115,23 @@ const Home = () => {
             </Typography>
           </Box>
         </Section>
-       <Box sx={{width:'95%'}}>
-        <Grid container sx={{my:2}} >
-          <Grid item xs={6} sm={3} md={2} sx={{ background: 'red' }}>
-            <img src={Images.Mes1 }/>
+        <Box sx={{ width: "95%" }}>
+          <Grid container sx={{ my: 2 }}>
+            <Grid item xs={6} sm={3} md={2} sx={{ background: "red" }}>
+              <img src={Images.Mes1} />
+            </Grid>
+            <Grid item xs={6} sm={8} md={9} sx={{ background: "blue" }}>
+              <Carousel
+                Slides={fruit}
+                isImg={false}
+                moludes={[Navigation]}
+                slidesPerView={3}
+                padding={1}
+              />
+            </Grid>
           </Grid>
-            <Grid item xs={6} sm={8} md={9} sx={{ background: 'blue' }}>
-            <Carousel
-              Slides={fruit}
-              
-              isImg={false}
-              moludes={[Navigation]}
-              slidesPerView={3}
-              padding={1}
-            />
-              </Grid>
-          </Grid>
-          </Box>
-              {/* <Grid container direction={largeScreen?"row":"column"}>
+        </Box>
+        {/* <Grid container direction={largeScreen?"row":"column"}>
                   <Grid item >  <Box sx={{ mb: 2 }}>
             <MyLink to="/productgroup/1">
               <Typography sx={{ fontSize: "1.8rem", p: 2 }}>
