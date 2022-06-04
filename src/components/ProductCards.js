@@ -44,14 +44,14 @@ export default function ProductCards({ productData }) {
   const payload = { id, name, price, count };
 
   return (
-    <Card sx={{ maxWidth: 250,mb:'1rem' }}>
+    <Card sx={{ maxWidth: 250,mb:'1.3rem' }}>
       <MyLink to={`/products/${id}`}>
         <CardMedia
           component="img"
           alt={name}
           height="150"
           image={BASE_URL + "/files/" + image}
-          // sx={{ objectFit: "contain" ,}}
+          sx={{ objectFit: "contain" ,}}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{textAlign:'center',mt:2}}>
