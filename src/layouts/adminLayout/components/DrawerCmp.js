@@ -14,6 +14,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 //Consts
 import { LINKADMINRESPONSIVE } from "../../../constants/layoutConst";
+import MyLink from "../../../components/MyLink";
 
 const DrawerCmp = () => {
   const [open, setOpen] = useState(false);
@@ -22,6 +23,7 @@ const DrawerCmp = () => {
     <>
       <Drawer
         PaperProps={{ sx: { backgroundColor: "darkgray" } }}
+        anchor='right'
         open={open}
         onClose={() => setOpen(false)}
       >
@@ -30,17 +32,17 @@ const DrawerCmp = () => {
             <ListItemButton key={index} divider onClick={() => setOpen(false)}>
               <ListItemIcon>
                 {link.title === "بازگشت" ? (
-                  <Link to={link.link}>
+                  <MyLink to={link.link}>
                     <Button color="warning" size="medium" variant="contained">
                       بازگشت به سایت
                     </Button>
-                  </Link>
+                  </MyLink>
                 ) : (
-                  <Link to={link.link}>
+                  <MyLink to={link.link}>
                     <ListItemText sx={{ color: "white" }}>
                       {link.title}
                     </ListItemText>
-                  </Link>
+                  </MyLink>
                 )}
               </ListItemIcon>
             </ListItemButton>
