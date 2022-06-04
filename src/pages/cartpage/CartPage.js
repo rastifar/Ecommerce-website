@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography, Box } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Typography,
+  Box,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 //utile
 import { numberDivider } from "../../utils/utils";
 //components
@@ -23,6 +30,9 @@ import {
 import MyLink from "../../components/MyLink";
 
 const CartPage = () => {
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const cartData = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -130,9 +140,15 @@ const CartPage = () => {
     dispatch(romeveItem(itemToRemove));
   };
   return (
-    <Box sx={{ mb: 10, p: 4 }}>
-      <Typography   sx={{my:2,fontSize:'1.5rem'}}>سبد خرید</Typography>
-      <Grid item sx={{ height: 300, width: "100%" }}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ mb: 10, p: 4 }}
+    >
+      <Typography sx={{ my: 2, fontSize: "1.5rem" }}>سبد خرید</Typography>
+      <Box item sx={{ height: 300, width: "100%", display: "flex" }}>
         <DataGrid
           item
           sx={{ background: "white" }}
@@ -145,32 +161,104 @@ const CartPage = () => {
           }}
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />
-      </Grid>
+      </Box>
 
       {cartData.cartTotalAmount > 0 && (
         <Box
-          display="flex"
-          direction={{xs:'column',sm:'row'}}
-          justifyContent={"space-between"}
-          sx={{ mt: 3 }}
+          display={"flex"}
+          flexDirection={fullScreen ? "column" : "row"}
+          justifyContent={"space-around"}
+          alignItems="center"
+          sx={{ width: "95vw", mt: 2 }}
         >
-          <Button onClick={() => dispatch(clearCart())} color="error" variant="outlined">
-            پاک کردن سبد خرید
-          </Button>
-          <Typography>
-            قیمت کل : {numberDivider(cartData.cartTotalAmount)} تومان
-          </Typography>
-          <MyLink to='/purchasefinalizing'>
-          <Button  variant="contained" sx={{bgcolor:"#BDF2D5",'&:hover': {
-              background: "#4B8673",
-           }}}>
-            نهایی کردن سبد خرید
+         
+            <Button
+              onClick={() => dispatch(clearCart())}
+              color="error"
+            variant="outlined"
+            my={1}
+            >
+              پاک کردن سبد خرید
             </Button>
+         
+            <Typography my={1}>
+              قیمت کل : {numberDivider(cartData.cartTotalAmount)} تومان
+            </Typography>
+          
+            <MyLink to="/purchasefinalizing">
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "#BDF2D5",
+                  my:1,
+                  "&:hover": {
+                    background: "#4B8673",
+                  },
+                }}
+              >
+                نهایی کردن سبد خرید
+              </Button>
             </MyLink>
-        </Box>
+          </Box>
+        
       )}
     </Box>
   );
 };
 
 export default CartPage;
+
+// {
+//   <Grid container>
+//     <Grid
+//       item
+//       xs={12}
+//       sm={12}
+//       md={4}
+//       my={1}
+//       align={{ xs: "center", sm: "center", md: "right" }}
+//     >
+//       <Button
+//         onClick={() => dispatch(clearCart())}
+//         color="error"
+//         variant="outlined"
+//       >
+//         پاک کردن سبد خرید
+//       </Button>
+//     </Grid>
+//     <Grid
+//       item
+//       xs={12}
+//       sm={12}
+//       md={4}
+//       my={1}
+//       align={{ xs: "center", sm: "center", md: "center" }}
+//     >
+//       <Typography>
+//         قیمت کل : {numberDivider(cartData.cartTotalAmount)} تومان
+//       </Typography>
+//     </Grid>
+//     <Grid
+//       item
+//       xs={12}
+//       sm={12}
+//       md={4}
+//       my={1}
+//       align={{ xs: "center", sm: "center", md: "left" }}
+//     >
+//       <MyLink to="/purchasefinalizing">
+//         <Button
+//           variant="contained"
+//           sx={{
+//             bgcolor: "#BDF2D5",
+//             "&:hover": {
+//               background: "#4B8673",
+//             },
+//           }}
+//         >
+//           نهایی کردن سبد خرید
+//         </Button>
+//       </MyLink>
+//     </Grid>
+//   </Grid>;
+// }
