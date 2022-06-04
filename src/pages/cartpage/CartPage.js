@@ -150,7 +150,7 @@ const CartPage = () => {
       {cartData.cartTotalAmount > 0 && (
         <Box
           display="flex"
-          direction="row"
+          direction={{xs:'column',sm:'row'}}
           justifyContent={"space-between"}
           sx={{ mt: 3 }}
         >

@@ -145,13 +145,13 @@ export default function Goods() {
       sx={{ p: .4 }}
     >
       <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-        <Grid item xs={2} align="right">
+        <Grid item xs={12} sm={2} align={{ xs: "center", sm:'right' }} mb={1} >
           <Typography textAlign={'center' }>مدیریت کالاها</Typography>
         </Grid>
-        <Grid item xs={7} align="center">
+        <Grid item xs={12} sm={7} align="center"  mb={1} >
           جستجو
         </Grid>
-        <Grid item xs={2} align="left">
+        <Grid item xs={12} sm={2} align="center"  mb={1}>
           <Button variant="outlined" color="primary" onClick={handleOpenModal}>
             افزودن کالا
           </Button>{" "}
