@@ -80,7 +80,7 @@ const Home = () => {
         </header>
 
         <Section>
-          <Grid container direction={"row"} sx={{ width: "100vw" }}>
+          <Grid container direction={"row"} sx={{ width: "98vw" }}>
             {topMsg.map((i) => (
               <Grid item key={i.title} xs={12} sm={6} lg={3}>
                 <CompanyMsgCard
@@ -113,8 +113,8 @@ const Home = () => {
           <Box
             display={"flex"}
             sx={{
-              overflowX: "scroll",
-              width: "98vw",
+              overflowX: "auto",
+              width: "95vw",
               mb: 5,
               border: "1px dashed #4B5D67",
               borderRadius: 5,
@@ -155,8 +155,8 @@ const Home = () => {
           <Box
             display={"flex"}
             sx={{
-              overflowX: "scroll",
-              width: "98vw",
+              overflowX: "auto",
+              width: "95vw",
               mb: 5,
               border: "1px dashed #4B5D67",
               borderRadius: 5,
@@ -197,8 +197,8 @@ const Home = () => {
           <Box
             display={"flex"}
             sx={{
-              overflowX: "scroll",
-              width: "98vw",
+              overflowX: "auto",
+              width: "95vw",
               mb: 10,
               border: "1px dashed #371B58",
               borderRadius: 5,
