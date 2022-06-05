@@ -8,15 +8,23 @@ import {
   Pagination,
   CircularProgress,
   CssBaseline,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 import axios from "axios";
 import { caterories } from "../../constants/formsConst";
 import useFetch from "../../hooks/useFetch";
 
+
 import ProductCards from "../../components/ProductCards";
 import MyLink from "../../components/MyLink";
 const ProductGroups = () => {
+  const theme = useTheme();
+  const largeScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  const location = useLocation();
+  const search = location.pathname.split("/").pop();
+ 
   const limit = useMemo(() => 6, []);
   const [activePage, setActivePage] = useState(1);
   const { categoryNum } = useParams();
@@ -43,7 +51,13 @@ const ProductGroups = () => {
           <Grid container>
             {data?.map((item) => (
               <Grid item key={item.name} xs={12} sm={6} md={4} align="center">
-                <ProductCards productData={item} />
+                <ProductCards
+                  productData={item}
+                  width={"250px"}
+                  fontSize={largeScreen?"1.3rem":"1rem"}
+                  height={"150px"}
+                  objectFit={search==3 ?"contain":"cover"}
+                />
               </Grid>
             ))}
           </Grid>
