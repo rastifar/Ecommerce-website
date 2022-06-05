@@ -34,6 +34,10 @@ export const LINKARRAYRESPONSIVE = [
 
 export const LINKAdmin = [
   {
+    title: "مدیریت",
+    link: "/dashboard",
+  },
+  {
     title: "کالاها",
     link: "goods",
   },
@@ -47,6 +51,10 @@ export const LINKAdmin = [
   },
 ];
 export const LINKADMINRESPONSIVE = [
+  {
+    title: "مدیریت",
+    link: "",
+  },
   {
     title: "کالاها",
     link: "goods",

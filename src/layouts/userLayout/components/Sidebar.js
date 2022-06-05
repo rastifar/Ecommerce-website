@@ -1,70 +1,39 @@
-// import React from 'react';
-
-// import styled from 'styled-components'
-
-// const Sidebar = () => {import React from 'react'
+import React, { useState } from "react";
+//-----------------Material
 import {
   Paper,
-  Collapse,
   List,
   ListItem,
-  ListItemText,
   Box,
   Typography,
   Divider,
+  useTheme,
+  useMediaQuery,
+  Grid,
 } from "@mui/material";
-
 import { styled } from "@mui/material/styles";
+//-----------------Component
 import MyLink from "../../../components/MyLink";
+import Select from "../../../components/Select";
 
-// const MyPaper = styled(Paper)({
-//   color: "darkslategray",
-//   marginTop: "2rem",
-//     marginRight: "5rem",
-//   marginBottom:'0rem',
-//   // backgroundColor: "aliceblue",
-//   padding: 8,
-//   borderRadius: 4,
-//     width: 250,
-//   minHeight:'100vh',
-// //   height: `calc(100vh - 70px)`,
-//   transition: "transform 1s",
-//   ${theme => theme.breakpoints.up("sm")} {
-//     background-color: orange;
-//   }
-//   //   "@media (max-width: 768px)": {
-//   //     position: "sticky",
-//   //     zIndex: "1500",
-//   //     transform: "translateX(-100%)",
-//   //   },
-// });
+
 const MyPaper = styled(Paper)(({ theme }) => ({
-  display: "none",
-  // backgroundColor: 'blue',
+  display: "block",
   color: "text.secondary",
   marginTop: "2rem",
-  paddingLeft: '10px',
-  marginLeft:'3px',   
- minHeight:'100vh',
-  overflow: 'auto',
+  paddingLeft: "10px",
+  marginLeft: "3px",
+  minHeight: "100vh",
+  overflow: "auto",
   padding: 8,
   borderRadius: 4,
-  width: 250,  
+  width: "25vw",
   transition: "transform 1s",
-
-  [theme.breakpoints.up("sm")]: {   
-    display: "block",
+  [theme.breakpoints.down("md")]: {
+    width: "98vw",
+    minHeight: "25vh",    
   },
-  // [theme.breakpoints.up("md")]: {
-  //   backgroundColor: 'yellow',
-  //   color: 'black',
-  // },
-  // [theme.breakpoints.up("lg")]: {
-  //   backgroundColor: 'green',
-  //   color: 'white',
-  // },
 }));
-
 
 const products = [
   {
@@ -81,30 +50,68 @@ const products = [
   },
 ];
 
-const Sidebar = ({}) => {
+const Sidebar = () => {
+  const theme = useTheme();
+  const largeScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [popularity, setPopularity] = useState("");
   return (
     <>
       <MyPaper square variant="outlined">
-       
-        <Box>
-          <Typography textAlign={"center"} py={2}>
-            لیست محصولات
-          </Typography>
-          <Divider/>
-        </Box>
-        <List component="nav">
-          {products.map((product, index) => (
-            <MyLink to={product.link} key={index}>
-              <ListItem button component={"li"}>
-                <Typography  py={1}>
-                  {product.category}
-                </Typography>
-              </ListItem>
-              <Divider />
-            </MyLink>
-          ))}
-        </List>        
-        
+      
+          <Grid container>
+            <Grid item xs={12} sm={largeScreen?6:12}>
+              {largeScreen ? (               
+                  <Select
+                    label={"دسته بندی محصولات"}
+                    items={[
+                      "میوه و سبزی تازه",
+                      "میوه و سبزی منجمد",
+                      "نوشیدنی ها",
+                    ]}
+                    value={category}
+                    setValue={setCategory}
+                  />             
+              ) : (
+                <>
+                  <Typography textAlign={"center"} py={2}>
+                    لیست محصولات
+                  </Typography>
+                  <Divider />
+                  <List component="nav">
+                    {products.map((product, index) => (
+                      <MyLink to={product.link} key={index}>
+                        <ListItem button component={"li"}>
+                          <Typography py={1}>{product.category}</Typography>
+                        </ListItem>
+                        <Divider />
+                      </MyLink>
+                    ))}
+                  </List>
+                </>
+              )}
+            </Grid>
+            <Grid item xs={12} sm={largeScreen?6:12}>             
+                <Select
+                  label={"فیلتر قیمت"}
+                  items={["به ترتیب صعودی", "به ترتیب نزولی"]}
+                  value={price}
+                  setValue={setPrice}
+                />             
+            </Grid>
+            <Grid item xs={12} sm={largeScreen?6:12} >
+             
+                <Select
+                  label={"فیلتر ویژگی ها"}
+                  items={["محبوب ترین ها", "پرفروش ترین ها"]}
+                  value={popularity}
+                  setValue={setPopularity}
+                />
+             
+            </Grid>
+          </Grid>
+      
       </MyPaper>
     </>
   );
@@ -112,99 +119,134 @@ const Sidebar = ({}) => {
 
 export default Sidebar;
 
+// import React, { useState } from "react";
+// //-----------------Material
 // import {
-//   AccountBox,
-//   Article,
-//   Group,
-//   Home,
-//   ModeNight,
-//   Person,
-//   Settings,
-//   Storefront,
-// } from "@mui/icons-material";
-// import {
-//   Box,
+//   Paper,
 //   List,
 //   ListItem,
-//   ListItemButton,
-//   ListItemIcon,
-//   ListItemText,
-//   Switch,
+//   Box,
+//   Typography,
+//   Divider,
+//   useTheme,
+//   useMediaQuery,
 // } from "@mui/material";
-// import React from "react";
+// import { styled } from "@mui/material/styles";
+// //-----------------Component
+// import MyLink from "../../../components/MyLink";
+// import Select from "../../../components/Select";
 
-// const Sidebar = ({mode,setMode}) => {
+// const MyPaper = styled(Paper)(({ theme }) => ({
+//   display: "none",
+//   color: "text.secondary",
+//   marginTop: "2rem",
+//   paddingLeft: "10px",
+//   marginLeft: "3px",
+//   minHeight: "100vh",
+//   overflow: "auto",
+//   padding: 8,
+//   borderRadius: 4,
+//   width: "25vw",
+//   transition: "transform 1s",
+//   [theme.breakpoints.up("sm")]: {
+//     display: 'block',
+//     width:'98vw'
+//   },
+//   [theme.breakpoints.down("md")]: {
+//     display: 'block',
+//     width:'98vw'
+//   },
+
+//   // [theme.breakpoints.up("sm")]: {
+//   //   backgroundColor: "pink",
+//   // color:'pink',
+//   //   width:'98vw'
+//   // },
+//   // [theme.breakpoints.down("md")]: {
+//   //   backgroundColor: "yellow",
+
+//   //   color: "black",
+//   // },
+//   // [theme.breakpoints.up("lg")]: {
+//   //   backgroundColor: "green",
+//   //   color: "white",
+//   // },
+// }));
+
+// const products = [
+//   {
+//     category: "میوه و سبزی تازه",
+//     link: "/productgroup/1",
+//   },
+//   {
+//     category: "میوه و سبزی منجمد",
+//     link: "/productgroup/2",
+//   },
+//   {
+//     category: "نوشیدنی",
+//     link: "/productgroup/3",
+//   },
+// ];
+
+// const Sidebar = ({}) => {
+//   const theme = useTheme();
+//   const largeScreen = useMediaQuery(theme.breakpoints.down("lg"));
+//   const [category, setCategory] = useState("");
+//   const [price, setPrice] = useState("");
+//   const [popularity, setPopularity] = useState("");
 //   return (
-//     <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
-//       <Box position="fixed">
-//         <List>
-//           <ListItem disablePadding>
-//             <ListItemButton component="a" href="#home">
-//               <ListItemIcon>
-//                 <Home />
-//               </ListItemIcon>
-//               <ListItemText primary="Homepage" />
-//             </ListItemButton>
-//           </ListItem>
-//           <ListItem disablePadding>
-//             <ListItemButton component="a" href="#simple-list">
-//               <ListItemIcon>
-//                 <Article />
-//               </ListItemIcon>
-//               <ListItemText primary="Pages" />
-//             </ListItemButton>
-//           </ListItem>
-//           <ListItem disablePadding>
-//             <ListItemButton component="a" href="#simple-list">
-//               <ListItemIcon>
-//                 <Group />
-//               </ListItemIcon>
-//               <ListItemText primary="Groups" />
-//             </ListItemButton>
-//           </ListItem>
-//           <ListItem disablePadding>
-//             <ListItemButton component="a" href="#simple-list">
-//               <ListItemIcon>
-//                 <Storefront />
-//               </ListItemIcon>
-//               <ListItemText primary="Marketplace" />
-//             </ListItemButton>
-//           </ListItem>
-//           <ListItem disablePadding>
-//             <ListItemButton component="a" href="#simple-list">
-//               <ListItemIcon>
-//                 <Person />
-//               </ListItemIcon>
-//               <ListItemText primary="Friends" />
-//             </ListItemButton>
-//           </ListItem>
-//           <ListItem disablePadding>
-//             <ListItemButton component="a" href="#simple-list">
-//               <ListItemIcon>
-//                 <Settings />
-//               </ListItemIcon>
-//               <ListItemText primary="Settings" />
-//             </ListItemButton>
-//           </ListItem>
-//           <ListItem disablePadding>
-//             <ListItemButton component="a" href="#simple-list">
-//               <ListItemIcon>
-//                 <AccountBox />
-//               </ListItemIcon>
-//               <ListItemText primary="Profile" />
-//             </ListItemButton>
-//           </ListItem>
-//           <ListItem disablePadding>
-//             <ListItemButton component="a" href="#simple-list">
-//               <ListItemIcon>
-//                 <ModeNight />
-//               </ListItemIcon>
-//               <Switch onChange={e=>setMode(mode === "light" ? "dark" : "light")}/>
-//             </ListItemButton>
-//           </ListItem>
-//         </List>
-//       </Box>
-//     </Box>
+//     <>
+//       <MyPaper square variant="outlined">
+//         <Box
+//           display={"flex"}
+//           flexDirection={largeScreen ? "row" : "column"}
+//           width="100%"
+//         >
+//           <Typography textAlign={"center"} py={2}>
+//             لیست محصولات
+//           </Typography>
+//           <Divider />
+
+//         {largeScreen ? (
+//           <List component="nav">
+//             {products.map((product, index) => (
+//               <MyLink to={product.link} key={index}>
+//                 <ListItem button component={"li"}>
+//                   <Typography py={1}>{product.category}</Typography>
+//                 </ListItem>
+//                 <Divider />
+//               </MyLink>
+//             ))}
+//           </List>
+//         ) : (
+//           <Box>
+//             <Select
+//               label={"دسته بندی محصولات"}
+//               items={["میوه و سبزی تازه", "میوه و سبزی منجمد", "نوشیدنی ها"]}
+//               value={category}
+//               setValue={setCategory}
+//             />
+//           </Box>
+//         )}
+//         <Box>
+//           <Select
+//             label={"فیلتر قیمت"}
+//             items={["به ترتیب صعودی", "به ترتیب نزولی"]}
+//             value={price}
+//             setValue={setPrice}
+//           />
+//         </Box>
+//         <Box>
+//           <Select
+//             label={"فیلتر ویژگی ها"}
+//             items={["محبوب ترین ها", "پرفروش ترین ها"]}
+//             value={popularity}
+//             setValue={setPopularity}
+//           />
+//           </Box>
+//           </Box>
+//       </MyPaper>
+//     </>
 //   );
 // };
 

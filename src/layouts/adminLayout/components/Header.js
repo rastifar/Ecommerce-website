@@ -34,7 +34,10 @@ const Header = () => {
   const location = useLocation();
 
   const search = location.pathname.split("/").pop();
-  const tabVal = LINKAdmin.findIndex((i) => i.link === search);
+  let tabVal = LINKAdmin.findIndex((i) => i.link === search);
+  if (tabVal === -1) {
+    tabVal = 0
+  }
   const [value, setValue] = useState(tabVal || 0);
 
   const handleLogout = () => {
@@ -49,20 +52,18 @@ const Header = () => {
         {isMatch ? (
           <>
             <MyLink to="/">
-              <Box >
+              <Box>
                 <img src={Images.LogoResponsive} style={{ width: "60px" }} />
               </Box>
             </MyLink>
-            <Box  sx={{ flexGrow: 1 }}  display="flex"
-
-        justifyContent="flex-end">
+            <Box sx={{ flexGrow: 1 }} display="flex" justifyContent="flex-end">
               <Badge badgeContent={0} color="error">
                 <LogoutIcon onClick={handleLogout} />
               </Badge>
             </Box>
             <Box>
               <DrawerCmp />
-              </Box>
+            </Box>
           </>
         ) : (
           <>

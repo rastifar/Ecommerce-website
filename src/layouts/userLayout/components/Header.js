@@ -29,9 +29,9 @@ const Header = ({ withSidebar = false }) => {
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   const location = useLocation();
-  const search = location.pathname.split("/").splice(1, 2).join("/");
-  const tabVal = LINKARRAYS.findIndex((i) => i.link === "/".concat(search));
-  console.log(tabVal);
+  // const search = location.pathname.split("/").splice(1, 2).join("/");
+  // const tabVal = LINKARRAYS.findIndex((i) => i.link === "/".concat(search));
+  // console.log(tabVal);
   const [value, setValue] = useState(0);
   const itemInBasket = useSelector((state) => state.cart.cartTotalQuantity);
 

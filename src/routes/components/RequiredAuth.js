@@ -9,10 +9,11 @@ const RequiredAuth = () => {
     const navigate = useNavigate()
   useEffect(() => {
     api
-      .post(BASE_URL + WHOAMI, token)
-        .then((res) =>{if (res.status === 200 || res.status === 201) {
-            navigate("/dashboard", { replace: false });
-      }})
+      .get(BASE_URL + WHOAMI)
+      //   .then((res) =>{if (res.status === 200 || res.status === 201 && res.data.token !== token) {
+      //       navigate("/login", { replace: false });
+      // }})
+      .then(res=>console.log(res))
       .catch((error) => navigate("/login", { replace: false }));
   }, []);
   return <div></div>;

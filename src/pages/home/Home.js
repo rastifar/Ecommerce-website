@@ -144,7 +144,7 @@ const Home = () => {
                   width={"150px"}
                   fontSize={"1rem"}
                   height={"80px"}
-                  // objectFit={"contain"}
+                  objectFit={"cover"}
                 />
               </Box>
             ))}
@@ -186,7 +186,7 @@ const Home = () => {
                   width={"150px"}
                   fontSize={"1rem"}
                   height={"80px"}
-                  // objectFit={"contain"}
+                  objectFit={"cover"}
                 />
               </Box>
             ))}
