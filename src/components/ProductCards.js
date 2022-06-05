@@ -41,7 +41,7 @@ export default function ProductCards({
   width,
   fontSize,
   height,
-  
+  objectFit
 }) {
   const state = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ export default function ProductCards({
           alt={name}
           height={height}
           image={BASE_URL + "/files/" + image}
-          sx={{ objectFit: 'contain'}}
+          sx={{ objectFit:`${objectFit}`}}
         />
         <CardContent>
           <Typography
