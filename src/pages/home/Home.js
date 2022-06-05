@@ -118,7 +118,7 @@ const Home = () => {
             justifyContent="center"
             sx={{ bgcolor: "#F3F4F9", width: "98vw", py: 15 }}
           >
-            <Typography variant="h4" component="h3">
+            <Typography variant="h4" component="h3" sx={{textAlign:'center'}}>
               دسته بندی های انار سبز
             </Typography>
           </Box>
