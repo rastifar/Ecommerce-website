@@ -56,23 +56,7 @@ const Home = () => {
     fruit = productCategorized[1].splice(0, 6);
     frozen = productCategorized[2].splice(0, 6);
     smothie = productCategorized[3].splice(0, 6);
-  }
-  console.log("fruit", fruit);
-  console.log("frozen", frozen);
-  console.log("smothie", smothie);
-  console.log("productCategorized", productCategorized);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3002/products?category=1&_sort=id&_order=desc`)
-  //     .then((res) => setFruit(res.data.splice(0, 6)));
-  //   axios
-  //     .get("http://localhost:3002/products?category=2&_sort=id&_order=desc")
-  //     .then((res) => setFrozen(res.data.splice(0, 6)));
-  //   axios
-  //     .get("http://localhost:3002/products?category=3&_sort=id&_order=desc")
-  //     .then((res) => setSmothie(res.data.splice(0, 6)));
-  // }, []);
+  } 
   return (
     <Box>
       <Box
