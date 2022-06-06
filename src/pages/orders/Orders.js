@@ -54,7 +54,7 @@ export default function Orders() {
   useEffect(() => {
     axios
       .get("http://localhost:3002/orders", { headers: { token: token } })
-      .then((res) => setProducts(res.data));
+      .then((res) =>  setProducts(res.data));
   }, []);
   // const { products, error, loading } = useFetch(ORDERS, {
   //   headers: {
