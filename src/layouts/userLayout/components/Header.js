@@ -91,7 +91,7 @@ const Header = ({ withSidebar = false }) => {
               </Tabs>
             </Box>
             <Box sx={{ margin: "1rem" }}>
-              <MyLink to="/login">
+              <MyLink to="/dashboard">
                 <Button color="warning" size="medium" variant="contained">
                   مدیریت
                 </Button>
