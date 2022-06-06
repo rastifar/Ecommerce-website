@@ -18,7 +18,7 @@ export default function CustomPagination() {
       color="warning"
       count={pageCount}
       page={page + 1}
-     
+      sx={{ marginRight:'auto',marginLeft:'auto' }}
       onChange={(event, value) => apiRef.current.setPage(value - 1)}
     />
   );
