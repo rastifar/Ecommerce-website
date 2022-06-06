@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 //-----------------Material
 import {
-  Paper,
-  List,
-  ListItem,
+  Paper,  
   Box,
   Typography,
   Divider,
@@ -15,7 +13,14 @@ import { styled } from "@mui/material/styles";
 //-----------------Component
 import MyLink from "../../../components/MyLink";
 import Select from "../../../components/Select";
-
+import List from "../../../components/MyList";
+import {
+  products,
+  filterByPrice,
+  filterByPopularity,
+} from "../../../constants/sidebarConst";
+import MyList from "../../../components/MyList";
+import MenuResponsive from "./MenuResponsive";
 
 const MyPaper = styled(Paper)(({ theme }) => ({
   display: "block",
@@ -31,87 +36,68 @@ const MyPaper = styled(Paper)(({ theme }) => ({
   transition: "transform 1s",
   [theme.breakpoints.down("md")]: {
     width: "98vw",
-    minHeight: "25vh",    
+    minHeight: "25vh",
   },
 }));
-
-const products = [
-  {
-    category: "میوه و سبزی تازه",
-    link: "/productgroup/1",
-  },
-  {
-    category: "میوه و سبزی منجمد",
-    link: "/productgroup/2",
-  },
-  {
-    category: "نوشیدنی",
-    link: "/productgroup/3",
-  },
-];
 
 const Sidebar = () => {
   const theme = useTheme();
   const largeScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [popularity, setPopularity] = useState("");
+
   return (
     <>
       <MyPaper square variant="outlined">
-      
-          <Grid container>
-            <Grid item xs={12} sm={largeScreen?6:12}>
-              {largeScreen ? (               
-                  <Select
-                    label={"دسته بندی محصولات"}
-                    items={[
-                      "میوه و سبزی تازه",
-                      "میوه و سبزی منجمد",
-                      "نوشیدنی ها",
-                    ]}
-                    value={category}
-                    setValue={setCategory}
-                  />             
-              ) : (
-                <>
-                  <Typography textAlign={"center"} py={2}>
-                    لیست محصولات
-                  </Typography>
-                  <Divider />
-                  <List component="nav">
-                    {products.map((product, index) => (
-                      <MyLink to={product.link} key={index}>
-                        <ListItem button component={"li"}>
-                          <Typography py={1}>{product.category}</Typography>
-                        </ListItem>
-                        <Divider />
+        <Grid container>
+          <Grid item xs={12} sm={largeScreen ? 6 : 12}>
+            {largeScreen ? (
+              <Box display={"flex"} sx={{ mt: 2 }}>
+                {products.map((product, index) => (
+                  <Box
+                    sx={{
+                      flexBasis: "30%",                      
+                      mr: "auto",
+                      ml: "auto",
+                    }}
+                  > <MyLink to={product.link}>
+                      <Box sx={{width:100}}>
+                    <MenuResponsive
+                      icon={product.icon}
+                      menuLink={product.link}
+                      submenuTitle={product.subcategory}
+                        />
+                        </Box>
                       </MyLink>
-                    ))}
-                  </List>
-                </>
-              )}
-            </Grid>
-            <Grid item xs={12} sm={largeScreen?6:12}>             
-                <Select
-                  label={"فیلتر قیمت"}
-                  items={["به ترتیب صعودی", "به ترتیب نزولی"]}
-                  value={price}
-                  setValue={setPrice}
-                />             
-            </Grid>
-            <Grid item xs={12} sm={largeScreen?6:12} >
-             
-                <Select
-                  label={"فیلتر ویژگی ها"}
-                  items={["محبوب ترین ها", "پرفروش ترین ها"]}
-                  value={popularity}
-                  setValue={setPopularity}
-                />
-             
-            </Grid>
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              <>
+                <Typography textAlign={"center"} py={2}>
+                  لیست محصولات
+                </Typography>
+                <Divider />
+
+                {products.map((product, index) => (
+                  <>
+                    <MyLink to={product.link} key={index}>
+                      <MyList
+                        title={product.category}
+                        submenuTitle={product.subcategory}
+                      />
+                      <Divider />
+                    </MyLink>
+                  </>
+                ))}
+              </>
+            )}
           </Grid>
-      
+          <Grid item xs={12} sm={largeScreen ? 6 : 12}>
+            <Select label={"فیلتر قیمت"} items={filterByPrice} />
+          </Grid>
+          <Grid item xs={12} sm={largeScreen ? 6 : 12}>
+            <Select label={"فیلتر ویژگی ها"} items={filterByPopularity} />
+          </Grid>
+        </Grid>
       </MyPaper>
     </>
   );
