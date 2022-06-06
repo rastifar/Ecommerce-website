@@ -42,6 +42,7 @@ const validationSchema = yup.object().shape({
     .required(" فیلد ضروری است")
     .test("عددی مثبت وارد کنید", (value) => value >= 0),
   category: yup.string().required(" فیلد ضروری است"),
+  subcategory: yup.string().required(" فیلد ضروری است"),
   image: yup.mixed().required("فیلد ضروری است"),
 });
 let tempArray = [];
@@ -64,6 +65,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
       count: data.count || "",
       wieght: data.wieght || "",
       category: data.category || "",
+      subcategory:data.subcategory||"",
       image: data.image || "",
       images: data.images || [],
       description: data.description || "",
@@ -342,6 +344,35 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               }
             >
               {caterories.map((category) => (
+                <MenuItem key={category.value} value={category.value}>
+                  {category.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={5} md={2} mx={{xs:2,sm:1}}>
+            <TextField
+              select
+              margin="dense"
+              size="small"
+              required
+              fullWidth={true}
+              name="subcategory"
+              placeholder="زیر دسته بندی"
+              type="text"
+              label="زیر دسته بندی"
+              id="subcategory"
+              autoComplete="current-subcategory"
+              color="success"
+              onChange={formik.handleChange}
+              value={formik.values.subcategory}
+              helperText={
+                formik.errors.subcategory &&
+                formik.touched.subcategory &&
+                formik.errors.subcategory
+              }
+            >
+              {formik.values.category && caterories[formik.values.category-1].subcategory.map((category) => (
                 <MenuItem key={category.value} value={category.value}>
                   {category.label}
                 </MenuItem>
