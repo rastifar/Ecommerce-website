@@ -15,13 +15,16 @@ import { productCategorizer } from "../../utils/utils";
 //---------------------components
 import CompanyMsgCard from "./components/CompanyMsgCard";
 import MyLink from "../../components/MyLink";
+import CustomeCarousel from "../../components/CustomeCarousel";
 import Carousel from "./components/Carousel";
 import useFetch from "../../hooks/useFetch";
 import { BASE_URL, PRODUCTS } from "../../constants/apiConst";
-import CustomeCarousel from "../../components/CustomeCarousel";
+
 //--------------------settings
 import { heroSettings } from "./components/carouselSettings";
 import ProductCards from "../../components/ProductCards";
+
+
 
 const Section = styled("section")({
   marginTop: "1rem",
@@ -41,8 +44,8 @@ const topMsg = [
     description: "خریدهای بالای 300 تومان",
   },
 ];
-
-const carouselImg = [Images.HomeSlide1, Images.HomeSlide2, Images.HomeSlide3];
+//  Images.HomeSlide3
+const carouselImg = [Images.HomeSlide1, Images.HomeSlide2];
 
 const Home = () => {
   const theme = useTheme();
@@ -67,16 +70,17 @@ const Home = () => {
       >
         <header>
           
-          {/* <Carousel
+          <CustomeCarousel
             Slides={carouselImg}
             width="98vw"
-            height="70vh"
+            // useMediaQuery?"70vh":"40vh"
+            height={useMediaQuery?"40vh":"70vh"}
             isImg={true}
             moludes={[Autoplay, Pagination]}
             slidesPerView={1}
             slidesPerGroup={1}
             padding={0}
-          /> */}
+          />
         </header>
 
         <Section>

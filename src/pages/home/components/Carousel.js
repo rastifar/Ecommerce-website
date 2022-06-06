@@ -35,7 +35,7 @@ const Carousel = ({
         autoplay={isImg ? { delay: 3000, disableOnInteraction: false } : false}
         pagination={{ clickable: true }}
         style={{
-          width: "80%", height: "100%", marginTop: ".5rem",background:'red',
+           width: "100%", height: "100%",
           "--swiper-navigation-size": "30px",
           "--swiper-navigation-color": "#d3a98c",
           "--swiper-pagination-color": "#d3a98c",
@@ -59,26 +59,33 @@ const Carousel = ({
               paddingTop: "100%",
               overflow: "hidden",
               position: "relative",
+              
             }}
             // breakpoints={{
             //   // when window width is >= 640px
             //   640: {
             //     width: 640,
+            //     height: 680,
+            //     backgroun:'yellow',
             //     slidesPerView: 1,
             //   },
             //   // when window width is >= 768px
             //   768: {
             //     width: 768,
-            //     slidesPerView: 2,
+            //     backgroun:'green',
+            //     slidesPerView: 1,
             //   },
             // }}
           >
             <div>
               {isImg ? (
+                <div >
                 <img
                   src={item}
-                  style={{ width: "100vw", borderRadius: "8px" }}
+                  style={{ width: "100%", borderRadius: "8px",objectFit:'cover' }}
+
                 />
+                </div>
               ) : (
                 <ProductCards productData={item} />
               )}
