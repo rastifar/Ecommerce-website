@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 //--------Material
 import { Typography, Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 //--------ReactRouter
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 //----------Image
 import successImage from "../../assets/images/success.png";
 import failureImage from "../../assets/images/failure.jpg";
@@ -20,6 +20,9 @@ import { BASE_URL, ORDERS, PRODUCTS } from "../../constants/apiConst";
 const PurchageResult = () => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  // const [searchParams, setSearchParams] = useSearchParams()
+  // const path = searchParams.get('status')
+ 
   const location = useLocation();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
@@ -80,7 +83,7 @@ const PurchageResult = () => {
             style={{ width: "100%", maxWidth: "150px", height: "auto", mb: 3 }}
           />
         </Grid>
-        <Grid item sx={12} sm={8}>
+        <Grid item xs={12} sm={8}>
           {purchaseResult === "success" ? (
             <Typography sx={{ my: 7, textAlign: "center" }}>
               با تشکر از پرداخت شما، سفارش شما ثبت شده و جهت هماهنگی ارسال با
