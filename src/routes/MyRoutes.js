@@ -48,6 +48,15 @@ const MyRoutes = () => {
             </UserLayout>
           }
         />
+
+        <Route
+          path="/productgroup/:categoryNum/subcategory/:subcategoryNum"
+          element={
+            <UserLayout withSidebar={true}>
+              <ProductGroups />
+            </UserLayout>
+          }
+        />
         <Route
           path="/aboutus"
           element={
@@ -134,9 +143,9 @@ const MyRoutes = () => {
           path="/dashboard"
           element={
             <AdminLayout>
-              {/* <RequiredAuth> */}
+              <RequiredAuth>
                 <AdminDashboard />
-              {/* </RequiredAuth> */}
+              </RequiredAuth>
             </AdminLayout>
           }
         >
