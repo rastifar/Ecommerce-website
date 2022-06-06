@@ -32,7 +32,7 @@ const DrawerCmp = () => {
             <ListItemButton key={index} divider onClick={() => setOpen(false)}>
               <ListItemIcon>
                 {item.title == "مدیریت" ? (
-                  <MyLink to="/login">                 
+                  <MyLink to="/dashboard">                 
                     <Button color="warning" size="medium" variant="contained">
                       مدیریت
                     </Button>
