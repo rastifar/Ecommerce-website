@@ -1,4 +1,4 @@
-export const caterories = [
+const caterories = [
     {
         label: 'میوه و سبزی تازه',
         value: '1',
@@ -24,3 +24,8 @@ export const caterories = [
         ]
     }
 ]
+const subCategories = [
+    { label: 'میوه', value:'1' },
+    {label:'سبزی',value:'2'}
+]
+export {caterories,subCategories}
