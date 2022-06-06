@@ -5,7 +5,7 @@ import * as yup from "yup";
 import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import image from "../../../assets/images/preview.jpg";
-import { caterories } from "../../../constants/formsConst";
+import { caterories,subCategories } from "../../../constants/formsConst";
 import RecentActorsTwoToneIcon from "@mui/icons-material/RecentActorsTwoTone";
 import CollectionsTwoToneIcon from "@mui/icons-material/CollectionsTwoTone";
 
@@ -372,7 +372,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
                 formik.errors.subcategory
               }
             >
-              {formik.values.category && caterories[formik.values.category-1].subcategory.map((category) => (
+              {subCategories.map((category) => (
                 <MenuItem key={category.value} value={category.value}>
                   {category.label}
                 </MenuItem>
