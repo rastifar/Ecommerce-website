@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useSearchParams } from "react-router-dom";
 import {
   Grid,
   Box,
@@ -16,23 +16,54 @@ import axios from "axios";
 import { caterories } from "../../constants/formsConst";
 import useFetch from "../../hooks/useFetch";
 
-
 import ProductCards from "../../components/ProductCards";
 import MyLink from "../../components/MyLink";
+import Selects from "../../components/Select";
 const ProductGroups = () => {
   const theme = useTheme();
   const largeScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const location = useLocation();
-  const search = location.pathname.split("/").pop();
- 
+
+  const currentLocation = location.pathname.split("/").pop();
+  console.log(currentLocation);
+  //const resultTosearch = location.search;
+  //console.log('locaiotnSearch', resultTosearch);
+
+  const queryString = require("query-string");
+  const parsed = queryString.parse(location.search);
+  const resultTosearch = queryString.stringify(parsed);
+
+
   const limit = useMemo(() => 6, []);
   const [activePage, setActivePage] = useState(1);
   const { categoryNum } = useParams();
 
-  const { data, loading, error, headers } = useFetch(
-    `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}}&_sort=asc`
-  );
+  // const [searchParams] = useSearchParams();
+  // console.log(searchParams.entries());
+  // console.log(Object.fromEntries([...searchParams]));
+  // const urlsearch = Object.fromEntries([...searchParams])
+  // let query =''
+  // const searchResult = Object.entries(urlsearch).map(item => query += item[0] + `=` + item[1] + `&`)
+  // const resultTosearch = searchResult.pop()
+  // console.log('resultTosearch', resultTosearch);
 
+  // console.log(Object.entries(urlsearch).map(item => query += item[0] + `=` + item[1] + `&`));
+
+  console.log(
+    `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+  );
+  const { data, loading, error, headers } = useFetch(
+    `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+  );
+  
+  
+    // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}}&_sort=asc`
+    // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}`
+    console.log("headers", headers["x-total-count"]);
+
+  useEffect(() => {
+    setActivePage(1);
+  }, [currentLocation]);
   return (
     <Box
       display="flex"
@@ -48,15 +79,16 @@ const ProductGroups = () => {
       ) : (
         <Box>
           <CssBaseline />
+
           <Grid container>
             {data?.map((item) => (
               <Grid item key={item.name} xs={12} sm={6} md={4} align="center">
                 <ProductCards
                   productData={item}
                   width={"250px"}
-                  fontSize={largeScreen?"1.3rem":"1rem"}
+                  fontSize={largeScreen ? "1.3rem" : "1rem"}
                   height={"150px"}
-                  objectFit={search==3 ?"contain":"cover"}
+                  objectFit={currentLocation == 3 ? "contain" : "cover"}
                 />
               </Grid>
             ))}
@@ -75,7 +107,9 @@ const ProductGroups = () => {
             variant="outlined"
             defaultPage={1}
             page={activePage}
-            count={Math.ceil(Number(headers["x-total-count"]) / Number(limit))}
+            count={
+              Math.ceil(Number(headers["x-total-count"]) / Number(limit)) || 0
+            }
             onChange={(_, page) => {
               console.log("page:", page);
               setActivePage(page);
