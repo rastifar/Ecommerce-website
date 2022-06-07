@@ -40,7 +40,12 @@ const quantityCount = (state, id) => {
   }, {});
   return productCategorized;
 };
-
+const urlFilterOptions = (array) => {
+  if (array[4]) {
+    return `?category=${array[2]}&subcategory=${array[4]}`
+  }
+  return `?category=${array[2]}`
+}
 export {
   convertTimeStamToDate,
   numberDivider,
@@ -48,4 +53,5 @@ export {
   quantityCount,
   toFarsiNumber,
   productCategorizer,
+  urlFilterOptions
 };
