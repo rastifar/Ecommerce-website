@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 //--------Material
-import { Typography, Box, Grid, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, Box, Grid} from "@mui/material";
 //--------ReactRouter
 import { useLocation, useSearchParams } from "react-router-dom";
 //----------Image
@@ -18,10 +18,6 @@ import { toast } from "react-toastify";
 import { BASE_URL, ORDERS, PRODUCTS } from "../../constants/apiConst";
 
 const PurchageResult = () => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  // const [searchParams, setSearchParams] = useSearchParams()
-  // const path = searchParams.get('status')
  
   const location = useLocation();
   const dispatch = useDispatch();
@@ -30,7 +26,7 @@ const PurchageResult = () => {
   const purchaseResult = location.search.split("=")[1];
   console.log(cartData);
   useEffect(() => {
-    if (purchaseResult === "success") {
+    if (purchaseResult === "success" ) {
       try {
         handleUpdateOrders();
         handleInventories();
