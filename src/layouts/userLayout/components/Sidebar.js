@@ -81,13 +81,14 @@ const Sidebar = () => {
 
                 {products.map((product, index) => (
                   <>
-                    <MyLink to={product.link} key={index}>
+                    {/* <MyLink to={product.link} key={index}> */}
                       <MyList
                         title={product.category}
+                        menuLink={product.link}
                         submenuTitle={product.subcategory}
                       />
                       <Divider />
-                    </MyLink>
+                    {/* </MyLink> */}
                   </>
                 ))}
               </>
