@@ -35,7 +35,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 //const
-import { breadcrump } from "../../constants/categoryConst";
+import { breadcrump ,subCategory} from "../../constants/categoryConst";
 //
 //icons
 import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
@@ -87,10 +87,10 @@ const ProductDetails = () => {
   }, []);
 
   //const [{ name:name, images:images, description:description, price:price }] = data && data[0] || [{}]
-  const { name, image, description, category, price, images, id, count } = data;
+  const { name, image, description, category, price, images, id, count,subcategory } = data;
   //descriptionRef.current.innerHTML = description || "";
   const payload = { id, name, price, count };
-
+console.log(subcategory);
   const quantityCountInBasket = quantityCount(state, payload.id);
 
   const handleIncrease = () => {
@@ -113,7 +113,7 @@ const ProductDetails = () => {
       )
       .then((res) => {
         if (res === 200 || res === 201) {
-          alert("succwss");
+          alert("success");
         }
       })
       .catch((error) => alert("error"));
@@ -190,7 +190,9 @@ const ProductDetails = () => {
         <Grid item xs={12} sm={6} md={4} sx={{ minHeight: "35vh", p: 3 }}>
           <ProductBreadCrump
             category={breadcrump[category - 1]}
-            link={category}
+            catLink={category}
+            subcategory={subCategory[subcategory - 1]}
+            subLink={subcategory}
           />
           {/* <Typography variant="p" sx={{ my: 2, mr: 2 ,textAlign:'center',color:'primary'}} >
               دسته بندی : {breadcrump[category - 1]}
