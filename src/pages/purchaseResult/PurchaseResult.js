@@ -26,7 +26,7 @@ const PurchageResult = () => {
   const purchaseResult = location.search.split("=")[1];
   console.log(cartData);
   useEffect(() => {
-    if (purchaseResult === "success" ) {
+    if (purchaseResult === "success" && cartData.length!==0) {
       try {
         handleUpdateOrders();
         handleInventories();
