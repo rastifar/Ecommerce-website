@@ -11,29 +11,7 @@ import {
   TextField,
   Rating,
 } from "@mui/material";
-//Swiper
-// import Swiper core and required modules
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Autoplay,
-  Thumbs,
-} from "swiper";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 //const
 import { breadcrump } from "../../constants/categoryConst";
 //
@@ -44,6 +22,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 //components
 import ProductImagesSlider from "./components/ProductImagesSlider";
 import ProductBreadCrump from "./components/ProductBreadCrump";
+import CustomeCarousel from "../../components/CustomeCarousel";
 //utils
 import {
   numberDivider,
@@ -51,6 +30,8 @@ import {
   quantityCount,
   toFarsiNumber,
 } from "../../utils/utils";
+//-------------swiper
+import { Navigation} from "swiper";
 
 //-----------------------
 //Redux
@@ -125,67 +106,16 @@ const ProductDetails = () => {
       <Grid container sx={{ my: 3, p: 3 }}>
         {/* <Grid item xs={12} sm={6} md={4} container direction="row"> */}
         <Grid item xs={12} sm={6} md={4} sx={{ minHeight: "35vh", p: 2 }}>
-          <ProductImagesSlider
-            width="100%"
-            heigth="100%"
-            items={images}
-            modules={[Navigation]}
+          <Box >
+        <CustomeCarousel
+            Slides={images}           
+            isImg={false}
+            moludes={[Navigation]}
+            slidesPerView={1}
             slidesPerGroup={1}
-          />
-          {/* <Swiper
-              loop={true}
-              spaceBetween={10}
-              navigation={true}
-              modules={[Navigation, Thumbs]}
-              grabCursor={true}
-              thumbs={{ swiper: activeThumb }}
-             
-            >
-              {images?.map((img,index) => (
-                <SwiperSlide
-                  width={"100%"}
-                  height={"100%"}
-                  modules={[Autoplay, Pagination, Navigation]}
-                  sx={{
-                    paddingTop: "100%",
-                    overflow: "hidden",
-                    position: "relative",
-                  }}
-                >
-                  <div>
-                    {" "}
-                    <img key={index}
-                      src={BASE_URL + "/files/" + img}
-                      style={{ width: "30vw", borderRadius: "8px" }}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <Swiper
-              onSwiper={setActiveThumb}
-              loop={true}
-              spaceBetween={10}
-              slidesPerView={4}
-              modules={[Navigation, Thumbs]}
-              className="product-images-slider-thumbs"
-            >
-              {images?.map((img) => (
-                <SwiperSlide
-                  width={"100%"}
-                  height={"100%"}
-                  modules={[Autoplay, Pagination, Navigation]}
-                >
-                  <div>
-                    {" "}
-                    <img
-                      src={BASE_URL + "/files/" + img}
-                      style={{ width: "6vw", borderRadius: "8px" }}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper> */}
+            padding={0}
+            />
+          </Box>         
         </Grid>
         <Grid item xs={12} sm={6} md={4} sx={{ minHeight: "35vh", p: 3 }}>
           <ProductBreadCrump
