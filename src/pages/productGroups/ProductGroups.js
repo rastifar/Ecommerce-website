@@ -17,22 +17,27 @@ import { caterories } from "../../constants/formsConst";
 import useFetch from "../../hooks/useFetch";
 
 import ProductCards from "../../components/ProductCards";
-import MyLink from "../../components/MyLink";
-import Selects from "../../components/Select";
+import { urlFilterOptions } from "../../utils/utils";
+
 const ProductGroups = () => {
   const theme = useTheme();
   const largeScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const location = useLocation();
+  const currentLocation = location.pathname.split("/");
 
-  const currentLocation = location.pathname.split("/").pop();
-  console.log(currentLocation);
+  console.log("currentLocation :", currentLocation);
+
+  const displayBasedOnLocation = currentLocation[2]
+  const filteredOptions = urlFilterOptions(currentLocation)
+  console.log('displayBasedOnLocation', displayBasedOnLocation);
+  console.log('filteredOptions',filteredOptions);
   //const resultTosearch = location.search;
   //console.log('locaiotnSearch', resultTosearch);
 
   const queryString = require("query-string");
   const parsed = queryString.parse(location.search);
   const resultTosearch = queryString.stringify(parsed);
-
+  console.log();
 
   const limit = useMemo(() => 6, []);
   const [activePage, setActivePage] = useState(1);
@@ -50,20 +55,20 @@ const ProductGroups = () => {
   // console.log(Object.entries(urlsearch).map(item => query += item[0] + `=` + item[1] + `&`));
 
   console.log(
-    `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+    // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+    `http://localhost:3002/products${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
   );
   const { data, loading, error, headers } = useFetch(
-    `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+    `http://localhost:3002/products${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
   );
-  
-  
-    // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}}&_sort=asc`
-    // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}`
-    console.log("headers", headers["x-total-count"]);
+
+  // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}}&_sort=asc`
+  // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}`
+  console.log("headers", headers["x-total-count"]);
 
   useEffect(() => {
     setActivePage(1);
-  }, [currentLocation]);
+  }, [resultTosearch,filteredOptions]);
   return (
     <Box
       display="flex"
@@ -77,18 +82,18 @@ const ProductGroups = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <Box>
+        <Box sx={{minHeight:'70vh',minWidth:'70vw'}}>
           <CssBaseline />
 
-          <Grid container>
+          <Grid container >
             {data?.map((item) => (
-              <Grid item key={item.name} xs={12} sm={6} md={4} align="center">
+              <Grid item key={item.name} xs={12} sm={6} md={4} align="center" >
                 <ProductCards
                   productData={item}
                   width={"250px"}
                   fontSize={largeScreen ? "1.3rem" : "1rem"}
                   height={"150px"}
-                  objectFit={currentLocation == 3 ? "contain" : "cover"}
+                  objectFit={displayBasedOnLocation == 3 ? "contain" : "cover"}
                 />
               </Grid>
             ))}
