@@ -14,13 +14,14 @@ import { columns } from "./columns";
 import axios from "axios";
 import { BASE_URL, ORDERS } from "../../../constants/apiConst";
 //--------------Redux
-import { useSelector} from "react-redux";
-
+import { useDispatch, useSelector} from "react-redux";
+import { changeState } from "../../../redux/modalSlice";
 //---------------Toast
 import { toast} from "react-toastify";
 
 export default function OrderForm({ data, onClose,handlechange }) {
   const token = useSelector((state) => state.token);
+  const dispatch = useDispatch()
   
   const rows = data.orderItems?.map((item) => ({
     id: item.id,
@@ -41,6 +42,7 @@ export default function OrderForm({ data, onClose,handlechange }) {
       )
       .then((res) => {
         handlechange(2)
+        dispatch(changeState())
         toast.success("با موفقیت به کالاهای تحویل شده اضافه شد")
       })
       .catch((error) =>
