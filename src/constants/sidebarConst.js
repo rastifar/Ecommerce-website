@@ -25,11 +25,11 @@ const products = [
     subcategory: [
       {
         title: "میوه",
-        link: "/productgroup/1/subcategory/1",
+        link: "/productgroup/2/subcategory/1",
       },
       {
         title: "سبزی",
-        link: "/productgroup/1/subcategory/2",
+        link: "/productgroup/2/subcategory/2",
       },
     ],
   },
@@ -40,11 +40,11 @@ const products = [
     subcategory: [
       {
         title: "میوه",
-        link: "/productgroup/1/subcategory/1",
+        link: "/productgroup/3/subcategory/1",
       },
       {
         title: "سبزی",
-        link: "/productgroup/1/subcategory/2",
+        link: "/productgroup/3/subcategory/2",
       },
     ],
   },
