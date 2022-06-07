@@ -67,13 +67,17 @@ const Header = ({ withSidebar = false }) => {
               </Box>
             </MyLink>
             <Box sx={{ flexGrow: 1, marginRight: "5rem" }}>
-              {/* <Stack direction="row" spacing={2}>
-
-                  <Button color='inherit'>میوه تازه</Button>
-                  <Button color='inherit'>میوه منجمد</Button>
-                  <Button color='inherit'>نوشیدنی</Button>
-                </Stack> */}
-              <Tabs
+              <Stack direction="row" spacing={2}>
+                {LINKARRAYS.map((link, index) => (
+                  <MyLink to={link.link} key={index}>
+                    <Button>{link.title}</Button>
+                  </MyLink>
+                ))}
+                {/* <Button color="inherit">میوه تازه</Button>
+                <Button color="inherit">میوه منجمد</Button>
+                <Button color="inherit">نوشیدنی</Button> */}
+              </Stack>
+              {/* <Tabs
                 indicatorColor="secondary"
                 value={value}
                 textColor="primary"
@@ -88,7 +92,7 @@ const Header = ({ withSidebar = false }) => {
                     sx={{ fontSize: "1rem", fontWeight: "bold" }}
                   />
                 ))}
-              </Tabs>
+              </Tabs> */}
             </Box>
             <Box sx={{ margin: "1rem" }}>
               <MyLink to="/dashboard">
