@@ -35,7 +35,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 //const
-import { breadcrump,Category ,subCategory} from "../../constants/categoryConst";
+import { Category ,subCategory} from "../../constants/categoryConst";
 //
 //icons
 import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
