@@ -71,28 +71,28 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
       description: data.description || "",
     },
     onSubmit: (values, { resetForm }) => {
-      console.log("values", values);
-      const formData = new FormData();
-      Object.entries(values).map((key, value) => {
-        if (key[0] === "images") {
-          key[1].map((item, index) => {
-            formData.append(`images[${index}]`, item);
-          });
-        } else if (key[0] === "description") {
-          formData.append("description", ckEditorRef.current);
-        } else {
-          formData.append(key[0], key[1]);
-        }
-      });
+      // console.log("values", values);
+      // const formData = new FormData();
+      // Object.entries(values).map((key, value) => {
+      //   if (key[0] === "images") {
+      //     key[1].map((item, index) => {
+      //       formData.append(`images[${index}]`, item);
+      //     });
+      //   } else if (key[0] === "description") {
+      //     formData.append("description", ckEditorRef.current);
+      //   } else {
+      //     formData.append(key[0], key[1]);
+      //   }
+      // });
 
       if (data) {
         console.log("data in updat ", data);
         console.log("in data part :", values, data);
-        formData.append("id", data.id);
+        //formData.append("id", data.id);
         axios
-          .patch(`http://localhost:3002/products/${data.id}`, formData, {
+          .patch(`http://localhost:3002/products/${data.id}`, values, {
             headers: { token: token },
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           })
           .then((res) => {
             if (res.status == 200 || res.status == 201) {
@@ -102,7 +102,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
           .catch((err) => toast.error("عملیات به درستی انجام نشده است"));
       } else {
         axios
-          .post("http://localhost:3002/products", formData)
+          .post("http://localhost:3002/products", values)
           .then((res) => {
             if (res.status == 200 || res.status == 201) {
               console.log('if');
@@ -244,6 +244,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               label="نام کالا"
               autoComplete="name"
               color="success"
+              type="text"
               onChange={formik.handleChange}
               value={formik.values.name}
               helperText={
@@ -261,7 +262,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               name="price"
               placeholder="قیمت"
               label="قیمت"
-              type="price"
+              type="number"
               id="price"
               autoComplete="current-price"
               color="success"
@@ -284,7 +285,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               name="count"
               placeholder="تعداد"
               label="نعداد"
-              type="count"
+              type="number"
               id="count"
               autoComplete="current-count"
               color="success"
@@ -308,7 +309,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               name="wieght"
               placeholder="وزن"
               label="وزن"
-              type="wieght"
+              type="text"
               id="wieght"
               autoComplete="current-wieght"
               color="success"
@@ -470,6 +471,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               //onChange={inputHandler}
               onChange={(event, editor) => {
                 ckEditorRef.current = editor.getData();
+                formik.setFieldValue("description",editor.getData(),false)
               }}
               />
               </Box>
