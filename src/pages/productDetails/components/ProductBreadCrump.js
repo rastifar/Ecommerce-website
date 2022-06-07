@@ -10,7 +10,7 @@ function handleClick(event) {
   console.info('You clicked a breadcrumb.');
 }
 
-export default function ProductBreadCrump({category,link}) {
+export default function ProductBreadCrump({category,catLink,subcategory,subLink}) {
   return (
     <div role="presentation" onClick={handleClick}>
       <Breadcrumbs aria-label="breadcrumb">
@@ -20,10 +20,17 @@ export default function ProductBreadCrump({category,link}) {
         <MyLink
           underline="hover"
           color="primary"
-          to={`/productgroup/${link}`}
+          to={`/productgroup/${catLink}`}
         >
          {category} 
-        </MyLink>      
+        </MyLink> 
+        <MyLink
+          underline="hover"
+          color="primary"
+          to={`/productgroup/${catLink}/subcategory/${subLink}`}
+        >
+         {subcategory} 
+        </MyLink> 
       </Breadcrumbs>
     </div>
   );
