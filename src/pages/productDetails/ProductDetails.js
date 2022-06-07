@@ -35,7 +35,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 //const
-import { breadcrump ,subCategory} from "../../constants/categoryConst";
+import { breadcrump,Category ,subCategory} from "../../constants/categoryConst";
 //
 //icons
 import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
@@ -189,7 +189,7 @@ console.log(subcategory);
         </Grid>
         <Grid item xs={12} sm={6} md={4} sx={{ minHeight: "35vh", p: 3 }}>
           <ProductBreadCrump
-            category={breadcrump[category - 1]}
+            category={Category[category - 1]}
             catLink={category}
             subcategory={subCategory[subcategory - 1]}
             subLink={subcategory}
