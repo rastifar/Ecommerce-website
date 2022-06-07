@@ -68,11 +68,11 @@ const Home = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <header>
+        <Box  sx={{width:"98vw" , height:'55vh'}}>
           
           <CustomeCarousel
             Slides={carouselImg}
-            width="98vw"
+           
             // useMediaQuery?"70vh":"40vh"
             height={useMediaQuery?"40vh":"70vh"}
             isImg={true}
@@ -81,7 +81,7 @@ const Home = () => {
             slidesPerGroup={1}
             padding={0}
           />
-        </header>
+        </Box>
 
         <Section>
           <Grid container direction={"row"} sx={{ width: "98vw" }}>
