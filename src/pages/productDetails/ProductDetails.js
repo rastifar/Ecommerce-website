@@ -46,6 +46,7 @@ import {
 import { toast } from "react-toastify";
 import { setNestedObjectValues } from "formik";
 
+
 const ProductDetails = () => {
   const { productid } = useParams();
   const [data, setData] = useState({});
@@ -93,11 +94,11 @@ console.log(subcategory);
         }
       )
       .then((res) => {
-        if (res === 200 || res === 201) {
-          alert("success");
+        if (res.status === 200 || res.status === 201) {
+         toast.success('نظر شما با موفقیت ثبت شده است')
         }
       })
-      .catch((error) => alert("error"));
+      .catch((error) => toast.error('مشکلی در ثبت نظر شمابه وجود امده است لطفا مجددا نظر خود را ثبت کنید'));
   };
   console.log(data);
   console.log(images);
