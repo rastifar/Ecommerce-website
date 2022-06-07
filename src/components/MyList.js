@@ -7,7 +7,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import MyLink from "./MyLink";
 
-const MyList = ({ title, submenuTitle }) => {
+const MyList = ({ title,menuLink, submenuTitle }) => {
   const [open, setOpen] = React.useState(false);
   console.log(title, submenuTitle);
   const handleClick = () => {
@@ -19,8 +19,18 @@ const MyList = ({ title, submenuTitle }) => {
         <ListItemText>{title}</ListItemText>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+          <MyLink to={menuLink} >
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemText>تمام محصولات</ListItemText>
+              </ListItemButton>
+            </List>
+          </MyLink>
+        </Collapse>
       {submenuTitle?.map((subitem, index) => (
-        <Collapse in={open} timeout="auto" unmountOnExit >
+        
+        <Collapse in={open} timeout="auto" unmountOnExit>
           <MyLink to={subitem.link} key={index}>
             <List component="div" disablePadding>
               <ListItemButton sx={{ pl: 4 }}>
