@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
 import api from "../../api/api";
-import { category } from "../../constants/categoryConst";
+import { category,subCategory } from "../../constants/categoryConst";
 //modal
 import AddOrEditModal from "./components/AddOrEditModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
@@ -129,7 +129,7 @@ export default function Goods() {
     id: product.id,
     image: product.image,
     name: product.name,
-    category: category[product.category - 1],
+    category: `${category[product.category - 1]} / ${subCategory[product.subcategory-1]}`
   }));
 
   const handleOpenModal = () => {
