@@ -57,7 +57,7 @@ export default function StoreQuantity() {
   const rows = products?.map((product) => ({
     id: product.id,
     productName: product.name,
-    price: product.price,
+    price: numberDivider(product.price),
     count: numberDivider(product.count),
   }));
 

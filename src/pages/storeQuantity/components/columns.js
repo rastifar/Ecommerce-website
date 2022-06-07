@@ -16,9 +16,9 @@ export const columns = [
       disableColumnMenu: true,
       minWidth: 300,
       flex: 1,
-      renderCell: (params) => {
-        return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      },
+      // renderCell: (params) => {
+      //   return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      // },
       preProcessEditCellProps: (params) => {
         const num = Number(params.props.value);
         const hasError = !(Number.isInteger(num) && num >= 0);
