@@ -53,6 +53,7 @@ const Sidebar = () => {
               <Box display={"flex"} sx={{ mt: 2 }}>
                 {products.map((product, index) => (
                   <Box
+                    key={index}
                     sx={{
                       flexBasis: "30%",                      
                       mr: "auto",

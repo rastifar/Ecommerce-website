@@ -50,7 +50,7 @@ export default function MenuResponsive({ icon, menuLink, submenuTitle }) {
         }}
       >
         {submenuTitle.map((product, index) => (
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleClose} key={index}>
             {/* <MyList
               title={product.category}
               submenuTitle={product.subcategory}

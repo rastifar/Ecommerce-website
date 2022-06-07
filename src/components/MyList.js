@@ -20,7 +20,7 @@ const MyList = ({ title, submenuTitle }) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       {submenuTitle?.map((subitem, index) => (
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={open} timeout="auto" unmountOnExit >
           <MyLink to={subitem.link} key={index}>
             <List component="div" disablePadding>
               <ListItemButton sx={{ pl: 4 }}>
