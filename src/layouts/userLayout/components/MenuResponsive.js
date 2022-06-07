@@ -35,8 +35,8 @@ export default function MenuResponsive({ icon, menuLink, submenuTitle }) {
         sx={{ mt: 1, mx: 1 }}
       > */}
      
-        <Box onClick={handleClick} sx={{ border: "1px solid lightgray" }}>
-          <Typography textAlign={"center"}>{icon}</Typography>
+        <Box onClick={handleClick} sx={{ border: "1px solid lightgray",textAlign:'center',pt:1}}>
+          {icon}
         </Box>
       
       {/* </Button> */}
@@ -49,6 +49,7 @@ export default function MenuResponsive({ icon, menuLink, submenuTitle }) {
           "aria-labelledby": "basic-button",
         }}
       >
+        <MenuItem onClick={handleClose}><MyLink to={menuLink}>تمام محصولات</MyLink></MenuItem>
         {submenuTitle.map((product, index) => (
           <MenuItem onClick={handleClose} key={index}>
             {/* <MyList
