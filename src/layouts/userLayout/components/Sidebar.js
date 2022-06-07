@@ -59,15 +59,16 @@ const Sidebar = () => {
                       mr: "auto",
                       ml: "auto",
                     }}
-                  > <MyLink to={product.link}>
-                      <Box sx={{width:100}}>
+                  >
+                    {/* <MyLink to={product.link}>
+                      <Box sx={{width:100}}> */}
                     <MenuResponsive
                       icon={product.icon}
                       menuLink={product.link}
                       submenuTitle={product.subcategory}
                         />
-                        </Box>
-                      </MyLink>
+                        {/* </Box>
+                      </MyLink> */}
                   </Box>
                 ))}
               </Box>
