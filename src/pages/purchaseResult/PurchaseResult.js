@@ -21,12 +21,14 @@ const PurchageResult = () => {
  
   const location = useLocation();
   const dispatch = useDispatch();
+  const order = JSON.parse(localStorage.getItem("orders"));
+  console.log(order);
   const token = useSelector((state) => state.token);
   const cartData = useSelector((state) => state.cart.cartItems);
   const purchaseResult = location.search.split("=")[1];
   console.log(cartData);
   useEffect(() => {
-    if (purchaseResult === "success" && cartData.length!==0) {
+    if (purchaseResult === "success" && cartData.length!==0 && order) {
       try {
         handleUpdateOrders();
         handleInventories();
@@ -38,7 +40,7 @@ const PurchageResult = () => {
   }, []);
 
   const handleUpdateOrders = async () => {
-    const order = JSON.parse(localStorage.getItem("orders"));
+   
     console.log(order);
     const result = await api.post(BASE_URL + ORDERS, order);
     //api.post(BASE_URL + ORDERS, order).then(res=>localStorage.removeItem('orders'))
