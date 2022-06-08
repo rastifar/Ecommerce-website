@@ -1,5 +1,5 @@
 import axios from "../api/httpRequestApi";
-import { BASE_URL, ORDERS } from "../constants/apiConst";
+import { AUTH_LOGIN, BASE_URL, ORDERS } from "../constants/apiConst";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -10,8 +10,10 @@ class HttpService {
     axios.interceptors.request.use(
       (config) => {
         // const token = useSelector((state) => state.token);
-            const token = localStorage.getItem('token')
-        config.headers["token"] = `${token}`;
+        const token = localStorage.getItem("token");
+        if (config.url !== AUTH_LOGIN) {
+          config.headers["token"] = `${token}`;
+        }
         return config;
       },
       (error) => {
