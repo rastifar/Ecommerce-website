@@ -1,7 +1,7 @@
 import HttpService from "../services/httpService";
 import { PRODUCTS, UPLOAD } from "../constants/apiConst";
 import { toast } from "react-toastify";
-import httpService from "../services/httpService";
+
 
 const getAllProducts = async (sortOrder) => {
   try {
@@ -13,7 +13,7 @@ const getAllProducts = async (sortOrder) => {
 };
 const deleteProductById = async (productId) => {
   try {
-    const response = await httpService.delete(PRODUCTS + `/${productId}`);
+    const response = await HttpService.delete(PRODUCTS + `/${productId}`);
     if (response.status == 200 || response.status == 201) {
       toast.success("محصول با موفقیت حذف شده است");
     }
@@ -40,7 +40,7 @@ const editProductByid = async (productId, values) => {
 };
 const createProduct = async (values) => {
   try {
-    const response = await httpService.post(PRODUCTS, values);
+    const response = await HttpService.post(PRODUCTS, values);
     if (response.status == 200 || response.status == 201) {
       toast.success("اطلاعات با موفقیت ثبت شده است");
     }
@@ -52,7 +52,7 @@ const uploadSingleImage = async (imageFile) => {
   try {
     const formData = new FormData();
     formData.append("image", imageFile);
-    const filename = await httpService.post(UPLOAD, formData);
+    const filename = await HttpService.post(UPLOAD, formData);
     return filename;
   } catch (error) {
     toast.error("خطایی در بارگذاری عکس اتفاق افتاده است");
@@ -64,7 +64,7 @@ const uploadBuldImages = async (imagesFile) => {
     imagesFile.map((item) => {
       const formData = new FormData();
       formData.append("image", item);
-      const tempRequest = httpService.post(UPLOAD, formData);
+      const tempRequest = HttpService.post(UPLOAD, formData);
       temp.push(tempRequest);
     });
     const arrayResponse = await Promise.all(temp);
