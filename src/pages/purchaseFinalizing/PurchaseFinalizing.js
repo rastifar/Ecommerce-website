@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 //---------formik
 import { useFormik } from "formik";
 import * as yup from "yup";
-//----------axios
-import axios from "axios";
+//----------const
+import {pendingOrder} from "../../constants/apiConst"
 //---------Material
 import { Typography, Button, TextField, Box, Grid } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -21,6 +21,7 @@ import InputIcon from "react-multi-date-picker/components/input_icon";
 //-----------Redux
 import { useSelector } from "react-redux";
 import { TryRounded } from "@mui/icons-material";
+import { sendOrderToDatabase } from "../../api/cartApi";
 //-------------REGEX
 const phoneRegExp = /^(09)+\d{9}$/;
 // /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/;
@@ -43,10 +44,11 @@ const validationSchema = yup.object({
   phoneNumber: yup
     .string()
     .matches(
-    /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/,
-    "این شماره نامعتبر است"
+      /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/,
+      "این شماره نامعتبر است"
     )
-    .max(11, "این شماره نامعتبر است").required("لطفا شماره تماس را وارد کنید"),    
+    .max(11, "این شماره نامعتبر است")
+    .required("لطفا شماره تماس را وارد کنید"),
   address: yup
     .string()
     .min(3, "کمتر از 3 حرف مجاز نمی باشد")
@@ -76,7 +78,8 @@ const PurchaseFinalizing = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values,{ resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
+      console.log(cartItems.cartItems);
       const order = {
         customerDetail: {
           username: "admin",
@@ -87,15 +90,17 @@ const PurchaseFinalizing = () => {
         },
         orderNumber: values.phoneNumber,
         purchaseTotal: `${cartItems.cartTotalAmount}`,
-        orderStatus: 2,
+        orderStatus:pendingOrder,
         // delivery: deliveryDate ? deliveryDate : "",
         delivery: values.deliveryDate,
-        deliverdAt:"",
+        deliverdAt: "",
         orderItems: cartItems.cartItems,
       };
 
+      const customerId = await sendOrderToDatabase(order);
+
       window.open(
-        `http://127.0.0.1:5500/public/payment.html?totalPrice=${order.purchaseTotal}`
+        `http://127.0.0.1:5500/public/payment.html?totalPrice=${order.purchaseTotal}&id=${customerId.data.id}`
       );
       localStorage.setItem("orders", JSON.stringify(order));
       resetForm({ values: "" });
@@ -119,8 +124,9 @@ const PurchaseFinalizing = () => {
   //     });
   //   });
   // };
+  console.log(pendingOrder);
   return (
-    <Box sx={{ mt: 5,mb:10 }}>
+    <Box sx={{ mt: 5, mb: 10 }}>
       <Typography variant="h6" gutterBottom align="center" sx={{ my: 2 }}>
         نهایی کردن خرید
       </Typography>
@@ -200,7 +206,7 @@ const PurchaseFinalizing = () => {
             <TextField
               id="phoneNumber"
               size="small"
-              label="تلفن"
+              label=" تلفن همراه"
               type="text"
               required
               variant="outlined"
@@ -216,8 +222,8 @@ const PurchaseFinalizing = () => {
               }
             />
           </Grid>
-          <Grid item xs={12} sm={6}>        
-            <DatePicker        
+          <Grid item xs={12} sm={6}>
+            <DatePicker
               style={{
                 width: "100%",
                 boxSizing: "border-box",
@@ -235,28 +241,37 @@ const PurchaseFinalizing = () => {
               onChange={(e) =>
                 formik.setFieldValue("deliveryDate", e.unix * 1000, true)
               }
-             
               value={formik.values.dateDeliver}
-              minDate={new DateObject({ calendar: persian })}         
+              minDate={new DateObject({ calendar: persian })}
             />
-            <Box sx={{color:'gray',fontFamily:'IRANSansWeb',fontSize:'.8rem'}}>
+            <Box
+              sx={{
+                color: "gray",
+                fontFamily: "IRANSansWeb",
+                fontSize: ".8rem",
+              }}
+            >
               {formik.errors.deliveryDate &&
                 formik.touched.deliveryDate &&
                 formik.errors.deliveryDate}
             </Box>
           </Grid>
           <Grid item xs={12}>
-          <Button
-            fullWidth={true}
-            type="submit"
-            variant="contained"
-            //color="secondary"
-            sx={{bgcolor:"#BDF2D5",mt:2,'&:hover': {
-              background: "#4B8673",
-           }}}
-          >
-            پرداخت
-          </Button>
+            <Button
+              fullWidth={true}
+              type="submit"
+              variant="contained"
+              //color="secondary"
+              sx={{
+                bgcolor: "#BDF2D5",
+                mt: 2,
+                "&:hover": {
+                  background: "#4B8673",
+                },
+              }}
+            >
+              پرداخت
+            </Button>
           </Grid>
         </Grid>
       </Box>
