@@ -1,23 +1,15 @@
 import React, { useState } from "react";
-import usePost from "../../hooks/usePost";
-import axios from "../../api/httpRequestApi"
+import HttpService from "../../services/httpService";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import { adminloggedIn } from "../../redux/adminSlice";
 import { addToken } from "../../redux/tokenSlice";
 import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
 
 import {
   Container,
   Typography,
   Box,
-  Grid,
-  Link,
-  Checkbox,
-  FormControlLabel,
   TextField,
   CssBaseline,
   Button,
@@ -26,6 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import image from "../../assets/images/pomegranate1.png";
 import { useNavigate } from "react-router-dom";
+import { AUTH_LOGIN } from "../../constants/apiConst";
 
 const theme = createTheme();
 
@@ -45,19 +38,10 @@ export default function AdminLogin() {
       password: "",
     },
     onSubmit: (values) => {
-      setTimeout(() => {
-        // axiosPost({ method: "POST", url: "/auth/login", data: values }).then(
-        //   (res) => {
-        //     console.log(res.token)
-        //     localStorage.setItem("token", res.data.token);
-        //     if (res.status == 200) {
-        //       navigate("/dashboard", { replace: false });
-        //     }
-        //   }
-        // ).catch((err) => console.log(err));
+      setTimeout(() => {    
 
-        axios
-          .post("http://localhost:3002/auth/login", values)
+        HttpService
+          .post(AUTH_LOGIN, values)
           .then((res) => {
             if (res.status === 200 || res.status === 201) {
               toast.success("خوش آمدید");
@@ -67,16 +51,7 @@ export default function AdminLogin() {
             }
           })
           .catch((err) =>
-            toast.error("نام کاربری یا رمز عبور اشتباه است", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            })
-          );
+            toast.error("نام کاربری یا رمز عبور اشتباه است"));
       }, 1000);
     },
     validationSchema,
