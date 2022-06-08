@@ -1,13 +1,12 @@
-import axios from "axios";
-//import http from './httpRequestApi';
-import { BASE_URL, ORDERS, PRODUCTS } from "../constants/apiConst";
+import axios from "../api/httpRequestApi"
+import { BASE_URL, ORDERS } from "../constants/apiConst";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 class Api {
   constructor() {
     axios.defaults.baseURL = BASE_URL;
-   
+    axios.defaults.timeout = 2000;
     axios.interceptors.request.use(
       (config) => {
         // const token = useSelector((state) => state.token);
@@ -38,7 +37,6 @@ class Api {
     return axios.get(url, config);
   }
 
-
   post(url, data, config) {
     return axios.post(url, data, config);
   }
@@ -53,7 +51,7 @@ class Api {
 
   delete(url, config) {
     return axios.delete(url, config);
-  }
+  } 
 }
 
 export default new Api();
