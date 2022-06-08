@@ -21,11 +21,11 @@ import { deliveredOrder } from "../../../api/orderApi";
 export default function OrderForm({ data, onClose,handlechange }) {
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch()
-  
+  console.log(data);
   const rows = data.orderItems?.map((item) => ({
     id: item.id,
     name: item.name,
-    price: item.price,
+    price:  numberDivider(item.price),
     quantity: item.quantity,
   }));
 
