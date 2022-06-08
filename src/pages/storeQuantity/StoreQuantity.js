@@ -5,6 +5,7 @@ import { PRODUCTS } from "../../constants/apiConst";
 //api
 import axios from "axios";
 import api from "../../api/api";
+import HttpService from "../../services/httpService";
 //toast
 import { toast } from "react-toastify";
 //material
@@ -16,7 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProduts, setProducts } from "../../redux/productsSlice";
 //components
 import CustomPagination from "../../components/CustomPagination";
-import {columns} from './components/columns'
+import { columns } from "./components/columns";
 //-----------Utils
 import { numberDivider } from "../../utils/utils";
 
@@ -40,7 +41,7 @@ export default function StoreQuantity() {
 
   console.log(products);
 
-  const handleEdit =  (params) => {
+  const handleEdit = (params) => {
     setEditMode(true);
     const { id, field, value } = params;
     changedArray.push(id);
@@ -62,18 +63,17 @@ export default function StoreQuantity() {
   }));
 
   const handleSendEdit = () => {
-    
     //Conver Array to set to prevent duplicate request call
     const setFromChangedArray = new Set(changedArray);
-   //to hold all the requests in this array
+    //to hold all the requests in this array
     let promiseTempArray = [];
 
     setFromChangedArray.forEach((i) => {
       //find which product to be updated
       const productToUpdate = products.find((item) => item.id === i);
-      
-      const tempRequest = axios.patch(
-        `http://localhost:3002/products/${i}`,
+
+      const tempRequest = HttpService.patch(
+        PRODUCTS + `/${i}`,
         { price: productToUpdate.price, count: productToUpdate.count },
         {
           headers: { token: token },
@@ -90,56 +90,65 @@ export default function StoreQuantity() {
   };
 
   return (
-   
-      <Box
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        sx={{ p: 0.4 }}
-      >
-        <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-          <Grid item xs={12} sm={3} align="right" py={{xs:1,md:0}}>
-            <Typography>مدیریت موجودی و قیمت ها</Typography>
-          </Grid>
-        <Grid item xs={12} sm={7} align={{ xs: "right", sm:'center' }} py={{xs:1,md:0}}>
-            جستجو
-          </Grid>
-        <Grid item xs={12} sm={2} align={{ xs: "right", sm:'left' }} py={{xs:1,md:0}}>
-            <Button
-              variant="outlined"
-              color="primary"
-              disabled={editMode ? false : true}
-              onClick={handleSendEdit}
-            >
-              ذخیره
-            </Button>{" "}
-          </Grid>
+    <Box
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ p: 0.4 }}
+    >
+      <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
+        <Grid item xs={12} sm={3} align="right" py={{ xs: 1, md: 0 }}>
+          <Typography>مدیریت موجودی و قیمت ها</Typography>
         </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={7}
+          align={{ xs: "right", sm: "center" }}
+          py={{ xs: 1, md: 0 }}
+        >
+          جستجو
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={2}
+          align={{ xs: "right", sm: "left" }}
+          py={{ xs: 1, md: 0 }}
+        >
+          <Button
+            variant="outlined"
+            color="primary"
+            disabled={editMode ? false : true}
+            onClick={handleSendEdit}
+          >
+            ذخیره
+          </Button>{" "}
+        </Grid>
+      </Grid>
       <Grid item xs={12} sx={{ height: 400, width: "100%", display: "flex" }}>
-          <div style={{ flexGrow: 1 }}>
-            <DataGrid
-              item
-              sx={{ background: "white" }}
-              rows={rows}
-              columns={columns}
-              pageSize={pageSize}
-              onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-              rowsPerPageOptions={[5, 10, 20]}
-              components={{
-                Pagination: CustomPagination,
-                LoadingOverlay: LinearProgress,
-              }}
-              disableSelectionOnClick
-              pagination
-              // onPageChange={handlechange}
-              onCellEditCommit={handleEdit}
-              localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
-            />
-          </div>
-        </Grid>
-         
+        <div style={{ flexGrow: 1 }}>
+          <DataGrid
+            item
+            sx={{ background: "white" }}
+            rows={rows}
+            columns={columns}
+            pageSize={pageSize}
+            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            rowsPerPageOptions={[5, 10, 20]}
+            components={{
+              Pagination: CustomPagination,
+              LoadingOverlay: LinearProgress,
+            }}
+            disableSelectionOnClick
+            pagination
+            // onPageChange={handlechange}
+            onCellEditCommit={handleEdit}
+            localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
+          />
+        </div>
+      </Grid>
     </Box>
   );
 }
-
