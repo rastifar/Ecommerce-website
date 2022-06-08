@@ -1,7 +1,6 @@
 import HttpService from "../services/httpService";
 import { ORDERS, PRODUCTS, UPLOAD } from "../constants/apiConst";
 import { toast } from "react-toastify";
-import httpService from "../services/httpService";
 import Orders from "../pages/orders/Orders";
 
 const sendOrderToDatabase = async (orderItem) => {
@@ -15,11 +14,25 @@ const sendOrderToDatabase = async (orderItem) => {
 };
 const updatOrderStatus = async (orderId, orderStatus) => {
   try {
-    const response = await httpService.patch(Orders + `/${orderId}`, {
+    await HttpService.patch(ORDERS + `/${orderId}`, {
       orderStatus: orderStatus,
     });
   } catch (error) {
     toast.error("در بروز رسانی وضعیت سفارش مشتری خطایی رخ داده است");
   }
 };
-export { sendOrderToDatabase,updatOrderStatus };
+const deleteOrder = async (orderId) => {
+    try {
+        await HttpService.delete(ORDERS+`/${orderId}`)        
+    } catch(error) {
+        toast.error('خطایی در حذف سفارش روی داده است')
+    }
+}
+const deleteInventoryCount = async (productId,updatedMaxCount) => {
+    try {
+        await HttpService.patch(PRODUCTS+`/${productId}`,{count: updatedMaxCount})
+    } catch (error) {
+        toast.error('خطایی در بروز رسانی موجودی محصول ایجاد شده است')
+    }
+}
+export { sendOrderToDatabase,updatOrderStatus,deleteOrder,deleteInventoryCount };
