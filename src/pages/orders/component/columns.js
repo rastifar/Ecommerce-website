@@ -24,9 +24,9 @@ export const columns = [
       disableColumnMenu: true,
       headerAlign: "center",
       align: "center",
-      renderCell: (params) => {
-        return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      },
+      // renderCell: (params) => {
+      //   return params.value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      // },
     },
     {
       field: "quantity",
