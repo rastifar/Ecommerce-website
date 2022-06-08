@@ -18,6 +18,7 @@ import useFetch from "../../hooks/useFetch";
 
 import ProductCards from "../../components/ProductCards";
 import { urlFilterOptions } from "../../utils/utils";
+import { BASE_URL, PRODUCTS } from "../../constants/apiConst";
 
 const ProductGroups = () => {
   const theme = useTheme();
@@ -29,19 +30,21 @@ const ProductGroups = () => {
 
   const displayBasedOnLocation = currentLocation[2]
   const filteredOptions = urlFilterOptions(currentLocation)
-  console.log('displayBasedOnLocation', displayBasedOnLocation);
-  console.log('filteredOptions',filteredOptions);
+  // console.log('displayBasedOnLocation', displayBasedOnLocation);
+  // console.log('filteredOptions',filteredOptions);
   //const resultTosearch = location.search;
   //console.log('locaiotnSearch', resultTosearch);
 
   const queryString = require("query-string");
   const parsed = queryString.parse(location.search);
   const resultTosearch = queryString.stringify(parsed);
-  console.log();
+
 
   const limit = useMemo(() => 6, []);
   const [activePage, setActivePage] = useState(1);
   const { categoryNum } = useParams();
+
+  
 
   // const [searchParams] = useSearchParams();
   // console.log(searchParams.entries());
@@ -54,17 +57,21 @@ const ProductGroups = () => {
 
   // console.log(Object.entries(urlsearch).map(item => query += item[0] + `=` + item[1] + `&`));
 
-  console.log(
-    // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
-    `http://localhost:3002/products${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
-  );
-  const { data, loading, error, headers } = useFetch(
-    `http://localhost:3002/products${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
-  );
+  // console.log(
+  //   // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+  //   `http://localhost:3002/products${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+  // );
+  // const { data, loading, error, headers } = useFetch(
+  //   `http://localhost:3002/products${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+  // );
 
   // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}}&_sort=asc`
   // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}`
-  console.log("headers", headers["x-total-count"]);
+  //console.log("headers", headers["x-total-count"]);
+
+  const { data, loading, error, headers } = useFetch(
+    BASE_URL+PRODUCTS+`${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+  );
 
   useEffect(() => {
     setActivePage(1);
