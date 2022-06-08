@@ -11,7 +11,7 @@ const getProductById = async (productId) => {
   }
 };
 
-const patchRatingProductById = async (val, productId) => {
+const patchRatingProductById =  (val, productId) => {
   HttpService.patch(
     PRODUCTS + `/${productId}`,
     { favorite: val },
