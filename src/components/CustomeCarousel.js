@@ -44,7 +44,7 @@ const Carousel = ({
         "--swiper-pagination-color": "#d3a98c",
      
       }}
-      grabCursor={true}
+      // grabCursor={true}
       spaceBetween={30}
       centeredSlides={true}
       zoom={false}
