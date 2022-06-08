@@ -4,6 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
 import api from "../../api/api";
+import {getAllProducts} from "../../api/goodsApi"
 import { Category,subCategory } from "../../constants/categoryConst";
 //modal
 import AddOrEditModal from "./components/AddOrEditModal";
@@ -40,15 +41,14 @@ export default function Goods() {
   
 
   useEffect(() => {
-    console.log('in useEffect');
     getData();
   }, [open,isDeleteOpen,data]);
 
   const getData = async () => {
-    const response = await api.get(PRODUCTS+`?_sort=id&_order=desc`)
-    setProducts(response.data);
+    //const response = await api.get(PRODUCTS+`?_sort=id&_order=desc`)
+    setProducts(await getAllProducts(`?_sort=id&_order=desc`));
   };
-  //console.log(isDeleteOpen);
+
   //columns
   const columns = [
     {
