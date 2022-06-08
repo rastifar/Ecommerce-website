@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import image from "../../../assets/images/preview.jpg";
-import { caterories,subCategories } from "../../../constants/formsConst";
+import { caterories, subCategories } from "../../../constants/formsConst";
 import RecentActorsTwoToneIcon from "@mui/icons-material/RecentActorsTwoTone";
 import CollectionsTwoToneIcon from "@mui/icons-material/CollectionsTwoTone";
 
@@ -20,11 +20,14 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import {
+  editProductByid,
+  createProduct,
+  uploadSingleImage,
+  uploadBuldImages,
+} from "../../../api/goodsApi";
 import Preview from "./Preview";
-import api from "../../../api/api";
-import { BASE_URL, UPLOAD } from "../../../constants/apiConst";
 import { useSelector } from "react-redux";
 
 const validationSchema = yup.object().shape({
@@ -47,14 +50,13 @@ const validationSchema = yup.object().shape({
 });
 let tempArray = [];
 
-const FormAddOrEdit = ({ data, onClose,getData }) => {
+const FormAddOrEdit = ({ data, onClose, getData }) => {
   const ckEditorRef = useRef("");
   const token = useSelector((state) => state.token);
- 
 
   useEffect(() => {
     data && (ckEditorRef.current = data.description);
-   
+   data &&(tempArray = data.images)
   }, [data]);
 
   const formik = useFormik({
@@ -65,51 +67,16 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
       count: data.count || "",
       wieght: data.wieght || "",
       category: data.category || "",
-      subcategory:data.subcategory||"",
+      subcategory: data.subcategory || "",
       image: data.image || "",
       images: data.images || [],
       description: data.description || "",
     },
     onSubmit: (values, { resetForm }) => {
-      // console.log("values", values);
-      // const formData = new FormData();
-      // Object.entries(values).map((key, value) => {
-      //   if (key[0] === "images") {
-      //     key[1].map((item, index) => {
-      //       formData.append(`images[${index}]`, item);
-      //     });
-      //   } else if (key[0] === "description") {
-      //     formData.append("description", ckEditorRef.current);
-      //   } else {
-      //     formData.append(key[0], key[1]);
-      //   }
-      // });
-
       if (data) {
-        console.log("data in updat ", data);
-        console.log("in data part :", values, data);
-        //formData.append("id", data.id);
-        axios
-          .patch(`http://localhost:3002/products/${data.id}`, values, {
-            headers: { token: token },
-            "Content-Type": "application/json",
-          })
-          .then((res) => {
-            if (res.status == 200 || res.status == 201) {
-              toast.success("اطلاعات با موفقیت به روز رسانی شده است");
-            }
-          })
-          .catch((err) => toast.error("عملیات به درستی انجام نشده است"));
+        editProductByid(data.id, values);
       } else {
-        axios
-          .post("http://localhost:3002/products", values)
-          .then((res) => {
-            if (res.status == 200 || res.status == 201) {
-              console.log('if');
-              toast.success("اطلاعات با موفقیت ثبت شده است");
-            }
-          })
-          .catch((err) => toast.error("عملیات به درستی انجام نشده است"));
+        createProduct(values);
       }
 
       data = "";
@@ -122,37 +89,19 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
   });
 
   const handleChange = async (e) => {
-    const data = e.target.files[0];
-    const formData = new FormData();
-    formData.append("image", data);
-    const filename = await axios.post("http://localhost:3002/upload", formData);
-    console.log(filename.data.filename);
-    formik.setFieldValue("image", filename.data.filename, true);
+    const imageFile = e.target.files[0];
+    uploadSingleImage(imageFile).then((res) =>
+      formik.setFieldValue("image", res.data.filename, true)
+    );
   };
-
   const handleBulkImageChange = async (e) => {
-    console.log("handlebulk enterd");
-    const files = Array.from(e.target.files);
-    console.log(files);
-    let temp = [];
-    files.map((item) => {
-      const formData = new FormData();
-      formData.append("image", item);
-      const tempRequest = axios.post("http://localhost:3002/upload", formData);
-      temp.push(tempRequest);
-    });
-
-    const arrayResponse = await Promise.all(temp);
-
-    const resultArray = arrayResponse.map(function (item) {
-      return item["data"]["filename"];
-    });
-
-    tempArray.push(...[...resultArray]);
+    const imagesFile = Array.from(e.target.files);
+    const imageArray = await uploadBuldImages(imagesFile);
+    tempArray.push(...[...imageArray]);
     formik.setFieldValue("images", tempArray, true);
   };
 
-  const handleDeleteImage = (value) => {
+  const handleDeleteImage = (value) => { 
     const newArray = tempArray.filter((item) => {
       return item != value;
     });
@@ -161,7 +110,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
   };
 
   return (
-    <Box>     
+    <Box>
       <Box
         display="flex"
         flexDirection="column"
@@ -172,8 +121,8 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
         noValidate
         sx={{ border: "1px solid black", borderRadius: "5px" }}
       >
-        <Grid container sx={{ my: 2 }} >
-          <Grid item xs={12} sm={6} >
+        <Grid container sx={{ my: 2 }}>
+          <Grid item xs={12} sm={6}>
             <Button
               variant="outlined"
               component="label"
@@ -208,7 +157,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
                 formik.errors.image}
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} >
+          <Grid item xs={12} sm={6}>
             <Box
               style={{
                 backgroundImage: `url(${image})`,
@@ -219,7 +168,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
                 color: "#f5f5f5",
                 marginRight: "auto",
               }}
-              mx={{ xs: 'auto', sm: 'auto',md:2}}
+              mx={{ xs: "auto", sm: "auto", md: 2 }}
               // sx={{mx:'auto'}}
             >
               {formik.values.image ? (
@@ -231,7 +180,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
           </Grid>
           {/* </Grid> */}
           {/* <Grid container spacing={1}> */}
-          <Grid item xs={12} sm={5} md={2} mx={{xs:2,sm:1}}>
+          <Grid item xs={12} sm={5} md={2} mx={{ xs: 2, sm: 1 }}>
             {" "}
             <TextField
               margin="dense"
@@ -252,7 +201,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               }
             />
           </Grid>
-          <Grid item xs={12} sm={5} md={2} mx={{xs:2,sm:1}}>
+          <Grid item xs={12} sm={5} md={2} mx={{ xs: 2, sm: 1 }}>
             {" "}
             <TextField
               margin="dense"
@@ -275,7 +224,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               }
             />
           </Grid>
-          <Grid item xs={12} sm={5} md={2} mx={{xs:2,sm:1}}>
+          <Grid item xs={12} sm={5} md={2} mx={{ xs: 2, sm: 1 }}>
             {" "}
             <TextField
               margin="dense"
@@ -300,7 +249,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
           </Grid>
           {/* </Grid> */}
           {/* <Grid container spacing={1}> */}
-          <Grid item xs={12} sm={5} md={2} mx={{xs:2,sm:1}}>
+          <Grid item xs={12} sm={5} md={2} mx={{ xs: 2, sm: 1 }}>
             <TextField
               margin="dense"
               size="small"
@@ -322,7 +271,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               }
             />
           </Grid>
-          <Grid item xs={12} sm={5} md={2} mx={{xs:2,sm:1}}>
+          <Grid item xs={12} sm={5} md={2} mx={{ xs: 2, sm: 1 }}>
             <TextField
               select
               margin="dense"
@@ -351,7 +300,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
               ))}
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={5} md={2} mx={{xs:2,sm:1}}>
+          <Grid item xs={12} sm={5} md={2} mx={{ xs: 2, sm: 1 }}>
             <TextField
               select
               margin="dense"
@@ -383,7 +332,7 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
           {/* </Grid> */}
 
           {/* <Grid container sx={{ my: 4 }}> */}
-          <Grid item xs={12} sx={{ mx: 1,mt:1 }}>
+          <Grid item xs={12} sx={{ mx: 1, mt: 1 }}>
             <Button
               // sx={{ my: 1 }}
               size="small"
@@ -415,40 +364,38 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
                 formik.errors.gallery}
             </span>
           </Grid>
-          <Grid
-            item
-            xs={12} 
-           
-          >
-            <Box  style={{
-              backgroundImage: `url(${image})`,
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              color: "#f5f5f5",
-              marginRight: "auto",
-            }} sx={{
-              
-              bgcolor: "lightgray",
-              m: 1,              
-              width: "98%",
-              minHeight: "10rem",
-              border: "2px dashed black",
-            }}><Grid container display={'flex'}>
-            {formik.values.images
-                ? formik.values.images.map((item, index) => (
-                <Grid item sx={{m:.5}}  key={index}>
-                  <Preview
-                    src={item}
-                   
-                    handleDeleteImage={handleDeleteImage}
-                    bulk={true}
-                    />
-                    </Grid>
-                ))
+          <Grid item xs={12}>
+            <Box
+              style={{
+                backgroundImage: `url(${image})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                color: "#f5f5f5",
+                marginRight: "auto",
+              }}
+              sx={{
+                bgcolor: "lightgray",
+                m: 1,
+                width: "98%",
+                minHeight: "10rem",
+                border: "2px dashed black",
+              }}
+            >
+              <Grid container display={"flex"}>
+                {formik.values.images
+                  ? formik.values.images.map((item, index) => (
+                      <Grid item sx={{ m: 0.5 }} key={index}>
+                        <Preview
+                          src={item}
+                          handleDeleteImage={handleDeleteImage}
+                          bulk={true}
+                        />
+                      </Grid>
+                    ))
                   : ""}
-                </Grid>
-              </Box>
+              </Grid>
+            </Box>
           </Grid>
           {/* </Grid> */}
           {/* <Grid
@@ -458,36 +405,35 @@ const FormAddOrEdit = ({ data, onClose,getData }) => {
           alignItems="center"
           justifyContent="center"
         > */}
-          <Grid item xs={12} >
-            <Box sx={{mx:1}}>
-            <CKEditor
-              editor={ClassicEditor}
-              data={ckEditorRef.current}
-              //   onReady={ editor => {
-              //     // You can store the "editor" and use when it is needed.
-              //     ckeditordata = editor;
-              //     console.log( 'Editor is ready to use!', editor );
-              // } }
-              //onChange={inputHandler}
-              onChange={(event, editor) => {
-                ckEditorRef.current = editor.getData();
-                formik.setFieldValue("description",editor.getData(),false)
-              }}
+          <Grid item xs={12}>
+            <Box sx={{ mx: 1 }}>
+              <CKEditor
+                editor={ClassicEditor}
+                data={ckEditorRef.current}
+                //   onReady={ editor => {
+                //     // You can store the "editor" and use when it is needed.
+                //     ckeditordata = editor;
+                //     console.log( 'Editor is ready to use!', editor );
+                // } }
+                //onChange={inputHandler}
+                onChange={(event, editor) => {
+                  ckEditorRef.current = editor.getData();
+                  formik.setFieldValue("description", editor.getData(), false);
+                }}
               />
-              </Box>
+            </Box>
           </Grid>
           {/* </Grid> */}
-         
+
           <Button
             type="submit"
             fullWidth={true}
             variant="contained"
             color="success"
-            sx={{ mt: 3, mb: 2 , mx:1 }}
+            sx={{ mt: 3, mb: 2, mx: 1 }}
           >
             ذخیره
-            </Button>
-           
+          </Button>
         </Grid>
       </Box>
     </Box>
