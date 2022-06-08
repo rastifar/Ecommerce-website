@@ -12,23 +12,28 @@ import { clearCart } from "../../redux/cartSlice";
 //----------Api
 import api from "../../api/api";
 import axios from "axios";
+import {deleteInventoryCount, deleteOrder, updatOrderStatus} from "../../api/cartApi"
 //----------Toast
 import { toast } from "react-toastify";
 
-import { BASE_URL, ORDERS, PRODUCTS } from "../../constants/apiConst";
+import { BASE_URL, completeOrder, ORDERS, PRODUCTS } from "../../constants/apiConst";
 
 const PurchageResult = () => {
  
-  const location = useLocation();
+
+  const [path] = useSearchParams()
   const dispatch = useDispatch();
-  const order = JSON.parse(localStorage.getItem("orders"));
-  console.log(order);
+  // const order = JSON.parse(localStorage.getItem("orders"));  
   const token = useSelector((state) => state.token);
   const cartData = useSelector((state) => state.cart.cartItems);
-  const purchaseResult = location.search.split("=")[1];
-  console.log(cartData);
+  const purchaseResult = path.get("status")
+  const customerId = path.get("id")
+
+
+
+
   useEffect(() => {
-    if (purchaseResult === "success" && cartData.length!==0 && order) {
+    if (purchaseResult === "success" && cartData.length!==0 ) {
       try {
         handleUpdateOrders();
         handleInventories();
@@ -36,34 +41,41 @@ const PurchageResult = () => {
       } catch (error) {
         toast.error("خطایی روی داده است");
       }
+    } else {
+      handleDeleteOrder()
     }
   }, []);
 
-  const handleUpdateOrders = async () => {
-   
-    console.log(order);
-    const result = await api.post(BASE_URL + ORDERS, order);
+  const handleUpdateOrders =() => {
+
+    updatOrderStatus(customerId, completeOrder)
+    
+    // console.log(order);
+    // const result = await api.post(BASE_URL + ORDERS, order);
     //api.post(BASE_URL + ORDERS, order).then(res=>localStorage.removeItem('orders'))
   };
   const handleInventories = () => {
     const tempArray = [];
     cartData.map(async (item) => {
       const updatedMaxCount = Number(item.count) - item.quantity;
-      const response = await api.patch(
-        BASE_URL + PRODUCTS + `/${item.id}`,
-        { count: updatedMaxCount },
-        {
-          headers: { token: token },
-          "Content-Type": "application/json",
-        }
-      );
-      console.log(response);
+      deleteInventoryCount(item.id,updatedMaxCount)
+      // const response = await api.patch(
+      //   BASE_URL + PRODUCTS + `/${item.id}`,
+      //   { count: updatedMaxCount },
+      //   {
+      //     headers: { token: token },
+      //     "Content-Type": "application/json",
+      //   }
+      // );
+      // console.log(response);
     });
   };
   const handlecartItems = () => {
     dispatch(clearCart());
   };
-
+  const handleDeleteOrder = () => {
+  deleteOrder(customerId)
+}
   return (
     <Box
       display="flex"
