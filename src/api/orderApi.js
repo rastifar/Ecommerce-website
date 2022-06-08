@@ -1,6 +1,7 @@
 import HttpService from "../services/httpService";
 import { ORDERS } from "../constants/apiConst";
 import { toast } from "react-toastify";
+import { deliverdOrder } from "../constants/apiConst";
 
 const getAllOrders = async (sortOrder) => {
   try {
@@ -14,7 +15,7 @@ const getAllOrders = async (sortOrder) => {
 const deliveredOrder = async (orderId) => {
   try {
     const response = await HttpService.patch(ORDERS + `/${orderId}`, {
-      orderStatus: 1,
+      orderStatus: deliverdOrder,
       deliverdAt: +new Date(),
     });
     return response;
