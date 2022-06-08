@@ -18,7 +18,7 @@ import {
 import LinearProgress from "@mui/material/LinearProgress";
 
 //utils
-import { convertTimeStamToDate,numberDivider } from "../../utils/utils";
+import { convertTimeStamToDate, numberDivider } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import OrderModal from "./component/OrderModal";
 //components
@@ -26,6 +26,7 @@ import CustomPagination from "../../components/CustomPagination";
 //reduxStore
 import { useSelector, useDispatch } from "react-redux";
 import { changeState } from "../../redux/modalSlice";
+import { getAllOrders } from "../../api/orderApi";
 
 //-------------------------------------------------------
 
@@ -39,28 +40,14 @@ export default function Orders() {
   const [products, setProducts] = useState([]);
   const [pageSize, setPageSize] = useState(5);
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // const getData = async () => {
-  //   setProducts(
-  //     await api.get("http://localhost:3002/orders", {
-  //       headers: { token: token },
-  //     })
-  //   );
-  // };
-
   useEffect(() => {
-    axios
-      .get("http://localhost:3002/orders", { headers: { token: token } })
-      .then((res) =>  setProducts(res.data));
+    const getOrders = () => {
+      getAllOrders(`?_sort=createdAt&_order=desc`).then((res) =>
+        setProducts(res)
+      );
+    };
+    getOrders();
   }, []);
-  // const { products, error, loading } = useFetch(ORDERS, {
-  //   headers: {
-  //     token: token,
-  //   },
-  // });
 
   //columns
   const columns = [
@@ -101,7 +88,7 @@ export default function Orders() {
       field: "orderStatus",
       headerName: "وضعیت تحویل",
       minWidth: 300,
-  flex: 1,
+      flex: 1,
       sortable: false,
       editable: false,
       disableColumnMenu: true,
@@ -131,7 +118,7 @@ export default function Orders() {
     id: product.id,
     username:
       product.customerDetail.firstName + " " + product.customerDetail.lastName,
-    purchaseTotal:numberDivider( product.purchaseTotal),
+    purchaseTotal: numberDivider(product.purchaseTotal),
     delivery: convertTimeStamToDate(product.createdAt),
     url: "#",
   }));
@@ -141,22 +128,22 @@ export default function Orders() {
     setData(products.find((item) => item.id === id));
     setIsOpen(true);
     dispatch(changeState());
-   // console.log(data);
   };
- // console.log(products);
-  const handlechange = (value) => { 
+
+  const handlechange = (value) => {
     if (value === 0) {
-      axios
-        .get(BASE_URL + ORDERS, { headers: { token: token } })
-        .then((res) => setProducts(res.data));
-      return;
+      getAllOrders(`?_sort=createdAt&_order=desc`).then((res) =>
+        setProducts(res)
+      );
     }
     if (value === 1 || value === 2) {
-      axios
-        .get(BASE_URL + ORDERS + `?orderStatus=${value}`)
-        .then((res) => setProducts(res.data));
+      getAllOrders(`?orderStatus=${value}&_sort=createdAt&_order=desc`).then(
+        (res) => setProducts(res)
+      );
+      // axios
+      //   .get(BASE_URL + ORDERS + `?orderStatus=${value}`)
+      //   .then((res) => setProducts(res.data));
     }
-    return null;   
   };
 
   return (
@@ -169,7 +156,13 @@ export default function Orders() {
         p={0.4}
       >
         <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-          <Grid item xs={12} sm={3} md={2}  color={{xs:'red',sm:'text.primary'}}  >
+          <Grid
+            item
+            xs={12}
+            sm={3}
+            md={2}
+            color={{ xs: "red", sm: "text.primary" }}
+          >
             <Typography p={1}>مدیریت سفارش ها</Typography>
           </Grid>
           <Grid item xs={12} sm={4} md={10} align="right">
