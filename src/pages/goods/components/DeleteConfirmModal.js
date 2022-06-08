@@ -1,8 +1,6 @@
 import * as React from "react";
-
 import {
-  Button,
-  TextField,
+  Button, 
   Dialog,
   DialogActions,
   DialogContent,
@@ -12,10 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import FormAddOrEdit from "./FormAddOrEdit";
-import axios from "axios";
-import { bgcolor } from "@mui/system";
-import { toast} from "react-toastify";
+import {deleteProductById} from "../../../api/goodsApi"
 
 export default function DeleteConfirmModal({ open, onClose, data, getData }) {
   const theme = useTheme();
@@ -24,16 +19,7 @@ export default function DeleteConfirmModal({ open, onClose, data, getData }) {
   if (!open) return "";
 
   const handelDelete = () => {
-    axios
-      .delete(`http://localhost:3002/products/${data}`)
-      .then((res) => {
-        if (res.status == 200 || res.status == 201) {
-          toast.success("محصول با موفقیت حذف شده است");
-        }
-      })
-      .catch((error) =>
-        toast.error("خطایی در حذف محصول روی داده است لطفادوباره امتحان کنید")
-      );
+    deleteProductById(data)  
     getData();
     onClose();
   };
