@@ -1,17 +1,13 @@
 import * as React from "react";
 
-import {
-  Button,
-  TextField,
-  Dialog,
-  DialogActions,
+import { 
+  Dialog, 
   DialogContent,
     DialogTitle,
     Box,
   useMediaQuery,
   Typography
 } from "@mui/material";
-import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
 import { useTheme } from "@mui/material/styles";
 import FormAddOrEdit from "./FormAddOrEdit";
 import CancelPresentationTwoToneIcon from '@mui/icons-material/CancelPresentationTwoTone';
@@ -23,8 +19,7 @@ export default function Modal({ open, onClose , data,getData }) {
 
   const handleClose = () => {
     onClose();
-  
- }
+   }
 
   return (
     <Box>
