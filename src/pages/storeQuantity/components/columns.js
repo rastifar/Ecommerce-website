@@ -11,6 +11,9 @@ export const columns = [
     {
       field: "price",
       headerName: "قیمت (تومان) ",
+      type: 'number',
+      headerAlign: "left",
+      align: "left",
       sortable: true,
       editable: true,
       disableColumnMenu: true,
@@ -28,6 +31,9 @@ export const columns = [
     {
       field: "count",
       headerName: "موجودی",
+      type: 'number',
+      headerAlign: "left",
+      align: "left",
       sortable: true,
       editable: true,
       disableColumnMenu: true,
