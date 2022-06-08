@@ -63,7 +63,7 @@ export default function StoreQuantity() {
 
   const handleSendEdit = () => {
     
-    //Conver Array to set to prevent duplicate request send
+    //Conver Array to set to prevent duplicate request call
     const setFromChangedArray = new Set(changedArray);
    //to hold all the requests in this array
     let promiseTempArray = [];
