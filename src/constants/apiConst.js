@@ -7,3 +7,8 @@ export const AUTH_LOGIN = "/auth/login";
 export const UPLOAD = '/upload';
 export const WHOAMI = '/whoami';
 
+//numeric const
+export const deliverdOrder = 1;
+export const pendingOrder = 3;
+export const completeOrder = 2;
+
