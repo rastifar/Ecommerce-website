@@ -11,13 +11,12 @@ import CustomPagination from "../../../components/CustomPagination";
 
 //---------------columns
 import { columns } from "./columns";
-import axios from "axios";
-import { BASE_URL, ORDERS } from "../../../constants/apiConst";
 //--------------Redux
 import { useDispatch, useSelector} from "react-redux";
 import { changeState } from "../../../redux/modalSlice";
 //---------------Toast
 import { toast} from "react-toastify";
+import { deliveredOrder } from "../../../api/orderApi";
 
 export default function OrderForm({ data, onClose,handlechange }) {
   const token = useSelector((state) => state.token);
@@ -31,15 +30,7 @@ export default function OrderForm({ data, onClose,handlechange }) {
   }));
 
   const handleDelivery = () => {
-    axios
-      .patch(
-        BASE_URL + ORDERS +`/${data.id}`,
-        { orderStatus: 1 ,deliverdAt: + new Date()},
-        {
-          headers: { token: token },
-          "Content-Type": "application/json",
-        }
-      )
+  deliveredOrder(data.id)    
       .then((res) => {
         handlechange(2)
         dispatch(changeState())
@@ -47,9 +38,7 @@ export default function OrderForm({ data, onClose,handlechange }) {
       })
       .catch((error) =>
       toast.error("خطایی روی داده است لطفا دوباره امتحان کنید")
-    );
- 
-    
+    );    
     onClose();
   };
   return (
