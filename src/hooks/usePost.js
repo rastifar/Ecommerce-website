@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "../api/httpRequestApi";
+import HttpService from "../services/httpService"
 import { toast } from 'react-toastify';
 
 const useAxios = (url,data, requestConfig = {}) => {
   const [response, setResponse] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [headers, setHeaders] = useState([]);
+  const [status, setStatus] = useState();
 
   useEffect(() => {
     setLoading(true)
-    axios.post(url, data, {
+    HttpService.post(url, data, {
       ...requestConfig     
     }).then(res => {
-      setHeaders(res.headers)
+      setStatus(res.status)
       setResponse(res.data)
       setLoading(false)
     }).catch(error => {
@@ -28,7 +29,7 @@ const useAxios = (url,data, requestConfig = {}) => {
 
   },[url])
  
-  return { products: response, error, loading,headers };
+  return { products: response, error, loading,status };
 };
 
 export default useAxios;
