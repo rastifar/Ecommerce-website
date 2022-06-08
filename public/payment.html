@@ -57,16 +57,8 @@
             <div class="d-flex space-around">
               <!-- <button class="success action-btn">پرداخت</button>
               <button class="failure action-btn">انصراف</button> -->
-              <a
-              href="http://localhost:3000/purchaseresult?status=success"
-              class="href success "
-              >پرداخت</a
-            >
-            <a
-              href="http://localhost:3000/purchaseresult?status=failed"
-              class="href failure"
-              >انصراف</a
-            >
+              <a id="pay" class="href success">پرداخت</a>
+              <a id="candle" class="href failure">انصراف</a>
             </div>
           </form>
         </sectin>
@@ -94,33 +86,50 @@
               <img src="./assets/images/logo1.png" />
             </div>
             <div class="d-flex space-between">
-                <label class="right-lbl">مبلغ تراکنش(تومان)</label>
-                <label id="priceTotal" class="left-lbl"></label>
+              <label class="right-lbl">مبلغ تراکنش(تومان)</label>
+              <label id="priceTotal" class="left-lbl"></label>
             </div>
             <div class="d-flex space-between">
-                <label class="right-lbl">شماره پذیرنده</label>
-                <label class="left-lbl">00000256146</label>
+              <label class="right-lbl">شماره پذیرنده</label>
+              <label class="left-lbl">00000256146</label>
             </div>
             <div class="d-flex space-between">
-                <label class="right-lbl">شماره سفارش</label>
-                <label class="left-lbl">170611402</label>
+              <label class="right-lbl">شماره سفارش</label>
+              <label class="left-lbl">170611402</label>
             </div>
             <div class="d-flex space-between">
-                <label class="right-lbl">آدرس وب</label>
-                <label class="left-lbl">www.anarsabz.ir</label>
+              <label class="right-lbl">آدرس وب</label>
+              <label class="left-lbl">www.anarsabz.ir</label>
             </div>
           </div>
         </sectin>
       </main>
       <footer class="footer">
-          <div>صفحه درگاه پرداخت سداد </div>
+        <div>صفحه درگاه پرداخت سداد</div>
       </footer>
     </div>
     <script>
-      const params = new URLSearchParams(window.location.search)
+      const params = new URLSearchParams(window.location.search);
+      console.log(params.get("id"));
       let totalPrice = params.get("totalPrice");
-     totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      document.getElementById('priceTotal').innerHTML = totalPrice
+      totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      document.getElementById("priceTotal").innerHTML = totalPrice;
+      document
+        .getElementById("pay")
+        .setAttribute(
+          "href",
+          `http://localhost:3000/purchaseresult?status=success&id=${params.get(
+            "id"
+          )}`
+        );
+      document
+        .getElementById("candle")
+        .setAttribute(
+          "href",
+          `http://localhost:3000/purchaseresult?status=failed&id=${params.get(
+            "id"
+          )}`
+        );
     </script>
   </body>
 </html>
