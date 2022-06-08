@@ -1,19 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import Api from "../../api/api";
 import { getProductById, patchRatingProductById } from "../../api/productApi";
-import { BASE_URL, PRODUCTS } from "../../constants/apiConst";
-import {
-  Button,
-  Grid,
-  Typography,
-  Box,
-  Input,
-  TextField,
-  Rating,
-} from "@mui/material";
-
+import { Button, Grid, Typography, Box, Rating } from "@mui/material";
 //const
 import { Category, subCategory } from "../../constants/categoryConst";
 //
@@ -22,7 +10,6 @@ import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
 import IndeterminateCheckBoxTwoToneIcon from "@mui/icons-material/IndeterminateCheckBoxTwoTone";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 //components
-import ProductImagesSlider from "./components/ProductImagesSlider";
 import ProductBreadCrump from "./components/ProductBreadCrump";
 import CustomeCarousel from "../../components/CustomeCarousel";
 //utils
@@ -32,59 +19,37 @@ import {
   quantityCount,
   toFarsiNumber,
 } from "../../utils/utils";
-//-------------swiper
+//----------------------swiper
 import { Navigation } from "swiper";
-
-//-----------------------
-//Redux
+//----------------------Redux
 import { useSelector, useDispatch } from "react-redux";
 import {
   addToCart,
   increase,
   decrease,
   romeveItem,
-  clearCart,
 } from "../../redux/cartSlice";
 import { toast } from "react-toastify";
-import { setNestedObjectValues } from "formik";
 
 const ProductDetails = () => {
   const { productid } = useParams();
   const [data, setData] = useState({});
   const [ratingValue, setRatingValue] = useState(0);
   const state = useSelector((state) => state.cart);
-  const token = useSelector((state) => state.token);
 
   const dispatch = useDispatch();
-  // const descriptionRef = useRef(null);
-
-  const [activeThumb, setActiveThumb] = useState();
-
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [controlledSwiper, setControlledSwiper] = useState(null);
-
-  useEffect(() => {    
+  useEffect(() => {
     const fetchData = async () => {
       setData(await getProductById(productid));
-    };    
-    fetchData()   
+    };
+    fetchData();
   }, []);
 
   //const [{ name:name, images:images, description:description, price:price }] = data && data[0] || [{}]
-  const {
-    name,
-    image,
-    description,
-    category,
-    price,
-    images,
-    id,
-    count,
-    subcategory,
-  } = data;
+  const { name, description, category, price, images, id, count, subcategory } =
+    data;
   //descriptionRef.current.innerHTML = description || "";
   const payload = { id, name, price, count };
-  console.log(subcategory);
   const quantityCountInBasket = quantityCount(state, payload.id);
 
   const handleIncrease = () => {
@@ -96,32 +61,12 @@ const ProductDetails = () => {
   };
 
   const handleRating = (val) => {
-    patchRatingProductById(val,id)
-    // Api.patch(
-    //   PRODUCTS + `/${id}`,
-    //   { favorite: val },
-    //   {
-    //     headers: { token: token },
-    //     "Content-Type": "application/json",
-    //   }
-    // )
-    //   .then((res) => {
-    //     if (res.status === 200 || res.status === 201) {
-    //       toast.success("نظر شما با موفقیت ثبت شده است");
-    //     }
-    //   })
-    //   .catch((error) =>
-    //     toast.error(
-    //       "مشکلی در ثبت نظر شمابه وجود امده است لطفا مجددا نظر خود را ثبت کنید"
-    //     )
-    //   );
+    patchRatingProductById(val, id);
   };
- console.log(data);
-  console.log(images);
+
   return (
     <div>
       <Grid container sx={{ my: 3, p: 3 }}>
-        {/* <Grid item xs={12} sm={6} md={4} container direction="row"> */}
         <Grid item xs={12} sm={6} md={4} sx={{ minHeight: "35vh", p: 2 }}>
           <Box>
             <CustomeCarousel
@@ -141,9 +86,6 @@ const ProductDetails = () => {
             subcategory={subCategory[subcategory - 1]}
             subLink={subcategory}
           />
-          {/* <Typography variant="p" sx={{ my: 2, mr: 2 ,textAlign:'center',color:'primary'}} >
-              دسته بندی : {breadcrump[category - 1]}
-            </Typography> */}
           <Typography variant="h4" sx={{ my: 2, mr: 2, textAlign: "center" }}>
             {name}
           </Typography>
@@ -203,15 +145,14 @@ const ProductDetails = () => {
               value={ratingValue}
               onChange={(e, val) => {
                 handleRating(val);
-                // console.log(val);
                 setRatingValue(val);
               }}
-              defaultValue={1.5}
+              defaultValue={1}
               precision={1}
             />
           </Box>
         </Grid>
-        {/* </Grid> */}
+
         <Grid
           item
           xs={12}
@@ -219,11 +160,7 @@ const ProductDetails = () => {
           md={4}
           sx={{ background: "#BDD2B6", borderRadius: 3, my: 1 }}
         >
-          {/* <p ref={descriptionRef} ></p> */}
-
           <Typography variant="body1" sx={{ fontSize: "1.2rem", p: 2, mx: 2 }}>
-            {" "}
-            {/* {description} */}
             <div
               dangerouslySetInnerHTML={{
                 __html: description,
