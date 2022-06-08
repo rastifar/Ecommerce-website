@@ -1,5 +1,5 @@
 import HttpService from "../services/httpService";
-import { PRODUCTS } from "../constants/apiConst";
+import { PRODUCTS, UPLOAD } from "../constants/apiConst";
 import { toast } from "react-toastify";
 import httpService from "../services/httpService";
 
@@ -48,10 +48,38 @@ const createProduct = async (values) => {
     toast.error("عملیات به درستی انجام نشده است");
   }
 };
+const uploadSingleImage = async (imageFile) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    const filename = await httpService.post(UPLOAD, formData);
+    return filename;
+  } catch (error) {
+    toast.error("خطایی در بارگذاری عکس اتفاق افتاده است");
+  }
+};
+const uploadBuldImages = async (imagesFile) => {
+  let temp = [];
+  try {
+    imagesFile.map((item) => {
+      const formData = new FormData();
+      formData.append("image", item);
+      const tempRequest = httpService.post(UPLOAD, formData);
+      temp.push(tempRequest);
+    });
+    const arrayResponse = await Promise.all(temp);
+    const resultArray = arrayResponse.map(item=>(item.data.filename));
+    return resultArray;
+  } catch (error) {
+    toast.error("خطایی در بارگذاری عکس اتفاق افتاده است");
+  }
+};
 
 export {
   getAllProducts,
   deleteProductById,
   createProduct,
   editProductByid,
+  uploadSingleImage,
+  uploadBuldImages,
 };
