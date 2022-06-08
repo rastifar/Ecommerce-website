@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import api from "../api/api";
+//import api from "../api/api";
+import HttpService from "../services/httpService"
 
 const useFetch = (url, requestConfig = {}) => {
   const [headers, setHeaders] = useState([]);
@@ -12,7 +13,7 @@ const useFetch = (url, requestConfig = {}) => {
     (async () => {
       try {
         setLoading(true);
-        const response = await api.get(url);
+        const response = await HttpService.get(url);
         setHeaders(response.headers);
         setData(response.data);
       } catch (error) {
