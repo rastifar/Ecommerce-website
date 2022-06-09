@@ -16,7 +16,7 @@ import useDebounce from "../../components/Debounce";
 //material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography, Box,TextField } from "@mui/material";
+import { Grid, Button, Typography, Box, TextField } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import axios from "axios";
@@ -49,16 +49,16 @@ export default function Goods() {
     //const response = await api.get(PRODUCTS+`?_sort=id&_order=desc`)
     setProducts(await getAllProducts(`?_sort=id&_order=desc`));
   };
+  // let searchedItems = [];
+  // searchedItems = useMemo(() => {
+  //   if (!search) return -1;
 
-  const searchedItems = useMemo(() => {
-    if (!search) return -1;
-
-    return products.filter((product) => {
-      return product.name
-        .toLowerCase()
-        .includes(debouncedSearchTerm.toLowerCase());
-    });
-  }, [debouncedSearchTerm, products]);
+  //   return products.filter((product) => {
+  //     return product.name
+  //       .toLowerCase()
+  //       .includes(debouncedSearchTerm.toLowerCase());
+  //   });
+  // }, [debouncedSearchTerm, products]);
 
   //columns
   const columns = [
@@ -135,32 +135,32 @@ export default function Goods() {
     setData(products.find((item) => item.id === id));
     setOpen(true);
   };
-  let rows = [];
-  if (searchedItems.length > 0) {
-    rows = searchedItems?.map((product) => ({
-      id: product.id,
-      image: product.image,
-      name: product.name,
-      category: `${Category[product.category - 1]} / ${
-        subCategory[product.subcategory - 1]
-      }`,
-    }));
-  } else {
-    rows = products?.map((product) => ({
-      id: product.id,
-      image: product.image,
-      name: product.name,
-      category: `${Category[product.category - 1]} / ${
-        subCategory[product.subcategory - 1]
-      }`,
-    }));
-  }
-  // const rows = products?.map((product) => ({
-  //   id: product.id,
-  //   image: product.image,
-  //   name: product.name,
-  //   category: `${Category[product.category - 1]} / ${subCategory[product.subcategory-1]}`
-  // }));
+  // let rows = [];
+  // if (searchedItems.length > 0) {
+  //   rows = searchedItems?.map((product) => ({
+  //     id: product.id,
+  //     image: product.image,
+  //     name: product.name,
+  //     category: `${Category[product.category - 1]} / ${
+  //       subCategory[product.subcategory - 1]
+  //     }`,
+  //   }));
+  // } else {
+  //   rows = products?.map((product) => ({
+  //     id: product.id,
+  //     image: product.image,
+  //     name: product.name,
+  //     category: `${Category[product.category - 1]} / ${
+  //       subCategory[product.subcategory - 1]
+  //     }`,
+  //   }));
+  // }
+  const rows = products?.map((product) => ({
+    id: product.id,
+    image: product.image,
+    name: product.name,
+    category: `${Category[product.category - 1]} / ${subCategory[product.subcategory-1]}`
+  }));
 
   const handleOpenModal = () => {
     setOpen(true);
@@ -179,12 +179,12 @@ export default function Goods() {
           <Typography textAlign={"center"}>مدیریت کالاها</Typography>
         </Grid>
         <Grid item xs={12} sm={7} align="center" mb={1}>
-          <TextField
+          {/* <TextField
             size="small"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="جستجو ..."
-          />
+          /> */}
         </Grid>
         <Grid item xs={12} sm={2} align="center" mb={1}>
           <Button variant="outlined" color="primary" onClick={handleOpenModal}>
