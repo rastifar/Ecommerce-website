@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useMemo } from "react";
 import useFetch from "../../hooks/useFetch";
 //constant
 import { PRODUCTS } from "../../constants/apiConst";
@@ -10,7 +10,7 @@ import HttpService from "../../services/httpService";
 import { toast } from "react-toastify";
 //material
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography, Box } from "@mui/material";
+import { Grid, Button, Typography, Box,TextField } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -132,7 +132,12 @@ export default function StoreQuantity() {
           align={{ xs: "right", sm: "center" }}
           py={{ xs: 1, md: 0 }}
         >
-          جستجو
+          <TextField
+            size="small"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="جستجو ..."
+          />
         </Grid>
         <Grid
           item
