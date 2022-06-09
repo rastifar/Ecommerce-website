@@ -42,6 +42,7 @@ export default function Orders() {
   const [products, setProducts] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [search, setSearch] = useState("");
+  const debouncedSearchTerm = useDebounce(search, 500);
 
   useEffect(() => {
     const getOrders = () => {
