@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import useFetch from "../../hooks/useFetch";
 //constant
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
 import api from "../../api/api";
-import {getAllProducts} from "../../api/goodsApi"
-import { Category,subCategory } from "../../constants/categoryConst";
+import { getAllProducts } from "../../api/goodsApi";
+import { Category, subCategory } from "../../constants/categoryConst";
 //modal
 import AddOrEditModal from "./components/AddOrEditModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 //components
-import CustomPagination from '../../components/CustomPagination';
+import CustomPagination from "../../components/CustomPagination";
 import useDebounce from "../../components/Debounce";
 
 //material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography,Box } from "@mui/material";
+import { Grid, Button, Typography, Box,TextField } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import axios from "axios";
-import LinearProgress from '@mui/material/LinearProgress';
+import LinearProgress from "@mui/material/LinearProgress";
 //----------------------------------------------
 
 //stylecomponent
 const IMG = styled("img")`
   width: 3rem;
-  height: 3rem;   
+  height: 3rem;
   border-radius: 18px;
   object-fit: cover;
 `;
@@ -43,7 +43,7 @@ export default function Goods() {
 
   useEffect(() => {
     getData();
-  }, [open,isDeleteOpen,data]);
+  }, [open, isDeleteOpen, data]);
 
   const getData = async () => {
     //const response = await api.get(PRODUCTS+`?_sort=id&_order=desc`)
@@ -51,7 +51,7 @@ export default function Goods() {
   };
 
   const searchedItems = useMemo(() => {
-    if (!search) return -1 ;
+    if (!search) return -1;
 
     return products.filter((product) => {
       return product.name
@@ -59,7 +59,7 @@ export default function Goods() {
         .includes(debouncedSearchTerm.toLowerCase());
     });
   }, [debouncedSearchTerm, products]);
-  
+
   //columns
   const columns = [
     {
@@ -68,7 +68,7 @@ export default function Goods() {
       flex: 1,
       sortable: false,
       editable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       headerAlign: "left",
       renderCell: (params) => <IMG src={BASE_URL + "/files/" + params.value} />,
     },
@@ -77,7 +77,7 @@ export default function Goods() {
       headerName: "نام کالا",
       sortable: false,
       editable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       flex: 2,
       headerAlign: "left",
     },
@@ -86,7 +86,7 @@ export default function Goods() {
       headerName: "دسته بندی",
       sortable: true,
       editable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       flex: 2,
     },
     {
@@ -94,7 +94,7 @@ export default function Goods() {
       headerName: " حذف محصول",
       editable: false,
       sortable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -110,7 +110,7 @@ export default function Goods() {
       headerName: "ویرایش محصول",
       editable: false,
       sortable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -125,23 +125,42 @@ export default function Goods() {
 
   const handleDelete = async (params) => {
     // await axios.delete(BASE_URL+Products)
-    const id = params.row.id; 
+    const id = params.row.id;
     setData(id);
     setIsDeleteOpen(true);
     // console.log(params.row);
   };
   const handleEdit = (params) => {
-    const id = params.row.id;    
+    const id = params.row.id;
     setData(products.find((item) => item.id === id));
     setOpen(true);
   };
-
-  const rows = products?.map((product) => ({
-    id: product.id,
-    image: product.image,
-    name: product.name,
-    category: `${Category[product.category - 1]} / ${subCategory[product.subcategory-1]}`
-  }));
+  let rows = [];
+  if (searchedItems.length > 0) {
+    rows = searchedItems?.map((product) => ({
+      id: product.id,
+      image: product.image,
+      name: product.name,
+      category: `${Category[product.category - 1]} / ${
+        subCategory[product.subcategory - 1]
+      }`,
+    }));
+  } else {
+    rows = products?.map((product) => ({
+      id: product.id,
+      image: product.image,
+      name: product.name,
+      category: `${Category[product.category - 1]} / ${
+        subCategory[product.subcategory - 1]
+      }`,
+    }));
+  }
+  // const rows = products?.map((product) => ({
+  //   id: product.id,
+  //   image: product.image,
+  //   name: product.name,
+  //   category: `${Category[product.category - 1]} / ${subCategory[product.subcategory-1]}`
+  // }));
 
   const handleOpenModal = () => {
     setOpen(true);
@@ -153,16 +172,21 @@ export default function Goods() {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ p: .4 }}
+      sx={{ p: 0.4 }}
     >
       <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-        <Grid item xs={12} sm={2} align={{ xs: "center", sm:'right' }} mb={1} >
-          <Typography textAlign={'center' }>مدیریت کالاها</Typography>
+        <Grid item xs={12} sm={2} align={{ xs: "center", sm: "right" }} mb={1}>
+          <Typography textAlign={"center"}>مدیریت کالاها</Typography>
         </Grid>
-        <Grid item xs={12} sm={7} align="center"  mb={1} >
-          جستجو
+        <Grid item xs={12} sm={7} align="center" mb={1}>
+          <TextField
+            size="small"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="جستجو ..."
+          />
         </Grid>
-        <Grid item xs={12} sm={2} align="center"  mb={1}>
+        <Grid item xs={12} sm={2} align="center" mb={1}>
           <Button variant="outlined" color="primary" onClick={handleOpenModal}>
             افزودن کالا
           </Button>{" "}
@@ -182,7 +206,7 @@ export default function Goods() {
           pagination
           components={{
             Pagination: CustomPagination,
-            LoadingOverlay: LinearProgress
+            LoadingOverlay: LinearProgress,
           }}
           // {...data}
 
@@ -202,8 +226,8 @@ export default function Goods() {
       <DeleteConfirmModal
         open={isDeleteOpen}
         onClose={() => {
-          setIsDeleteOpen(false)
-          setData("")
+          setIsDeleteOpen(false);
+          setData("");
         }}
         data={data}
         getData={getData}
