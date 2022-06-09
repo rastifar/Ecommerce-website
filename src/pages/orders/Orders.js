@@ -53,6 +53,14 @@ export default function Orders() {
     getOrders();
   }, []);
 
+  const searchedItems = useMemo(() => {
+    if (!search) return -1 ;
+    return products.filter((product) => {
+      return product.customerDetail.firstName
+        .toLowerCase()
+        .includes(debouncedSearchTerm.toLowerCase());
+    });
+  }, [debouncedSearchTerm, products]);
   //columns
   const columns = [
     {
