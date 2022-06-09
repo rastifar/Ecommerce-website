@@ -39,6 +39,7 @@ export default function Goods() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [data, setData] = useState("");
   const [search, setSearch] = useState("");
+  const debouncedSearchTerm = useDebounce(search, 500);
 
   useEffect(() => {
     getData();
