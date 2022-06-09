@@ -38,7 +38,7 @@ export default function Goods() {
   const [open, setOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [data, setData] = useState("");
-  
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getData();
