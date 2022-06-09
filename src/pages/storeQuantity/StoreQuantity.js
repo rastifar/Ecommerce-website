@@ -66,13 +66,25 @@ export default function StoreQuantity() {
     });
     dispatch(setProducts(array));
   };
-
-  const rows = products?.map((product) => ({
+  let rows = []
+  if (searchedItems.length>0) {
+    rows = searchedItems?.map((product) => ({
+      id: product.id,
+    productName: product.name,
+    price: numberDivider(product.price),
+    count: numberDivider(product.count),
+  })); } else {  rows = products?.map((product) => ({
     id: product.id,
     productName: product.name,
     price: numberDivider(product.price),
     count: numberDivider(product.count),
-  }));
+  }));}
+  // const rows = products?.map((product) => ({
+  //   id: product.id,
+  //   productName: product.name,
+  //   price: numberDivider(product.price),
+  //   count: numberDivider(product.count),
+  // }));
 
   const handleSendEdit = () => {
     //Conver Array to set to prevent duplicate request call
