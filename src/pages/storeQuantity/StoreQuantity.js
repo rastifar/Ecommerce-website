@@ -18,6 +18,7 @@ import { getProduts, setProducts } from "../../redux/productsSlice";
 //components
 import CustomPagination from "../../components/CustomPagination";
 import { columns } from "./components/columns";
+import useDebounce from "../../components/Debounce";
 //-----------Utils
 import { numberDivider } from "../../utils/utils";
 
