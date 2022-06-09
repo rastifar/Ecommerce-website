@@ -125,15 +125,31 @@ export default function Orders() {
       // )
     },
   ];
-
-  const rows = products?.map((product) => ({
+  let rows = []
+  if (searchedItems.length>0) {
+    rows = searchedItems?.map((product) => ({
+      id: product.id,
+      username:
+        product.customerDetail.firstName + " " + product.customerDetail.lastName,
+      purchaseTotal: numberDivider(product.purchaseTotal),
+      delivery: convertTimeStamToDate(product.createdAt),
+      url: "#",
+  })); } else {  rows = products?.map((product) => ({
     id: product.id,
     username:
       product.customerDetail.firstName + " " + product.customerDetail.lastName,
     purchaseTotal: numberDivider(product.purchaseTotal),
     delivery: convertTimeStamToDate(product.createdAt),
     url: "#",
-  }));
+  }));}
+  // const rows = products?.map((product) => ({
+  //   id: product.id,
+  //   username:
+  //     product.customerDetail.firstName + " " + product.customerDetail.lastName,
+  //   purchaseTotal: numberDivider(product.purchaseTotal),
+  //   delivery: convertTimeStamToDate(product.createdAt),
+  //   url: "#",
+  // }));
 
   const handleOrder = (params) => {
     const id = params.row.id;
