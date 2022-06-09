@@ -193,7 +193,16 @@ export default function Orders() {
           >
             <Typography p={1}>مدیریت سفارش ها</Typography>
           </Grid>
-          <Grid item xs={12} sm={4} md={10} align="right">
+          <Grid  item xs={12} sm={4} md={2} mx={1} align="center">
+          <TextField
+            size="small"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+              placeholder="جستجو ..."
+              mx={1}
+          />
+          </Grid>
+          <Grid item xs={12} sm={4} md={8} align="right">
             <RadioGroup
               row
               aria-labelledby="demo-radio-buttons-group-label"
