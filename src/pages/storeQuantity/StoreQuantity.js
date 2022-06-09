@@ -35,6 +35,7 @@ export default function StoreQuantity() {
   // const [products, setProducts] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [editMode, setEditMode] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(getProduts());
