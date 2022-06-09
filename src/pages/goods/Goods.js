@@ -50,6 +50,16 @@ export default function Goods() {
     setProducts(await getAllProducts(`?_sort=id&_order=desc`));
   };
 
+  const searchedItems = useMemo(() => {
+    if (!search) return -1 ;
+
+    return products.filter((product) => {
+      return product.name
+        .toLowerCase()
+        .includes(debouncedSearchTerm.toLowerCase());
+    });
+  }, [debouncedSearchTerm, products]);
+  
   //columns
   const columns = [
     {
