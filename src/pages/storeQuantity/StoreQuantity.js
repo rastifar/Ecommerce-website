@@ -36,6 +36,7 @@ export default function StoreQuantity() {
   const [pageSize, setPageSize] = useState(5);
   const [editMode, setEditMode] = useState(false);
   const [search, setSearch] = useState("");
+  const debouncedSearchTerm = useDebounce(search, 500);
 
   useEffect(() => {
     dispatch(getProduts());
