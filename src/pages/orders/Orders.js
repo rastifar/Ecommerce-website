@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import OrderModal from "./component/OrderModal";
 //components
 import CustomPagination from "../../components/CustomPagination";
+import useDebounce from "../../components/Debounce";
 //reduxStore
 import { useSelector, useDispatch } from "react-redux";
 import { changeState } from "../../redux/modalSlice";
