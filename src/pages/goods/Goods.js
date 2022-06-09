@@ -11,7 +11,7 @@ import AddOrEditModal from "./components/AddOrEditModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 //components
 import CustomPagination from '../../components/CustomPagination';
-
+import useDebounce from "../../components/Debounce";
 
 //material
 import { styled } from "@mui/material/styles";
