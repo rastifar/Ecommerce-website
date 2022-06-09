@@ -43,6 +43,15 @@ export default function StoreQuantity() {
   }, [dispatch]);
 
   console.log(products);
+  const searchedItems = useMemo(() => {
+    if (!search) return -1 ;
+
+    return products.filter((product) => {
+      return product.name
+        .toLowerCase()
+        .includes(debouncedSearchTerm.toLowerCase());
+    });
+  }, [debouncedSearchTerm, products]);
 
   const handleEdit = (params) => {
     setEditMode(true);
