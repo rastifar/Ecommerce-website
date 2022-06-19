@@ -108,7 +108,7 @@ export default function StoreQuantity() {
           align={{ xs: "right", sm: "center" }}
           py={{ xs: 1, md: 0 }}
         >
-          جستجو
+          {/* جستجو */}
         </Grid>
         <Grid
           item

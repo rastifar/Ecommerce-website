@@ -82,7 +82,7 @@ const PurchageResult = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ p: 5 }}
+      sx={{ p: 5,minHeight:'45vh' }}
     >
       <Typography sx={{ fontSize: "1.5rem", mb: 3 }}>نتیجه پرداخت</Typography>
       <Grid container sx={{ width: "100%" }}>

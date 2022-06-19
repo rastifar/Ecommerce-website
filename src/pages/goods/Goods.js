@@ -149,7 +149,7 @@ export default function Goods() {
           <Typography textAlign={'center' }>مدیریت کالاها</Typography>
         </Grid>
         <Grid item xs={12} sm={7} align="center"  mb={1} >
-          جستجو
+          {/* جستجو */}
         </Grid>
         <Grid item xs={12} sm={2} align="center"  mb={1}>
           <Button variant="outlined" color="primary" onClick={handleOpenModal}>
