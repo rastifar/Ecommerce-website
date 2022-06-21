@@ -1,7 +1,7 @@
 import HttpService from "../services/httpService";
-import { ORDERS, PRODUCTS, UPLOAD } from "../constants/apiConst";
+import { ORDERS, PRODUCTS} from "../constants/apiConst";
 import { toast } from "react-toastify";
-import Orders from "../pages/orders/Orders";
+
 
 const sendOrderToDatabase = async (orderItem) => {
   console.log("inside send api");
