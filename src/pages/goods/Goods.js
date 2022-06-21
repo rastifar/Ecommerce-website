@@ -3,7 +3,6 @@ import useFetch from "../../hooks/useFetch";
 //constant
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
-import api from "../../api/api";
 import {getAllProducts} from "../../api/goodsApi"
 import { Category,subCategory } from "../../constants/categoryConst";
 //modal

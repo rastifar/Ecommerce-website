@@ -3,8 +3,6 @@ import useFetch from "../../hooks/useFetch";
 //constant
 import { PRODUCTS } from "../../constants/apiConst";
 //api
-import axios from "axios";
-import api from "../../api/api";
 import HttpService from "../../services/httpService";
 //toast
 import { toast } from "react-toastify";

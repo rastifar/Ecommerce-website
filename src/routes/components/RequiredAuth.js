@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import api from "../../api/api";
-import { BASE_URL, WHOAMI } from "../../constants/apiConst";
+
 
 const RequiredAuth = ({children}) => {
    // const token = useSelector((state) => state.token);

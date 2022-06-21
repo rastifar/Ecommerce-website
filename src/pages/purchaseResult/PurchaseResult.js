@@ -10,13 +10,11 @@ import failureImage from "../../assets/images/failure.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
 //----------Api
-import api from "../../api/api";
-import axios from "axios";
 import {deleteInventoryCount, deleteOrder, updatOrderStatus} from "../../api/cartApi"
 //----------Toast
 import { toast } from "react-toastify";
 
-import { BASE_URL, completeOrder, ORDERS, PRODUCTS } from "../../constants/apiConst";
+import { completeOrder } from "../../constants/apiConst";
 
 const PurchageResult = () => {
  

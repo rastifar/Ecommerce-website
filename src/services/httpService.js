@@ -1,4 +1,4 @@
-import axios from "../api/httpRequestApi";
+import axios from "axios";
 import { AUTH_LOGIN, BASE_URL, ORDERS } from "../constants/apiConst";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
