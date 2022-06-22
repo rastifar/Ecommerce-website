@@ -4,20 +4,9 @@ import { toast } from "react-toastify";
 const initialState = {
   cartItems: [],
   cartTotalQuantity: 0,
-  cartTotalAmount: 0,
-  checkout: false,
+  cartTotalAmount: 0,  
 };
 
-const getTotals = (items) => {
-  const cartTotalQuantity = items.reduce(
-    (total, product) => total + product.quantity,
-    0
-  );
-  let cartTotalAmount = items
-    .reduce((total, product) => total + product.price * product.quantity, 0)
-    .toFixed(2);
-  return { cartTotalQuantity, cartTotalAmount };
-};
 
 const cartSlice = createSlice({
   name: "cart",
@@ -67,13 +56,12 @@ const cartSlice = createSlice({
       state.cartItems = [];
       state.cartTotalAmount = 0;
       state.cartTotalQuantity = 0;
-      state.checkout = false;
+     
     },
     checkout(state) {
       state.cartItems = [];
       state.cartTotalAmount = 0;
-      state.cartTotalQuantity = 0;
-      state.checkout = true;
+      state.cartTotalQuantity = 0;    
     },
   },
 });

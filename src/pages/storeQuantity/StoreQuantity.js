@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
+//--------------UseFetch
 import useFetch from "../../hooks/useFetch";
-//constant
+//--------------Constant
 import { PRODUCTS } from "../../constants/apiConst";
-//api
+//--------------Api
 import HttpService from "../../services/httpService";
-//toast
+//-------------toast
 import { toast } from "react-toastify";
-//material
+//-------------Material
 import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography, Box } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-//Redux
+//-------------Redux
 import { useSelector, useDispatch } from "react-redux";
 import { getProduts, setProducts } from "../../redux/productsSlice";
-//components
+//-------------Components
 import CustomPagination from "../../components/CustomPagination";
 import { columns } from "./components/columns";
-//-----------Utils
+//-------------Utils
 import { numberDivider } from "../../utils/utils";
 
 //----------------------------------------------

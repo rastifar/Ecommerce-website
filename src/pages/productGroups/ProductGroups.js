@@ -1,23 +1,23 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useParams, useLocation, useSearchParams } from "react-router-dom";
+//---------------React-Router
+import { useParams, useLocation } from "react-router-dom";
+//---------------Material
 import {
   Grid,
-  Box,
-  ListItemText,
-  List,
+  Box, 
   Pagination,
   CircularProgress,
   CssBaseline,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-
-import axios from "axios";
-import { caterories } from "../../constants/formsConst";
+//----------------Usefetch
 import useFetch from "../../hooks/useFetch";
-
+//---------------Components
 import ProductCards from "../../components/ProductCards";
+//---------------Utils
 import { urlFilterOptions } from "../../utils/utils";
+//---------------Constants
 import { BASE_URL, PRODUCTS } from "../../constants/apiConst";
 
 const ProductGroups = () => {
@@ -26,15 +26,10 @@ const ProductGroups = () => {
   const location = useLocation();
   const currentLocation = location.pathname.split("/");
 
-  console.log("currentLocation :", currentLocation);
+
 
   const displayBasedOnLocation = currentLocation[2]
   const filteredOptions = urlFilterOptions(currentLocation)
-  // console.log('displayBasedOnLocation', displayBasedOnLocation);
-  // console.log('filteredOptions',filteredOptions);
-  //const resultTosearch = location.search;
-  //console.log('locaiotnSearch', resultTosearch);
-
   const queryString = require("query-string");
   const parsed = queryString.parse(location.search);
   const resultTosearch = queryString.stringify(parsed);
@@ -42,32 +37,7 @@ const ProductGroups = () => {
 
   const limit = useMemo(() => 6, []);
   const [activePage, setActivePage] = useState(1);
-  const { categoryNum } = useParams();
-
-  
-
-  // const [searchParams] = useSearchParams();
-  // console.log(searchParams.entries());
-  // console.log(Object.fromEntries([...searchParams]));
-  // const urlsearch = Object.fromEntries([...searchParams])
-  // let query =''
-  // const searchResult = Object.entries(urlsearch).map(item => query += item[0] + `=` + item[1] + `&`)
-  // const resultTosearch = searchResult.pop()
-  // console.log('resultTosearch', resultTosearch);
-
-  // console.log(Object.entries(urlsearch).map(item => query += item[0] + `=` + item[1] + `&`));
-
-  // console.log(
-  //   // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
-  //   `http://localhost:3002/products${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
-  // );
-  // const { data, loading, error, headers } = useFetch(
-  //   `http://localhost:3002/products${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
-  // );
-
-  // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}}&_sort=asc`
-  // `http://localhost:3002/products?category=${categoryNum}&_page=${activePage}&_limit=${limit}`
-  //console.log("headers", headers["x-total-count"]);
+  const { categoryNum } = useParams(); 
 
   const { data, loading, error, headers } = useFetch(
     BASE_URL+PRODUCTS+`${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
@@ -85,7 +55,7 @@ const ProductGroups = () => {
       sx={{ mt: "2rem" }}
     >
       {loading ? (
-        <Box>
+        <Box >
           <CircularProgress />
         </Box>
       ) : (

@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from "react";
-//---------formik
+//---------Formik & Yup
 import { useFormik } from "formik";
 import * as yup from "yup";
-//----------const
+//----------Constants
 import {pendingOrder} from "../../constants/apiConst"
 //---------Material
 import { Typography, Button, TextField, Box, Grid } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { styled } from "@mui/system";
+import { createTheme} from "@mui/material/styles";
 //--------React-Router
 import { useNavigate } from "react-router-dom";
-
-import { Container } from "@mui/material";
 //------------DatePicker
-import DatePicker, { Calendar, DateObject } from "react-multi-date-picker";
+import DatePicker, {  DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import "react-multi-date-picker/styles/layouts/prime.css";
-import InputIcon from "react-multi-date-picker/components/input_icon";
-//-----------Redux
+//-------------Redux
 import { useSelector } from "react-redux";
-import { TryRounded } from "@mui/icons-material";
+//-------------Api
 import { sendOrderToDatabase } from "../../api/cartApi";
 //-------------REGEX
 const phoneRegExp = /^(09)+\d{9}$/;
-// /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/;
-//
-//------------Theme
-const theme = createTheme();
-
-//------------VALIDATION
+//-------------VALIDATION
 const validationSchema = yup.object({
   firstname: yup
     .string()
@@ -64,16 +55,10 @@ const initialValues = {
   deliveryDate: "",
 };
 
-// const MyDatePicker = styled(DatePicker)({
-//   background: 'red',
-//   width:'100%'
-// })
+
 const PurchaseFinalizing = () => {
-  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart);
-  const token = useSelector((state) => state.token);
-  //const [deliveryDate, setDeliveryDate] = useState();
-  const tempArray = [];
+
 
   const formik = useFormik({
     initialValues,
@@ -114,17 +99,8 @@ const PurchaseFinalizing = () => {
     },
   });
 
-  // const handlebasketItemsforDataBase = () => {
-  //   cartItems.cartItems.map((item) => {
-  //     tempArray.push({
-  //       id: item.id,
-  //       name: item.name,
-  //       price: item.price,
-  //       quantity: item.quantity,
-  //     });
-  //   });
-  // };
-  console.log(pendingOrder);
+
+ 
   return (
     <Box sx={{ mt: 5, mb: 10 }}>
       <Typography variant="h6" gutterBottom align="center" sx={{ my: 2 }}>

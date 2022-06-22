@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
-//--------Material
+//-----------Material
 import { Typography, Box, Grid} from "@mui/material";
-//--------ReactRouter
+//-----------ReactRouter
 import { useLocation, useSearchParams } from "react-router-dom";
-//----------Image
-import successImage from "../../assets/images/success.png";
-import failureImage from "../../assets/images/failure.jpg";
-//---------Redux
+//-----------Image
+import Images from "../../assets/index"
+//-----------Redux
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
-//----------Api
+//-----------Api
 import {deleteInventoryCount, deleteOrder, updatOrderStatus} from "../../api/cartApi"
-//----------Toast
+//-----------Toast
 import { toast } from "react-toastify";
-
+//-----------Constants
 import { completeOrder } from "../../constants/apiConst";
 
 const PurchageResult = () => {
@@ -86,7 +85,7 @@ const PurchageResult = () => {
       <Grid container sx={{ width: "100%" }}>
         <Grid item xs={12} sm={4} align={"center"}>
           <img
-            src={purchaseResult === "success" ? successImage : failureImage}
+            src={purchaseResult === "success" ? Images.Success : Images.Failed}
             alt="sucess image"
             style={{ width: "100%", maxWidth: "150px", height: "auto", mb: 3 }}
           />

@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-
-//----------component
+//-------------Materail
+import {Breadcrumbs} from '@mui/material';
+//-------------Component
 import MyLink from '../../../components/MyLink';
 
 function handleClick(event) {

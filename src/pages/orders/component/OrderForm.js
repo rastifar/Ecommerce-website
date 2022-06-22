@@ -2,26 +2,24 @@ import * as React from "react";
 //---------------Material
 import { Button, Grid, Box, Typography } from "@mui/material";
 import { DataGrid, faIR } from "@mui/x-data-grid";
-
 //----------------Utils
 import { convertTimeStamToDate, numberDivider } from "../../../utils/utils";
-
-//---------------components
+//---------------Components
 import CustomPagination from "../../../components/CustomPagination";
-
-//---------------columns
+//---------------Columns
 import { columns } from "./columns";
 //--------------Redux
 import { useDispatch, useSelector} from "react-redux";
 import { changeState } from "../../../redux/modalSlice";
 //---------------Toast
-import { toast} from "react-toastify";
+import { toast } from "react-toastify";
+//---------------Api
 import { deliveredOrder } from "../../../api/orderApi";
 
 export default function OrderForm({ data, onClose,handlechange }) {
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch()
-  console.log(data);
+  
   const rows = data.orderItems?.map((item) => ({
     id: item.id,
     name: item.name,

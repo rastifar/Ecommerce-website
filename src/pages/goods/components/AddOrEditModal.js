@@ -1,5 +1,5 @@
-import * as React from "react";
-
+import React from "react";
+//----------Material
 import { 
   Dialog, 
   DialogContent,
@@ -9,8 +9,10 @@ import {
   Typography
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import FormAddOrEdit from "./FormAddOrEdit";
+//------------Material-Icon
 import CancelPresentationTwoToneIcon from '@mui/icons-material/CancelPresentationTwoTone';
+//------------Components
+import FormAddOrEdit from "./FormAddOrEdit";
 
 export default function Modal({ open, onClose , data,getData }) {
  

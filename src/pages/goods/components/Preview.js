@@ -1,28 +1,24 @@
 import React from 'react';
-import CancelPresentationTwoToneIcon from "@mui/icons-material/CancelPresentationTwoTone";
-import image from "../../../assets/images/preview.jpg";
-import { Box 
-} from "@mui/material";
+//----------Material
+import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
+//----------Material-Icon
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-//stylecomponent
+//----------Constants
+import { BASE_URL, FILES } from '../../../constants/apiConst';
+//----------stylecomponent
 const IMG = styled("img")`
   width: 5rem;
   height: 5rem;
   border-radius: 5px;
-  object-fit: contain;
- 
+  object-fit: contain; 
 `;
 
-const Preview = ({ src, handleDeleteImage ,bulk}) => {
-    const handleDelete = (e) => {
-        console.log(e.targe);
-    }
+const Preview = ({ src, handleDeleteImage ,bulk}) => { 
     return (
-        <Box >
-            {/* <Box component="span" sx={{ color: "red" }}><CancelPresentationTwoToneIcon onClick={delImg }/></Box> */}
+        <Box >         
             <Box   style={{
-                backgroundImage: `url(${'http://localhost:3002/files/'+src})`,
+                backgroundImage: `url(${BASE_URL+FILES+src})`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 width: "6rem",

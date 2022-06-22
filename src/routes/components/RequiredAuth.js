@@ -8,15 +8,7 @@ const RequiredAuth = ({children}) => {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
   
-  useEffect(() => {
-    console.log('requiered');
-    // api
-    //   .get(BASE_URL + WHOAMI)
-    //   //   .then((res) =>{if (res.status === 200 || res.status === 201 && res.data.token !== token) {
-    //   //       navigate("/login", { replace: false });
-    //   // }})
-    //   .then(res=>console.log(res))
-    //   .catch((error) => navigate("/login", { replace: false }));
+  useEffect(() => {   
     if (!token) {
       console.log(token);
       navigate("/login", { replace: false });

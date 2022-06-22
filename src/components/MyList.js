@@ -1,13 +1,18 @@
 import * as React from "react";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
+//----------Material
+import {
+  List,
+  ListItemButton,
+  ListItemText,
+  Collapse,
+} from "@mui/material";
+//----------Material-Icon
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+//----------Components
 import MyLink from "./MyLink";
 
-const MyList = ({ title,menuLink, submenuTitle }) => {
+const MyList = ({ title, menuLink, submenuTitle }) => {
   const [open, setOpen] = React.useState(false);
   console.log(title, submenuTitle);
   const handleClick = () => {
@@ -20,18 +25,17 @@ const MyList = ({ title,menuLink, submenuTitle }) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-          <MyLink to={menuLink} >
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText>تمام محصولات</ListItemText>
-              </ListItemButton>
-            </List>
-          </MyLink>
-        </Collapse>
+        <MyLink to={menuLink}>
+          <List component="div" disablePadding>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemText>تمام محصولات</ListItemText>
+            </ListItemButton>
+          </List>
+        </MyLink>
+      </Collapse>
       {submenuTitle?.map((subitem, index) => (
-        
         <Collapse in={open} timeout="auto" unmountOnExit key={index}>
-          <MyLink to={subitem.link} >
+          <MyLink to={subitem.link}>
             <List component="div" disablePadding>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemText>{subitem.title}</ListItemText>

@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+//-------------Material
 import {
   Button, 
   Dialog,
@@ -10,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+//-------------Api
 import {deleteProductById} from "../../../api/goodsApi"
 
 export default function DeleteConfirmModal({ open, onClose, data, getData }) {

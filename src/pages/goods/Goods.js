@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
+//-----------UseFetch
 import useFetch from "../../hooks/useFetch";
-//constant
+//-----------Constant
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
 import {getAllProducts} from "../../api/goodsApi"
 import { Category,subCategory } from "../../constants/categoryConst";
-//modal
+//----------Components
 import AddOrEditModal from "./components/AddOrEditModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
-//components
 import CustomPagination from '../../components/CustomPagination';
-
-
-//material
+//-----------Material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography,Box } from "@mui/material";
+import { Grid, Button, Typography, Box } from "@mui/material";
+import LinearProgress from '@mui/material/LinearProgress';
+//-----------Material-Icon
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import axios from "axios";
-import LinearProgress from '@mui/material/LinearProgress';
-//----------------------------------------------
+
 
 //stylecomponent
 const IMG = styled("img")`

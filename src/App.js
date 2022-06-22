@@ -1,6 +1,9 @@
+//---------Routes
 import MyRoutes from "./routes/MyRoutes";
+//---------Redux
 import {store} from "./redux/store";
 import { Provider } from "react-redux";
+//---------ToastContainer
 import { ToastContainer } from "react-toastify";
 
 

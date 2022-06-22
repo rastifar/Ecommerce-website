@@ -1,17 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useRef} from "react";
+//-------------Formik & Yup
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import image from "../../../assets/images/preview.jpg";
+//-------------Images
+import Images from "../../../assets/index"
+//-------------Constatnts
 import { caterories, subCategories } from "../../../constants/formsConst";
-import RecentActorsTwoToneIcon from "@mui/icons-material/RecentActorsTwoTone";
-import CollectionsTwoToneIcon from "@mui/icons-material/CollectionsTwoTone";
-
+//-------------CKEditor
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-
+//-------------Material
 import {
   Typography,
   Box,
@@ -20,14 +18,19 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
-import axios from "axios";
+//------------Material-Icon
+import RecentActorsTwoToneIcon from "@mui/icons-material/RecentActorsTwoTone";
+import CollectionsTwoToneIcon from "@mui/icons-material/CollectionsTwoTone";
+//-------------Api
 import {
   editProductByid,
   createProduct,
   uploadSingleImage,
   uploadBuldImages,
 } from "../../../api/goodsApi";
+//------------Components
 import Preview from "./Preview";
+//------------Redux
 import { useSelector } from "react-redux";
 
 const validationSchema = yup.object().shape({
@@ -160,7 +163,7 @@ const FormAddOrEdit = ({ data, onClose, getData }) => {
           <Grid item xs={12} sm={6}>
             <Box
               style={{
-                backgroundImage: `url(${image})`,
+                backgroundImage: `url(${Images.Preview})`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 width: "6rem",
@@ -367,7 +370,7 @@ const FormAddOrEdit = ({ data, onClose, getData }) => {
           <Grid item xs={12}>
             <Box
               style={{
-                backgroundImage: `url(${image})`,
+                backgroundImage: `url(${Images.Preview})`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
