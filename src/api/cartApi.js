@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 
 const sendOrderToDatabase = async (orderItem) => {
-  console.log("inside send api");
+  
   try {
     const response = await HttpService.post(ORDERS, orderItem);
     return response;

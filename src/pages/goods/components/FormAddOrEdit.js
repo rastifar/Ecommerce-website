@@ -416,7 +416,7 @@ const FormAddOrEdit = ({ data, onClose, getData }) => {
                 //   onReady={ editor => {
                 //     // You can store the "editor" and use when it is needed.
                 //     ckeditordata = editor;
-                //     console.log( 'Editor is ready to use!', editor );
+               
                 // } }
                 //onChange={inputHandler}
                 onChange={(event, editor) => {

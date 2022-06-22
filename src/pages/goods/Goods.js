@@ -114,7 +114,7 @@ export default function Goods() {
     const id = params.row.id; 
     setData(id);
     setIsDeleteOpen(true);
-    // console.log(params.row);
+   
   };
   const handleEdit = (params) => {
     const id = params.row.id;    

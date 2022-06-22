@@ -9,8 +9,7 @@ const RequiredAuth = ({children}) => {
   const navigate = useNavigate()
   
   useEffect(() => {   
-    if (!token) {
-      console.log(token);
+    if (!token) {     
       navigate("/login", { replace: false });
     }
   }, []);

@@ -48,7 +48,7 @@ const Header = () => {
     window.localStorage.removeItem("token");
     navigate("/", { replace: false });
   };
-  console.log(LINKAdmin.title);
+  
   return (
     <AppBar position="static" color="inherit">
       <Toolbar>

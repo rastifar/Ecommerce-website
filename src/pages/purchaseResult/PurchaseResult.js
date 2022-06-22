@@ -47,7 +47,7 @@ const PurchageResult = () => {
 
     updatOrderStatus(customerId, completeOrder)
     
-    // console.log(order);
+    
     // const result = await api.post(BASE_URL + ORDERS, order);
     //api.post(BASE_URL + ORDERS, order).then(res=>localStorage.removeItem('orders'))
   };
@@ -64,7 +64,7 @@ const PurchageResult = () => {
       //     "Content-Type": "application/json",
       //   }
       // );
-      // console.log(response);
+      
     });
   };
   const handlecartItems = () => {

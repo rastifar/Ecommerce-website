@@ -13,8 +13,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import MyLink from "./MyLink";
 
 const MyList = ({ title, menuLink, submenuTitle }) => {
-  const [open, setOpen] = React.useState(false);
-  console.log(title, submenuTitle);
+  const [open, setOpen] = React.useState(false);  
   const handleClick = () => {
     setOpen(!open);
   };

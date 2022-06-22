@@ -38,7 +38,7 @@ export default function StoreQuantity() {
     dispatch(getProduts());
   }, [dispatch]);
 
-  console.log(products);
+  
 
   const handleEdit = (params) => {
     setEditMode(true);

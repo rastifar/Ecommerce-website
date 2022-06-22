@@ -92,8 +92,7 @@ const ProductGroups = () => {
             count={
               Math.ceil(Number(headers["x-total-count"]) / Number(limit)) || 0
             }
-            onChange={(_, page) => {
-              console.log("page:", page);
+            onChange={(_, page) => {             
               setActivePage(page);
             }}
           />
@@ -155,7 +154,7 @@ export default ProductGroups;
 //         page={activePage}
 //         count={Math.ceil(Number(headers["x-total-count"]) / Number(limit))}
 //         onChange={(_, page) => {
-//           console.log("page:", page);
+//         
 //           setActivePage(page);
 //         }}
 //       />

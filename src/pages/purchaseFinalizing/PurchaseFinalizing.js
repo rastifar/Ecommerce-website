@@ -63,8 +63,7 @@ const PurchaseFinalizing = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
-      console.log(cartItems.cartItems);
+    onSubmit: async (values, { resetForm }) => {      
       const order = {
         customerDetail: {
           username: "admin",
@@ -90,8 +89,7 @@ const PurchaseFinalizing = () => {
       localStorage.setItem("orders", JSON.stringify(order));
       resetForm({ values: "" });
       //axios.post("http://localhost:3002/orders", order).then(res=>alert(res.data)).catch(error=>alert('error'))
-      // console.log(values);
-      // console.log(deliveryDate);
+      
       // localStorage.setItem("Order", JSON.stringify(order));
       // window.location.href = ` http://127.0.0.1:5500/public/payment.html`;
 

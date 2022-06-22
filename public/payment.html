@@ -110,7 +110,7 @@
     </div>
     <script>
       const params = new URLSearchParams(window.location.search);
-      console.log(params.get("id"));
+      
       let totalPrice = params.get("totalPrice");
       totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       document.getElementById("priceTotal").innerHTML = totalPrice;
