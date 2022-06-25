@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   data: {},
+  productId:""
 };
 
 const tempDataSlice = createSlice({
@@ -8,6 +9,10 @@ const tempDataSlice = createSlice({
   initialState,
   reducers: {
     setTempData(state, action) {
+      if (typeof action.payload === "number") {
+        state.id = action.payload;       
+        return
+      }      
       state.data = action.payload;
     },
     deleteTempData(state) {

@@ -13,15 +13,16 @@ import {
 import { useTheme } from "@mui/material/styles";
 //-------------Api
 import {deleteProductById} from "../../../api/goodsApi"
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-export default function DeleteConfirmModal({ open, onClose, data, getData }) {
+export default function DeleteConfirmModal({ open, onClose,  getData }) {
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  if (!open) return "";
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md")); 
+  const productToDeleteId = useSelector(state => state.tempData.id)
 
   const handelDelete = () => {
-    deleteProductById(data)  
+    deleteProductById(productToDeleteId)  
     getData();
     onClose();
   };

@@ -4,28 +4,28 @@ import useFetch from "../../hooks/useFetch";
 //-----------Constant
 import { BASE_URL } from "../../constants/apiConst";
 import { PRODUCTS } from "../../constants/apiConst";
-import {getAllProducts} from "../../api/goodsApi"
-import { Category,subCategory } from "../../constants/categoryConst";
+import { getAllProducts } from "../../api/goodsApi";
+import { Category, subCategory } from "../../constants/categoryConst";
 //----------Components
 import AddOrEditModal from "./components/AddOrEditModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
-import CustomPagination from '../../components/CustomPagination';
+import CustomPagination from "../../components/CustomPagination";
 //-----------Material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
 import { Grid, Button, Typography, Box } from "@mui/material";
-import LinearProgress from '@mui/material/LinearProgress';
+import LinearProgress from "@mui/material/LinearProgress";
 //-----------Material-Icon
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 //-----------Redux
-import { useSelector,useDispatch  } from "react-redux";
-import { setTempData,logData } from "../../redux/tempDataSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { setTempData, logData } from "../../redux/tempDataSlice";
 
 //stylecomponent
 const IMG = styled("img")`
   width: 3rem;
-  height: 3rem;   
+  height: 3rem;
   border-radius: 18px;
   object-fit: cover;
 `;
@@ -35,16 +35,16 @@ export default function Goods() {
   const [products, setProducts] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [data, setData] = useState("");
-  const dispatch = useDispatch()
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);  
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getData();
-  }, [open,isDeleteOpen,data]);
+  }, []);
 
   const getData = async () => {
     //const response = await api.get(PRODUCTS+`?_sort=id&_order=desc`)
+    console.log('in get date to rerender');
     setProducts(await getAllProducts(`?_sort=id&_order=desc`));
   };
 
@@ -56,7 +56,7 @@ export default function Goods() {
       flex: 1,
       sortable: false,
       editable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       headerAlign: "left",
       renderCell: (params) => <IMG src={BASE_URL + "/files/" + params.value} />,
     },
@@ -65,7 +65,7 @@ export default function Goods() {
       headerName: "نام کالا",
       sortable: false,
       editable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       flex: 2,
       headerAlign: "left",
     },
@@ -74,7 +74,7 @@ export default function Goods() {
       headerName: "دسته بندی",
       sortable: true,
       editable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       flex: 2,
     },
     {
@@ -82,7 +82,7 @@ export default function Goods() {
       headerName: " حذف محصول",
       editable: false,
       sortable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       headerAlign: "center",
       align: "center",
       flex: 1,
@@ -98,7 +98,7 @@ export default function Goods() {
       headerName: "ویرایش محصول",
       editable: false,
       sortable: false,
-      disableColumnMenu	:true,
+      disableColumnMenu: true,
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -113,17 +113,14 @@ export default function Goods() {
 
   const handleDelete = async (params) => {
     // await axios.delete(BASE_URL+Products)
-    const id = params.row.id; 
-    setData(id);
+    const id = params.row.id;    
+    dispatch(setTempData(id));
     setIsDeleteOpen(true);
-   
   };
   const handleEdit = (params) => {
-    const id = params.row.id;    
-    const productToEdit = products.find((item) => item.id === id)
-    
-    //setData(productToEdit);
-dispatch(setTempData(productToEdit))
+    const id = params.row.id;
+    const productToEdit = products.find((item) => item.id === id);    
+    dispatch(setTempData(productToEdit));
     setOpen(true);
   };
 
@@ -131,7 +128,9 @@ dispatch(setTempData(productToEdit))
     id: product.id,
     image: product.image,
     name: product.name,
-    category: `${Category[product.category - 1]} / ${subCategory[product.subcategory-1]}`
+    category: `${Category[product.category - 1]} / ${
+      subCategory[product.subcategory - 1]
+    }`,
   }));
 
   const handleOpenModal = () => {
@@ -144,16 +143,16 @@ dispatch(setTempData(productToEdit))
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ p: .4 }}
+      sx={{ p: 0.4 }}
     >
       <Grid container item sx={{ p: 2, background: "white", width: "100%" }}>
-        <Grid item xs={12} sm={2} align={{ xs: "center", sm:'right' }} mb={1} >
-          <Typography textAlign={'center' }>مدیریت کالاها</Typography>
+        <Grid item xs={12} sm={2} align={{ xs: "center", sm: "right" }} mb={1}>
+          <Typography textAlign={"center"}>مدیریت کالاها</Typography>
         </Grid>
-        <Grid item xs={12} sm={7} align="center"  mb={1} >
+        <Grid item xs={12} sm={7} align="center" mb={1}>
           {/* جستجو */}
         </Grid>
-        <Grid item xs={12} sm={2} align="center"  mb={1}>
+        <Grid item xs={12} sm={2} align="center" mb={1}>
           <Button variant="outlined" color="primary" onClick={handleOpenModal}>
             افزودن کالا
           </Button>{" "}
@@ -173,7 +172,7 @@ dispatch(setTempData(productToEdit))
           pagination
           components={{
             Pagination: CustomPagination,
-            LoadingOverlay: LinearProgress
+            LoadingOverlay: LinearProgress,
           }}
           // {...data}
 
@@ -183,22 +182,16 @@ dispatch(setTempData(productToEdit))
       <AddOrEditModal
         open={open}
         onClose={() => {
-          setOpen(false);
-          setData("");
-        }}
-        data={data}
-        getData={getData}
-        // onReRenderAfterModal={() => setReRenderAfterModal(!reRenderAfterModal)}
+          setOpen(false);       
+        }}       
+        getData={getData}      
       />
       <DeleteConfirmModal
         open={isDeleteOpen}
         onClose={() => {
-          setIsDeleteOpen(false)
-          setData("")
-        }}
-        data={data}
-        getData={getData}
-        // onReRenderAfterModal={() => setReRenderAfterModal(!reRenderAfterModal)}
+          setIsDeleteOpen(false);         
+        }}       
+        getData={getData}      
       />
     </Box>
   );

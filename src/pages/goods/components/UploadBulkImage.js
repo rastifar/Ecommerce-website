@@ -19,7 +19,7 @@ let tempArray = [];
 const UploadBulkImage = ({ values }) => {
   const images = useSelector((state) => state.tempData.data.images);
   const { setFieldValue } = useFormikContext();
-console.log('tempArray : ' , tempArray);
+
   useEffect(() => {
     images && (tempArray = [...images]);
   }, [images]);
@@ -40,7 +40,7 @@ console.log('tempArray : ' , tempArray);
   // to delete images in the gallary
   const handleDeleteImage = (value) => {
     const newArray = tempArray.filter((item) => {
-      return item != value;
+      return item !== value;
     });
     tempArray = newArray;
     setFieldValue("images", tempArray, true);
