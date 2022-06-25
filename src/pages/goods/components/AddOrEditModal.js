@@ -14,7 +14,7 @@ import CancelPresentationTwoToneIcon from '@mui/icons-material/CancelPresentatio
 //------------Components
 import FormAddOrEdit from "./FormAddOrEdit";
 
-export default function Modal({ open, onClose , data,getData }) {
+export default function Modal({ open, onClose,getData }) {
  
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -40,8 +40,8 @@ export default function Modal({ open, onClose , data,getData }) {
           </Box>
         
         </DialogTitle>
-        <DialogContent>
-          <FormAddOrEdit data={data} onClose={onClose} getData={getData}/>
+        <DialogContent >
+          <FormAddOrEdit onClose={onClose} getData={getData}/>
         </DialogContent>
       
       </Dialog>

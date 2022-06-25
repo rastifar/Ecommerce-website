@@ -18,7 +18,9 @@ import LinearProgress from '@mui/material/LinearProgress';
 //-----------Material-Icon
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-
+//-----------Redux
+import { useSelector,useDispatch  } from "react-redux";
+import { setTempData,logData } from "../../redux/tempDataSlice";
 
 //stylecomponent
 const IMG = styled("img")`
@@ -35,7 +37,7 @@ export default function Goods() {
   const [open, setOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [data, setData] = useState("");
-  
+  const dispatch = useDispatch()
 
   useEffect(() => {
     getData();
@@ -118,7 +120,10 @@ export default function Goods() {
   };
   const handleEdit = (params) => {
     const id = params.row.id;    
-    setData(products.find((item) => item.id === id));
+    const productToEdit = products.find((item) => item.id === id)
+    
+    //setData(productToEdit);
+dispatch(setTempData(productToEdit))
     setOpen(true);
   };
 

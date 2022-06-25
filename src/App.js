@@ -5,6 +5,7 @@ import {store} from "./redux/store";
 import { Provider } from "react-redux";
 //---------ToastContainer
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {

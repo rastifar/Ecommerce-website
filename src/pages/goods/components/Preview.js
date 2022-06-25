@@ -18,7 +18,7 @@ const Preview = ({ src, handleDeleteImage ,bulk}) => {
     return (
         <Box >         
             <Box   style={{
-                backgroundImage: `url(${BASE_URL+FILES+src})`,
+                backgroundImage: `url(${BASE_URL+FILES+'/'+src})`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 width: "6rem",

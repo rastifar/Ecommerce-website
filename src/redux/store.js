@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import adminReducer from "./adminSlice";
+import tempDataReducer from "./tempDataSlice";
 import tokenReducer from "./tokenSlice";
 import productReducer from "./productsSlice"
 import cartReducer from './cartSlice';
@@ -27,8 +27,8 @@ const saveState = (state) => {
 export const store = configureStore({
   devTools: true,
   preloadedState: loadPreloadState(),
-  reducer: {
-    admin: adminReducer,
+  reducer: {  
+    tempData : tempDataReducer,
     token: tokenReducer,
     products : productReducer,
     cart:cartReducer,
