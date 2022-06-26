@@ -166,7 +166,8 @@ export default function Goods() {
           components={{
             Pagination: CustomPagination,
             LoadingOverlay: LinearProgress,
-          }} 
+          }}     
+
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
         />       
       </Grid>
