@@ -102,7 +102,8 @@ const ProductGroups = () => {
             onChange={(_, page) => {
               setActivePage(page);
             }}
-            sx={{marginTop:'70vh'}}
+            color="warning"
+            sx={{marginTop:loading?'70vh':'0'}}
           />
         </Box>
       )}
