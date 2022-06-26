@@ -38,7 +38,7 @@ const ProductDetails = () => {
   const [data, setData] = useState({});
   const [ratingValue, setRatingValue] = useState(0);
   const state = useSelector((state) => state.cart);
-  const descriptionRef = useRef()
+  // const descriptionRef = useRef()
 
   const dispatch = useDispatch();
   useEffect(() => {

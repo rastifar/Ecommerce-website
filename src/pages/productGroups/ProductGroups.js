@@ -4,12 +4,13 @@ import { useParams, useLocation } from "react-router-dom";
 //---------------Material
 import {
   Grid,
-  Box, 
+  Box,
   Pagination,
   CircularProgress,
   CssBaseline,
   useTheme,
   useMediaQuery,
+  Stack,
 } from "@mui/material";
 //----------------Usefetch
 import useFetch from "../../hooks/useFetch";
@@ -26,26 +27,25 @@ const ProductGroups = () => {
   const location = useLocation();
   const currentLocation = location.pathname.split("/");
 
-
-
-  const displayBasedOnLocation = currentLocation[2]
-  const filteredOptions = urlFilterOptions(currentLocation)
+  const displayBasedOnLocation = currentLocation[2];
+  const filteredOptions = urlFilterOptions(currentLocation);
   const queryString = require("query-string");
   const parsed = queryString.parse(location.search);
   const resultTosearch = queryString.stringify(parsed);
 
-
   const limit = useMemo(() => 6, []);
   const [activePage, setActivePage] = useState(1);
-  const { categoryNum } = useParams(); 
+  const { categoryNum } = useParams();
 
   const { data, loading, error, headers } = useFetch(
-    BASE_URL+PRODUCTS+`${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
+    BASE_URL +
+      PRODUCTS +
+      `${filteredOptions}&_page=${activePage}&_limit=${limit}&${resultTosearch}`
   );
 
   useEffect(() => {
     setActivePage(1);
-  }, [resultTosearch,filteredOptions]);
+  }, [resultTosearch, filteredOptions]);
   return (
     <Box
       display="flex"
@@ -55,16 +55,23 @@ const ProductGroups = () => {
       sx={{ mt: "2rem" }}
     >
       {loading ? (
-        <Box >
-          <CircularProgress />
-        </Box>
+        // <Box sx={{ position: 'relative'}}>
+        //   <CircularProgress
+
+        //   />
+        // </Box>
+        <Stack alignItems="center">
+          <CircularProgress
+            sx={{ left: "50%", position: 'absolute', top: "50vh" }}
+          />
+        </Stack>
       ) : (
-        <Box sx={{minHeight:'70vh',minWidth:'70vw'}}>
+        <Box sx={{ minHeight: "70vh", minWidth: "70vw" }}>
           <CssBaseline />
 
-          <Grid container >
+          <Grid container>
             {data?.map((item) => (
-              <Grid item key={item.name} xs={12} sm={6} md={4} align="center" >
+              <Grid item key={item.name} xs={12} sm={6} md={4} align="center">
                 <ProductCards
                   productData={item}
                   width={"250px"}
@@ -92,9 +99,10 @@ const ProductGroups = () => {
             count={
               Math.ceil(Number(headers["x-total-count"]) / Number(limit)) || 0
             }
-            onChange={(_, page) => {             
+            onChange={(_, page) => {
               setActivePage(page);
             }}
+            sx={{marginTop:'70vh'}}
           />
         </Box>
       )}
@@ -154,7 +162,7 @@ export default ProductGroups;
 //         page={activePage}
 //         count={Math.ceil(Number(headers["x-total-count"]) / Number(limit))}
 //         onChange={(_, page) => {
-//         
+//
 //           setActivePage(page);
 //         }}
 //       />
