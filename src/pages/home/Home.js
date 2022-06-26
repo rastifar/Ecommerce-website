@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+//----------------Material
 import {
   Grid,
   Typography,
@@ -7,24 +8,20 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { Navigation, Pagination, Autoplay } from "swiper";
-//---------------------images
+import {Pagination, Autoplay } from "swiper";
+//----------------Images
 import Images from "../../assets/index";
-//---------------------utils
+//----------------Utils
 import { productCategorizer } from "../../utils/utils";
-//---------------------components
+//----------------Components
 import CompanyMsgCard from "./components/CompanyMsgCard";
 import MyLink from "../../components/MyLink";
 import CustomeCarousel from "../../components/CustomeCarousel";
-import Carousel from "./components/Carousel";
-import useFetch from "../../hooks/useFetch";
-import { BASE_URL, PRODUCTS } from "../../constants/apiConst";
-
-//--------------------settings
-import { heroSettings } from "./components/carouselSettings";
 import ProductCards from "../../components/ProductCards";
-
-
+//----------------UseFetch
+import useFetch from "../../hooks/useFetch";
+//---------------Constants
+import { BASE_URL, PRODUCTS } from "../../constants/apiConst";
 
 const Section = styled("section")({
   marginTop: "1rem",
@@ -44,7 +41,7 @@ const topMsg = [
     description: "خریدهای بالای 300 تومان",
   },
 ];
-//  Images.HomeSlide3
+
 const carouselImg = [Images.HomeSlide1, Images.HomeSlide2];
 
 const Home = () => {
@@ -123,7 +120,7 @@ const Home = () => {
               border: "1px dashed #4B5D67",
               borderRadius: 5,
               bgcolor: "#E4E9BE",
-              scrollbarColor: "green",
+            
             }}
           >
             <Box sx={{ width: "190px" }}>
@@ -221,7 +218,7 @@ const Home = () => {
                     textAlign: "center",
                   }}
                 >
-                  نوشیدنیها
+                  نوشیدنی ها
                 </Typography>
               </MyLink>
             </Box>

@@ -1,27 +1,23 @@
-import React, { useEffect, useState, useMemo } from "react";
-import useFetch from "../../hooks/useFetch";
-//constant
+import React, { useEffect, useState } from "react";
+//-----------Constant
 import { BASE_URL } from "../../constants/apiConst";
-import { PRODUCTS } from "../../constants/apiConst";
-import api from "../../api/api";
 import { getAllProducts } from "../../api/goodsApi";
 import { Category, subCategory } from "../../constants/categoryConst";
-//modal
+//----------Components
 import AddOrEditModal from "./components/AddOrEditModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
-//components
 import CustomPagination from "../../components/CustomPagination";
-import useDebounce from "../../components/Debounce";
-
-//material
+//-----------Material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography, Box, TextField } from "@mui/material";
+import { Grid, Button, Typography, Box, Pagination } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
+//-----------Material-Icon
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import axios from "axios";
-import LinearProgress from "@mui/material/LinearProgress";
-//----------------------------------------------
+//-----------Redux
+import {  useDispatch } from "react-redux";
+import { setTempData, logData } from "../../redux/tempDataSlice";
 
 //stylecomponent
 const IMG = styled("img")`
@@ -36,17 +32,14 @@ export default function Goods() {
   const [products, setProducts] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [open, setOpen] = useState(false);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [data, setData] = useState("");
-  const [search, setSearch] = useState("");
-  const debouncedSearchTerm = useDebounce(search, 500);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);  
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getData();
-  }, [open, isDeleteOpen, data]);
+  }, []);
 
-  const getData = async () => {
-    //const response = await api.get(PRODUCTS+`?_sort=id&_order=desc`)
+  const getData = async () => {  
     setProducts(await getAllProducts(`?_sort=id&_order=desc`));
   };
   // let searchedItems = [];
@@ -125,14 +118,14 @@ export default function Goods() {
 
   const handleDelete = async (params) => {
     // await axios.delete(BASE_URL+Products)
-    const id = params.row.id;
-    setData(id);
+    const id = params.row.id;    
+    dispatch(setTempData(id));
     setIsDeleteOpen(true);
-    // console.log(params.row);
   };
   const handleEdit = (params) => {
     const id = params.row.id;
-    setData(products.find((item) => item.id === id));
+    const productToEdit = products.find((item) => item.id === id);    
+    dispatch(setTempData(productToEdit));
     setOpen(true);
   };
   // let rows = [];
@@ -159,7 +152,9 @@ export default function Goods() {
     id: product.id,
     image: product.image,
     name: product.name,
-    category: `${Category[product.category - 1]} / ${subCategory[product.subcategory-1]}`
+    category: `${Category[product.category - 1]} / ${
+      subCategory[product.subcategory - 1]
+    }`,
   }));
 
   const handleOpenModal = () => {
@@ -179,12 +174,7 @@ export default function Goods() {
           <Typography textAlign={"center"}>مدیریت کالاها</Typography>
         </Grid>
         <Grid item xs={12} sm={7} align="center" mb={1}>
-          {/* <TextField
-            size="small"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="جستجو ..."
-          /> */}
+          {/* جستجو */}
         </Grid>
         <Grid item xs={12} sm={2} align="center" mb={1}>
           <Button variant="outlined" color="primary" onClick={handleOpenModal}>
@@ -197,41 +187,32 @@ export default function Goods() {
         <DataGrid
           item
           sx={{ background: "white" }}
-          rows={rows}
+          rows={rows}         
           columns={columns}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          rowsPerPageOptions={[5, 10, 20]}
+          pageSize={pageSize}       
           disableSelectionOnClick
           pagination
           components={{
             Pagination: CustomPagination,
             LoadingOverlay: LinearProgress,
-          }}
-          // {...data}
+          }}     
 
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
-        />
+        />       
       </Grid>
       <AddOrEditModal
         open={open}
         onClose={() => {
-          setOpen(false);
-          setData("");
-        }}
-        data={data}
-        getData={getData}
-        // onReRenderAfterModal={() => setReRenderAfterModal(!reRenderAfterModal)}
+          setOpen(false);       
+        }}       
+        getData={getData}      
       />
       <DeleteConfirmModal
         open={isDeleteOpen}
         onClose={() => {
-          setIsDeleteOpen(false);
-          setData("");
-        }}
-        data={data}
-        getData={getData}
-        // onReRenderAfterModal={() => setReRenderAfterModal(!reRenderAfterModal)}
+          setIsDeleteOpen(false);         
+        }}       
+        getData={getData}      
       />
     </Box>
   );

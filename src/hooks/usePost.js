@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "../api/httpRequestApi";
-import HttpService from "../services/httpService"
 import { toast } from 'react-toastify';
+//---------service
+import HttpService from "../services/httpService"
 
 const useAxios = (url,data, requestConfig = {}) => {
   const [response, setResponse] = useState([]);

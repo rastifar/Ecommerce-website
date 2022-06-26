@@ -2,17 +2,14 @@ import * as React from "react";
 //----------------material
 import {
   Card,
-  CardActions,
   CardContent,
-  CardMedia,
-  Box,
+  CardMedia, 
   Typography,
-  Button,
 } from "@mui/material";
 
 //-------------components
 import MyLink from "./MyLink";
-//-------------utile
+//-------------utils
 import {
   numberDivider,
   isInCart,

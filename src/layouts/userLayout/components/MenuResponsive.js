@@ -1,19 +1,10 @@
 import * as React from "react";
-import {
-  Button,
-  Divider,
-  MenuItem,
-  Menu,
-  Box,
-  Typography,
-} from "@mui/material";
-
-import { products } from "../../../constants/sidebarConst";
-import MyList from "../../../components/MyList";
+//----------Material
+import { MenuItem, Menu, Box } from "@mui/material";
+//---------Components
 import MyLink from "../../../components/MyLink";
 
 export default function MenuResponsive({ icon, menuLink, submenuTitle }) {
-  console.log('menuLink',menuLink);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -25,21 +16,13 @@ export default function MenuResponsive({ icon, menuLink, submenuTitle }) {
 
   return (
     <div>
-      {/* <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+      <Box
         onClick={handleClick}
-        variant="outlined"
-        sx={{ mt: 1, mx: 1 }}
-      > */}
-     
-        <Box onClick={handleClick} sx={{ border: "1px solid lightgray",textAlign:'center',pt:1}}>
-          {icon}
-        </Box>
-      
-      {/* </Button> */}
+        sx={{ border: "1px solid lightgray", textAlign: "center", pt: 1 }}
+      >
+        {icon}
+      </Box>
+
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -49,14 +32,11 @@ export default function MenuResponsive({ icon, menuLink, submenuTitle }) {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}><MyLink to={menuLink}>تمام محصولات</MyLink></MenuItem>
+        <MenuItem onClick={handleClose}>
+          <MyLink to={menuLink}>تمام محصولات</MyLink>
+        </MenuItem>
         {submenuTitle.map((product, index) => (
           <MenuItem onClick={handleClose} key={index}>
-            {/* <MyList
-              title={product.category}
-              submenuTitle={product.subcategory}
-            />
-            <Divider /> */}
             <MyLink to={product.link}>{product.title}</MyLink>
           </MenuItem>
         ))}

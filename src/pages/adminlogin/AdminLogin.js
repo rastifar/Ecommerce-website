@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
+//-----------Service
 import HttpService from "../../services/httpService";
+//-----------Formik & Yup
 import { useFormik } from "formik";
 import * as yup from "yup";
+//-----------Redux
 import { addToken } from "../../redux/tokenSlice";
 import { useDispatch } from "react-redux";
-import { toast } from 'react-toastify';
-
+//-----------Material
 import {
   Container,
   Typography,
@@ -15,17 +18,18 @@ import {
   Button,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-import image from "../../assets/images/pomegranate1.png";
+//------------Images
+import Images from "../../assets/index";
+//------------React-Router
 import { useNavigate } from "react-router-dom";
+//------------Constants
 import { AUTH_LOGIN } from "../../constants/apiConst";
 
 const theme = createTheme();
 
 const validationSchema = yup.object().shape({
   username: yup.string().required(" فیلد ضروری است"),
-  password: yup.string().required(" فیلد ضروری است"),
-  // password: yup.string().min(3," طول رمز کوتاه است"),
+  password: yup.string().required(" فیلد ضروری است"), 
 });
 
 export default function AdminLogin() {
@@ -70,7 +74,7 @@ export default function AdminLogin() {
             alignItems: "center",
           }}
         >
-          <img src={image} style={{ objectFit: "contain" }} />
+          <img src={Images.LogoLogin} style={{ objectFit: "contain" }} />
 
           <Typography component="h1" variant="h5" sx={{ color: "green" }}>
             انار سبز

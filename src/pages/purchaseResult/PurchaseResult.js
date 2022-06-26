@@ -1,22 +1,19 @@
 import React, { useEffect } from "react";
-//--------Material
+//-----------Material
 import { Typography, Box, Grid} from "@mui/material";
-//--------ReactRouter
+//-----------ReactRouter
 import { useLocation, useSearchParams } from "react-router-dom";
-//----------Image
-import successImage from "../../assets/images/success.png";
-import failureImage from "../../assets/images/failure.jpg";
-//---------Redux
+//-----------Image
+import Images from "../../assets/index"
+//-----------Redux
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
-//----------Api
-import api from "../../api/api";
-import axios from "axios";
+//-----------Api
 import {deleteInventoryCount, deleteOrder, updatOrderStatus} from "../../api/cartApi"
-//----------Toast
+//-----------Toast
 import { toast } from "react-toastify";
-
-import { BASE_URL, completeOrder, ORDERS, PRODUCTS } from "../../constants/apiConst";
+//-----------Constants
+import { completeOrder } from "../../constants/apiConst";
 
 const PurchageResult = () => {
  
@@ -50,7 +47,7 @@ const PurchageResult = () => {
 
     updatOrderStatus(customerId, completeOrder)
     
-    // console.log(order);
+    
     // const result = await api.post(BASE_URL + ORDERS, order);
     //api.post(BASE_URL + ORDERS, order).then(res=>localStorage.removeItem('orders'))
   };
@@ -67,7 +64,7 @@ const PurchageResult = () => {
       //     "Content-Type": "application/json",
       //   }
       // );
-      // console.log(response);
+      
     });
   };
   const handlecartItems = () => {
@@ -82,13 +79,13 @@ const PurchageResult = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ p: 5 }}
+      sx={{ p: 5,minHeight:'45vh' }}
     >
       <Typography sx={{ fontSize: "1.5rem", mb: 3 }}>نتیجه پرداخت</Typography>
       <Grid container sx={{ width: "100%" }}>
         <Grid item xs={12} sm={4} align={"center"}>
           <img
-            src={purchaseResult === "success" ? successImage : failureImage}
+            src={purchaseResult === "success" ? Images.Success : Images.Failed}
             alt="sucess image"
             style={{ width: "100%", maxWidth: "150px", height: "auto", mb: 3 }}
           />

@@ -11,16 +11,15 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 //-----------------Component
-import MyLink from "../../../components/MyLink";
 import Select from "../../../components/Select";
-import List from "../../../components/MyList";
+import MyList from "../../../components/MyList";
+import MenuResponsive from "./MenuResponsive";
+//----------------Constant
 import {
   products,
   filterByPrice,
   filterByPopularity,
 } from "../../../constants/sidebarConst";
-import MyList from "../../../components/MyList";
-import MenuResponsive from "./MenuResponsive";
 
 const MyPaper = styled(Paper)(({ theme }) => ({
   display: "block",

@@ -1,10 +1,7 @@
 import React, { useEffect, useState,useMemo } from "react";
-import axios from "axios";
-import useFetch from "../../hooks/useFetch";
-//constants
+//------------Constants
 import { BASE_URL, ORDERS } from "../../constants/apiConst";
-
-//material
+//------------Material
 import { DataGrid, faIR } from "@mui/x-data-grid";
 import {
   Grid,
@@ -17,19 +14,17 @@ import {
   TextField
 } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-
-//utils
+//------------Utils
 import { convertTimeStamToDate, numberDivider } from "../../utils/utils";
-import { Link } from "react-router-dom";
+//------------Components
 import OrderModal from "./component/OrderModal";
-//components
 import CustomPagination from "../../components/CustomPagination";
 import useDebounce from "../../components/Debounce";
-//reduxStore
+//------------ReduxStore
 import { useSelector, useDispatch } from "react-redux";
 import { changeState } from "../../redux/modalSlice";
+//------------Api
 import { getAllOrders } from "../../api/orderApi";
-
 //-------------------------------------------------------
 
 export default function Orders() {

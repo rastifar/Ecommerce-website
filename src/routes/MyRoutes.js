@@ -5,8 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminLayout from "../layouts/adminLayout/AdminLayout";
 import UserLayout from "../layouts/userLayout/UserLayout";
 //Pages
-import {
-  Aboutus,
+import {  
   AdminDashboard,
   AdminLogin,
   CartPage,
@@ -57,14 +56,7 @@ const MyRoutes = () => {
             </UserLayout>
           }
         />
-        <Route
-          path="/aboutus"
-          element={
-            <UserLayout>
-              <Aboutus />
-            </UserLayout>
-          }
-        />
+    
         <Route
           path="/cart"
           element={
@@ -73,23 +65,7 @@ const MyRoutes = () => {
             </UserLayout>
           }
         />
-        <Route
-          path="/contacts"
-          element={
-            <UserLayout>
-              <Contacts />
-            </UserLayout>
-          }
-        />
-        {/* <Route
-          path="productDetails/:productid"
-          element={
-            <UserLayout>
-              <ProductDetails />
-            </UserLayout>
-          }
-          
-        /> */}
+   
 
         <Route
           path="/productgroup/:categoryNum/products/:productid"
@@ -123,14 +99,7 @@ const MyRoutes = () => {
             </UserLayout>
           }
         />
-        <Route
-          path="/checkout"
-          element={
-            <UserLayout>
-              <Checkout />
-            </UserLayout>
-          }
-        />
+     
         <Route
           path="/login"
           element={

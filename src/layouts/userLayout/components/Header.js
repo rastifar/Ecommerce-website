@@ -1,38 +1,30 @@
 import React, { useState } from "react";
+//----------------Material
 import {
   AppBar,
   Toolbar,
   Box,
-  Button,
-  Tab,
-  Tabs,
+  Button,  
   useTheme,
   Badge,
   useMediaQuery,
   Stack,
 } from "@mui/material";
+//----------------Material-Icon
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+//---------------Constant
 import { LINKARRAYS } from "../../../constants/layoutConst";
-
+//---------------Components
 import DrawerCmp from "./DrawerCmp";
-
-import image1 from "../../../assets/images/logo22.png";
-import image2 from "../../../assets/images/logo1.png";
-import { Link, useLocation } from "react-router-dom";
 import MyLink from "../../../components/MyLink";
-
-//Redux
+//---------------Images
+import Images from "../../../assets/index";
+//---------------Redux
 import { useSelector } from "react-redux";
 
-const Header = ({ withSidebar = false }) => {
+const Header = () => {
   const theme = useTheme();
-  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-
-  const location = useLocation();
-  // const search = location.pathname.split("/").splice(1, 2).join("/");
-  // const tabVal = LINKARRAYS.findIndex((i) => i.link === "/".concat(search));
-  // console.log(tabVal);
-  const [value, setValue] = useState(0);
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));   
   const itemInBasket = useSelector((state) => state.cart.cartTotalQuantity);
 
   return (
@@ -47,7 +39,7 @@ const Header = ({ withSidebar = false }) => {
           <>
             <MyLink to="/">
               <Box>
-                <img src={image2} style={{ width: "60px" }} />
+                <img src={Images.LogoResponsive} style={{ width: "60px" }} />
               </Box>
             </MyLink>
             <Box sx={{ flexGrow: 1 }} display="flex" justifyContent="flex-end">
@@ -63,7 +55,7 @@ const Header = ({ withSidebar = false }) => {
           <>
             <MyLink to="/">
               <Box>
-                <img src={image1} style={{ width: "200px" }} />
+                <img src={Images.LogoMain} style={{ width: "200px" }} />
               </Box>
             </MyLink>
             <Box sx={{ flexGrow: 1, marginRight: "5rem" }}>
@@ -72,27 +64,8 @@ const Header = ({ withSidebar = false }) => {
                   <MyLink to={link.link} key={index}>
                     <Button>{link.title}</Button>
                   </MyLink>
-                ))}
-                {/* <Button color="inherit">میوه تازه</Button>
-                <Button color="inherit">میوه منجمد</Button>
-                <Button color="inherit">نوشیدنی</Button> */}
-              </Stack>
-              {/* <Tabs
-                indicatorColor="secondary"
-                value={value}
-                textColor="primary"
-                onChange={(e, val) => setValue(val)}
-              >
-                {LINKARRAYS.map((link, index) => (
-                  <Tab
-                    label={link.title}
-                    key={index}
-                    component={Link}
-                    to={link.link}
-                    sx={{ fontSize: "1rem", fontWeight: "bold" }}
-                  />
-                ))}
-              </Tabs> */}
+                ))}               
+              </Stack>             
             </Box>
             <Box sx={{ margin: "1rem" }}>
               <MyLink to="/dashboard">

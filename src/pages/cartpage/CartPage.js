@@ -1,33 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { toast } from "react-toastify";
+//----------Material
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import {
-  Grid,
+import {  
   Button,
   Typography,
   Box,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-//utile
-import { numberDivider } from "../../utils/utils";
-//components
-import CustomPagination from "../../components/CustomPagination";
-//icons
+//-----------Material-Icons
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
 import IndeterminateCheckBoxTwoToneIcon from "@mui/icons-material/IndeterminateCheckBoxTwoTone";
-//Toast
-import { toast } from "react-toastify";
-//Redux
+//----------Utils
+import { numberDivider } from "../../utils/utils";
+//----------Components
+import CustomPagination from "../../components/CustomPagination";
+import MyLink from "../../components/MyLink";
+//----------Redux
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addToCart,
+import {  
   increase,
   decrease,
   romeveItem,
   clearCart,
 } from "../../redux/cartSlice";
-import MyLink from "../../components/MyLink";
 
 const CartPage = () => {
   const theme = useTheme();

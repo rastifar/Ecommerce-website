@@ -1,27 +1,30 @@
 import React, { useEffect, useState, useRef } from "react";
+import { toast } from "react-toastify";
+//--------------React-Router
 import { useParams } from "react-router-dom";
+//--------------Api
 import { getProductById, patchRatingProductById } from "../../api/productApi";
+//--------------Material
 import { Button, Grid, Typography, Box, Rating } from "@mui/material";
-//const
-import { Category, subCategory } from "../../constants/categoryConst";
-//
-//icons
+//--------------Material-Icons
 import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
 import IndeterminateCheckBoxTwoToneIcon from "@mui/icons-material/IndeterminateCheckBoxTwoTone";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-//components
+//--------------Constants
+import { Category, subCategory } from "../../constants/categoryConst";
+//--------------Components
 import ProductBreadCrump from "./components/ProductBreadCrump";
 import CustomeCarousel from "../../components/CustomeCarousel";
-//utils
+//--------------Utils
 import {
   numberDivider,
   isInCart,
   quantityCount,
   toFarsiNumber,
 } from "../../utils/utils";
-//----------------------swiper
+//--------------Swiper
 import { Navigation } from "swiper";
-//----------------------Redux
+//--------------Redux
 import { useSelector, useDispatch } from "react-redux";
 import {
   addToCart,
@@ -29,13 +32,13 @@ import {
   decrease,
   romeveItem,
 } from "../../redux/cartSlice";
-import { toast } from "react-toastify";
 
 const ProductDetails = () => {
   const { productid } = useParams();
   const [data, setData] = useState({});
   const [ratingValue, setRatingValue] = useState(0);
   const state = useSelector((state) => state.cart);
+  // const descriptionRef = useRef()
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -48,6 +51,7 @@ const ProductDetails = () => {
   //const [{ name:name, images:images, description:description, price:price }] = data && data[0] || [{}]
   const { name, description, category, price, images, id, count, subcategory } =
     data;
+  
   //descriptionRef.current.innerHTML = description || "";
   const payload = { id, name, price, count };
   const quantityCountInBasket = quantityCount(state, payload.id);
@@ -160,13 +164,15 @@ const ProductDetails = () => {
           md={4}
           sx={{ background: "#BDD2B6", borderRadius: 3, my: 1 }}
         >
-          <Typography variant="body1" sx={{ fontSize: "1.2rem", p: 2, mx: 2 }}>
-            <div
+          <Typography variant="body1"  component="div" sx={{ fontSize: "1.2rem", p: 2, mx: 2 }}>
+            <p
               dangerouslySetInnerHTML={{
                 __html: description,
               }}
-            ></div>
+              // ref={descriptionRef}
+            />
           </Typography>
+        
         </Grid>
       </Grid>
     </div>
