@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-//-----------UseFetch
-import useFetch from "../../hooks/useFetch";
 //-----------Constant
 import { BASE_URL } from "../../constants/apiConst";
-import { PRODUCTS } from "../../constants/apiConst";
 import { getAllProducts } from "../../api/goodsApi";
 import { Category, subCategory } from "../../constants/categoryConst";
 //----------Components
@@ -13,13 +10,13 @@ import CustomPagination from "../../components/CustomPagination";
 //-----------Material
 import { styled } from "@mui/material/styles";
 import { DataGrid, faIR } from "@mui/x-data-grid";
-import { Grid, Button, Typography, Box } from "@mui/material";
+import { Grid, Button, Typography, Box, Pagination } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 //-----------Material-Icon
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 //-----------Redux
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { setTempData, logData } from "../../redux/tempDataSlice";
 
 //stylecomponent
@@ -42,9 +39,7 @@ export default function Goods() {
     getData();
   }, []);
 
-  const getData = async () => {
-    //const response = await api.get(PRODUCTS+`?_sort=id&_order=desc`)
-    console.log('in get date to rerender');
+  const getData = async () => {  
     setProducts(await getAllProducts(`?_sort=id&_order=desc`));
   };
 
@@ -163,21 +158,17 @@ export default function Goods() {
         <DataGrid
           item
           sx={{ background: "white" }}
-          rows={rows}
+          rows={rows}         
           columns={columns}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          rowsPerPageOptions={[5, 10, 20]}
+          pageSize={pageSize}       
           disableSelectionOnClick
           pagination
           components={{
             Pagination: CustomPagination,
             LoadingOverlay: LinearProgress,
-          }}
-          // {...data}
-
+          }} 
           localeText={faIR.components.MuiDataGrid.defaultProps.localeText}
-        />
+        />       
       </Grid>
       <AddOrEditModal
         open={open}

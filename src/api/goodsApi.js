@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const getAllProducts = async (sortOrder) => {
   try {
-    const response = await HttpService.get(PRODUCTS + sortOrder);
+    const response = await HttpService.get(PRODUCTS + sortOrder);    
     return response.data;
   } catch (error) {
     toast.error("خطایی در بارگذاری اطلاعات محصول رخ داده است");
