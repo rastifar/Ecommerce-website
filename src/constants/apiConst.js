@@ -5,6 +5,7 @@ export const PRODUCTS = "/products";
 export const ORDERS = "/orders";
 export const AUTH_LOGIN = "/auth/login";
 export const UPLOAD = '/upload';
+export const FILES = '/files'
 export const WHOAMI = '/whoami';
 
 //numeric const

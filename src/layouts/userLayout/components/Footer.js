@@ -1,13 +1,12 @@
 import * as React from "react";
-
+//--------------Images
+import Images from "../../../assets/index";
+//--------------Material
+import { Box, Container, Grid, Typography } from "@mui/material";
+//--------------Material-Icon
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import PhoneInTalkTwoToneIcon from "@mui/icons-material/PhoneInTalkTwoTone";
 import EmailTwoToneIcon from "@mui/icons-material/EmailTwoTone";
-
-import Images from "../../../assets/index";
-
-import { Box, Container, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (

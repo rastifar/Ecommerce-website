@@ -1,11 +1,14 @@
-import { Box, useTheme, useMediaQuery } from "@mui/material";
 import React from "react";
+//-----------Material
+import { Box, useTheme, useMediaQuery } from "@mui/material";
+//-----------Components
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+//-----------React-Router
 import { useLocation } from "react-router-dom";
 
-const UserLayout = ({ children, withSidebar = false }) => {
+const UserLayout = ({ children}) => {
   const theme = useTheme();
   const largeScreen = useMediaQuery(theme.breakpoints.up("md"));
   const { pathname } = useLocation();
@@ -20,8 +23,6 @@ const UserLayout = ({ children, withSidebar = false }) => {
           display="flex"
           flexDirection={largeScreen ? "row" : "column"}
         >
-          {/* {withSidebar && <Sidebar />} */}
-
           <Sidebar />
           <Box>{children}</Box>
         </Box>

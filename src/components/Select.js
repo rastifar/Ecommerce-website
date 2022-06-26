@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+//-------------Material
 import { MenuItem, InputLabel, Box, Select, FormControl } from "@mui/material";
+//-------------React-Router
 import { useLocation, useSearchParams } from "react-router-dom";
 
 const Selects = ({ label, items }) => {
-  console.log(items);
+
   const location = useLocation();
   const currentLocation = location.pathname.split("/").pop();
   useEffect(() => {

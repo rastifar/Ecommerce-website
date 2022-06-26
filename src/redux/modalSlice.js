@@ -7,8 +7,7 @@ const modalSlice = createSlice({
     name: 'modal',
     initialState,
     reducers: {
-        changeState(state) {
-            console.log(state.modalMode);
+        changeState(state) {            
             state.modalMode = !state.modalMode;
         }
     }

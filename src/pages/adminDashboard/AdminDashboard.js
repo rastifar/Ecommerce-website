@@ -1,5 +1,7 @@
-import { Box } from "@mui/material";
 import React from "react";
+//----------Material
+import { Box } from "@mui/material";
+//----------React-Router
 import { Outlet } from "react-router-dom";
 
 const AdminDashboard = () => {

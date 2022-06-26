@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-//import api from "../api/api";
+//-----------service
 import HttpService from "../services/httpService"
 
 const useFetch = (url, requestConfig = {}) => {
