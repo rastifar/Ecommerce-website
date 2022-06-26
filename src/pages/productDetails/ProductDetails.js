@@ -38,6 +38,7 @@ const ProductDetails = () => {
   const [data, setData] = useState({});
   const [ratingValue, setRatingValue] = useState(0);
   const state = useSelector((state) => state.cart);
+  const descriptionRef = useRef()
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -50,6 +51,7 @@ const ProductDetails = () => {
   //const [{ name:name, images:images, description:description, price:price }] = data && data[0] || [{}]
   const { name, description, category, price, images, id, count, subcategory } =
     data;
+  
   //descriptionRef.current.innerHTML = description || "";
   const payload = { id, name, price, count };
   const quantityCountInBasket = quantityCount(state, payload.id);
@@ -162,13 +164,15 @@ const ProductDetails = () => {
           md={4}
           sx={{ background: "#BDD2B6", borderRadius: 3, my: 1 }}
         >
-          <Typography variant="body1" sx={{ fontSize: "1.2rem", p: 2, mx: 2 }}>
-            <div
+          <Typography variant="body1"  component="div" sx={{ fontSize: "1.2rem", p: 2, mx: 2 }}>
+            <p
               dangerouslySetInnerHTML={{
                 __html: description,
               }}
-            ></div>
+              // ref={descriptionRef}
+            />
           </Typography>
+        
         </Grid>
       </Grid>
     </div>
