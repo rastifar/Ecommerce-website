@@ -120,7 +120,7 @@ const Home = () => {
               border: "1px dashed #4B5D67",
               borderRadius: 5,
               bgcolor: "#E4E9BE",
-              scrollbarColor: "green",
+            
             }}
           >
             <Box sx={{ width: "190px" }}>
@@ -218,7 +218,7 @@ const Home = () => {
                     textAlign: "center",
                   }}
                 >
-                  نوشیدنیها
+                  نوشیدنی ها
                 </Typography>
               </MyLink>
             </Box>
